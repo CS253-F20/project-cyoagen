@@ -8,6 +8,84 @@ difficult of projects. Our priorities range similarly from 1 to 5, with 1
 being the most important to be implemented quickly, and thus the highest
 priority. 
 
+View Published Games
+-----------------------
+As a creator, I want to be able to view the games I’ve published so that I can easily see what work I have out there for other users.
+
+	- Priority: 2
+	- Estimate: 2
+	- Confirmation:
+
+        1. Log into account that has created games
+        2. Click "My Games"
+	3. Click "Filter" and select "Published"
+	4. Confrim that list of created games is present
+
+Save Creation Progress
+-----------------------
+As a creator, I want to be able to save my progress on an unfinished game and exit so that I can continue work at a later time.
+
+	- Priority: 2
+	- Estimate: 3
+	- Confirmation:
+
+        1. Click “Create New Game”
+        2. Click “ Work on Game”
+	3. Fill out situation, choice(s) fields
+	4. Click “Save and Exit”
+	5. Click on the game title
+	6. Click "Work on Game"
+	7. Confirm that progress is present
+
+View Games in Progress
+-----------------------
+As a creator, I want to be able to view the games I have in progress so that I can easily decide what to work on and begin working. 
+	- Priority: 2
+	- Estimate: 2
+	- Confirmation:
+
+        1. Login to account that has games in progress.
+        2. Click on "My Games"
+	3. Click "Filter" and select "In progress" from drop down menu
+	4. Confirm that a list of games in progress is present
+
+
+Decision Web
+-----------------------
+As a creator, I want to be able to see the decision web for my game so that I can see all possible stories that players could experience in a cohesive visual. 
+
+	- Priority: 2
+	- Estimate: 3
+	- Confirmation:
+
+        1. Login to account
+        2. Click “ Work on Game”
+	3. Click "View Decisions"
+
+Game Search
+-----------------------
+As a player, I want to be able to search for games by keyword or creator so that I can find something specific that I want to play.
+
+	- Priority: 2
+	- Estimate: 3
+	- Confirmation:
+
+        1. Click "Play Games"
+        2. Type in "Adventure" in search bar
+	3. Confirm that a list of games relevant to the keyword “Adventure” or that were created by someone with a username similar to “Adventure” is present
+
+Game Preview
+-----------------------
+As a player, I want to be able to click on a game I find to see a full page preview of it so I can easily read the description of the game and decide if I want to play it. 
+
+	- Priority: 2
+	- Estimate: 2
+	- Confirmation:
+
+        1. Click "Play Games"
+        2. Click on a game's title
+	3. Confirm that you are brought to a new page with the game's title and description in larger text
+
 Games recorded
 -----------------------
 As a player, I want to be able to view a list of games that I have previously saved and quit out of so that I can easily continue a game I had previously been playing.

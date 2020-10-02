@@ -30,7 +30,7 @@ As a creator, I want to be able to save my progress on an unfinished game and ex
 	- Confirmation:
 
         1. Click “Create New Game”
-        2. Click “ Work on Game”
+        2. Click “Work on Game”
 	3. Fill out situation, choice(s) fields
 	4. Click “Save and Exit”
 	5. Click on the game title
@@ -59,7 +59,7 @@ As a creator, I want to be able to see the decision web for my game so that I ca
 	- Confirmation:
 
         1. Login to account
-        2. Click “ Work on Game”
+        2. Click “Work on Game”
 	3. Click "View Decisions"
 
 Game Search

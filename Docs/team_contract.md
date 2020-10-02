@@ -105,9 +105,9 @@ Signature: Evan Quist
 Date: 10/2/2020
 
 
-Signature: 
+Signature: Andrew Hiller	
 
-Date:
+Date: 10/2/2020
 
 
 Signature:

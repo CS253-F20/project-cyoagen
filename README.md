@@ -18,8 +18,8 @@ As a creator, I want to be able to view the games I’ve published so that I can
 
         1. Log into account that has created games
         2. Click "My Games"
-	3. Click "Filter" and select "Published"
-	4. Confrim that list of created games is present
+	    3. Click "Filter" and select "Published"
+	    4. Confrim that list of created games is present
 
 Save Creation Progress
 -----------------------
@@ -31,11 +31,11 @@ As a creator, I want to be able to save my progress on an unfinished game and ex
 
         1. Click “Create New Game”
         2. Click “Work on Game”
-	3. Fill out situation, choice(s) fields
-	4. Click “Save and Exit”
-	5. Click on the game title
-	6. Click "Work on Game"
-	7. Confirm that progress is present
+	    3. Fill out situation, choice(s) fields
+	    4. Click “Save and Exit”
+	    5. Click on the game title
+	    6. Click "Work on Game"
+	    7. Confirm that progress is present
 
 View Games in Progress
 -----------------------
@@ -46,8 +46,8 @@ As a creator, I want to be able to view the games I have in progress so that I c
 
         1. Login to account that has games in progress.
         2. Click on "My Games"
-	3. Click "Filter" and select "In progress" from drop down menu
-	4. Confirm that a list of games in progress is present
+	    3. Click "Filter" and select "In progress" from drop down menu
+	    4. Confirm that a list of games in progress is present
 
 
 Decision Web
@@ -60,7 +60,7 @@ As a creator, I want to be able to see the decision web for my game so that I ca
 
         1. Login to account
         2. Click “Work on Game”
-	3. Click "View Decisions"
+	    3. Click "View Decisions"
 
 Game Search
 -----------------------
@@ -72,7 +72,7 @@ As a player, I want to be able to search for games by keyword or creator so that
 
         1. Click "Play Games"
         2. Type in "Adventure" in search bar
-	3. Confirm that a list of games relevant to the keyword “Adventure” or that were created by someone with a username similar to “Adventure” is present
+	    3. Confirm that a list of games relevant to the keyword “Adventure” or that were created by someone with a username similar to “Adventure” is present
 
 Game Preview
 -----------------------
@@ -84,7 +84,7 @@ As a player, I want to be able to click on a game I find to see a full page prev
 
         1. Click "Play Games"
         2. Click on a game's title
-	3. Confirm that you are brought to a new page with the game's title and description in larger text
+	    3. Confirm that you are brought to a new page with the game's title and description in larger text
 
 Games recorded
 -----------------------

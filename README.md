@@ -8,6 +8,151 @@ difficult of projects. Our priorities range similarly from 1 to 5, with 1
 being the most important to be implemented quickly, and thus the highest
 priority. 
 
+Create An Account
+-----------------------
+As a general user, I want to be able to create an account
+so that I can save and access personalized data.
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Navigate to the application
+        2. Click “Create Account”
+        3. Enter in Username, password, and screen name
+        4. Click “Create Account”
+
+Log In
+-----------------------
+As a general user, I want to be able to log in so that I can access
+the personalized data linked to my account. 
+
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Fill in username and password fields
+        2. Click “Log in”
+        3. Confirm that you are logged in to your account
+            a. Can view account specific information
+            b. You are brought to the home page
+            c. Screen name is present in the top right of the screen
+Log Out
+-----------------------
+As a general user, I want to be able to logout so that other people who
+use the device cannot access my personal information. 
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Click “Logout in the top right corner of the screen
+        2. Confirm that the message “You have successfully logged out” flashes on the screen
+        3. Confirm that screen name is no longer present in the top right of the screen
+
+Create A Homepage
+-----------------------
+As a general user, I want to be able to view a homepage that organizes
+information as well as buttons and links that lead to other features so that 
+I can easily navigate the application and interact with it in the way that I want. 
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Log in 
+        2. Confirm that you are on a homepage that contains the buttons and links
+         that initiate the other mentioned features
+
+Game Titles
+-----------------------
+As a creator, I want to be able to give my game a title and description
+so that players can view a preview of my game .
+
+    - Priority: 1
+    - Estimate: 1
+    - Confirmation:
+    
+        1. Click “Create New Game”
+        2. Fill in Title and Description fields
+        3. Click “Save and Exit”
+        4. Confirm that Title and Description are displayed before clicking on the game.
+
+Creating New Choices
+-----------------------
+As a creator, I want to be able to create a situation in which a decision must be made so that
+players can play through and make decisions that affect their story. 
+
+    - Priority: 1
+    - Estimate: 3
+    - Confirmation:
+    
+        1. Click “Create New Game”
+        2. Click “ Work on Game”
+        3. Fill out situation, choice(s) fields
+        4. Click “Test”
+        5. Confirm that the situation you created is present.
+
+Linking Choices Together
+-----------------------
+As a creator, I want to be able to string together multiple choice situations so that I can create a 
+large-scale story for players to play through and affect with the many choices they make.  
+
+    - Priority: 1
+    - Estimate: 4
+    - Confirmation:
+    
+        1. Click “Create New Game”
+        2. Click “ Work on Game”
+        3. Fill out situation, choice(s) fields
+        4. Click “Next Situation” on one of the choice fields
+        5. Fill out situation, choice(s) fields
+        6. Click “Test”
+        7. Make the choice in which you added the next situation to
+        8. Confirm that the situation you added to the choice is present
+
+Browse Games
+-----------------------
+As a player, I want to be able to browse games so that I can find some to play
+
+    - Priority: 1
+    - Estimate: 3
+    - Confirmation:
+    
+        1. Click “Play Games”
+        2. Confirm that you are brought to a page with a list of games you can scroll through
+
+Play Button
+-----------------------
+As a player, I want to be able to click a button to begin playing a game so that I 
+can easily begin the game from the preview.  
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Click on a game’s title
+        2. Click “Play Game”
+        3. Confirm that you are brought to the start of the game
+            a. You should be faced with some kind of choice
+
+Creating Endings
+-----------------------
+As a player, I want to be able to play through a game so that I can choose my own path 
+through a creator’s game
+
+    - Priority: 1
+    - Estimate: 2
+    - Confirmation:
+    
+        1. Click on a game’s title
+        2. Click “Play Game”
+        3. Proceed making choices that you are presented with
+        4. Confirm that you are met with an end screen after completing the game
+
+
+
 View Published Games
 -----------------------
 As a creator, I want to be able to view the games I’ve published so that I can easily see what work I have out there for other users.
@@ -40,6 +185,7 @@ As a creator, I want to be able to save my progress on an unfinished game and ex
 View Games in Progress
 -----------------------
 As a creator, I want to be able to view the games I have in progress so that I can easily decide what to work on and begin working. 
+
 	- Priority: 2
 	- Estimate: 2
 	- Confirmation:

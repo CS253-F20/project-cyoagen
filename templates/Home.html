@@ -6,15 +6,15 @@
     <h1>
       <ul class="NavBar">
         <li class="welcome"> Welcome User! </li>
-        <li> <a href="Behind.html" class="LogOut">Log Out</a> </li>
+        <li> <a href="placeholder.html" class="LogOut">Log Out</a> </li>
       </ul>
     </h1>
   </head>
   <body>
     <h2> CYOA GEN </h2>
       <form>
-        <input type="button" value="Play" class="playbutton">
-        <input type="button" value="Create" class="createbutton">
+        <a href="placeholder.html"><button class="playbutton"> Play </button></a>
+         <a href="placeholder.html"><button class="createbutton"> Create </button></a>
       </form>
     <audio alt="background music" loop="true" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >
@@ -23,6 +23,7 @@
     <script type="text/javascript">
       window.onload=function(){
           const music = document.getElementById('tetris');
+          music.volume = .2;
           music.play();
       }
     </script>

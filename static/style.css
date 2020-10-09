@@ -1,0 +1,74 @@
+@font-face {
+  font-family: Game;
+  src: url(pdark.ttf);
+}
+/*Font by Ænigma Fonts */
+
+html {
+  font-family: Helvetica;
+  color: #541313;
+  background-color: cornsilk;
+}
+
+h2 {
+  font-size: 100px;
+  font-family:Game;
+  margin:auto;
+  position: fixed;
+  top: 25%;
+  left:31%;
+}
+
+.NavBar {
+  top: -32px;
+  left: 0px;
+  right: 0px;
+  position: fixed;
+  width: 100%;
+  height: 40px;
+  background-color: #EAD60C;
+}
+
+ul, li {
+  background-color: #EAD60C;
+  color:#541313;
+  display: inline;
+  list-style-type: none;
+  /* Display and list-style-type attribrutes found on W3schools*/
+}
+
+.welcome {
+  float:left;
+}
+
+a.LogOut {
+  color:#541313;
+  text-decoration: none;
+  position: fixed;
+  right:24px;
+  /* Text-decoration attribute found on W3schools*/
+}
+
+a.LogOut:hover, a.LogOut:focus {
+  color:Black;
+}
+.playbutton  {
+  color: black;
+  background-color: #EAD60C;
+  font-size:32px;
+  float: left;
+  padding:48px 80px;
+  position: fixed;
+  top: 50%;
+  left: 25%;
+}
+.createbutton {
+  color: black;
+  background-color: #EAD60C;
+  font-size:32px;
+  float: right;
+  padding:48px 60px;
+  position: fixed;
+  top: 50%;
+  right: 25%;
+}

@@ -56,9 +56,6 @@ def homepage():
     return render_template('Home.html')
 
 
-if __name__ == '__main__':
-    app.run()
-
 @app.route('/create_account', methods=["POST"])
 def create_account():
     db = get_db()
@@ -67,3 +64,6 @@ def create_account():
     db.commit()
     flash('Account created!')
     return redirect(url_for('layout'))
+
+if __name__ == '__main__':
+    app.run()

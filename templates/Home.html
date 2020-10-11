@@ -6,8 +6,8 @@
     <h1>
       <ul class="NavBar">
         <li class="welcome"> Welcome User! </li>
-        <li> <a href="placeholder.html" class="LogIn">Log In</a> </li>
-        <li> <a href="placeholder.html" class="LogOut">Log Out</a> </li>
+        <li> <a href="{{ url_for('login_page') }}" class="LogIn">Log In</a> </li>
+        <li> <a href="{{ url_for('logout_handler') }}" class="LogOut">Log Out</a> </li>
         <li> <a href="{{ url_for('account_page') }}" class="CreateAccount">Create Account</a> </li>
       </ul>
     </h1>

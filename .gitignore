@@ -25,6 +25,7 @@ __pycache__/
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea
 
 # Editor-based Rest Client
 .idea/httpRequests
@@ -36,4 +37,6 @@ __pycache__/
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
+# Database
+account.db
 # PyCharm

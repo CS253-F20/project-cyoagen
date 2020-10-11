@@ -50,20 +50,22 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
-
-@app.route('/home')
+@app.route('/')
 def homepage():
     return render_template('Home.html')
 
+@app.route('/account')
+def account_page():
+    return render_template('create_account.html')
 
 @app.route('/create_account', methods=["POST"])
 def create_account():
     db = get_db()
-    db.execute('INSERT INTO account (username, pasward) VALUES (?, ?)',
+    db.execute('INSERT INTO account (username, password) VALUES (?, ?)',
                [request.form['username'], request.form['password']])
     db.commit()
     flash('Account created!')
-    return redirect(url_for('layout'))
+    return redirect(url_for('homepage'))
 
 if __name__ == '__main__':
     app.run()

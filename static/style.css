@@ -41,7 +41,7 @@ ul, li {
   float:left;
 }
 
-a.LogOut {
+a.Logout {
   color:#541313;
   text-decoration: none;
   position: fixed;
@@ -49,7 +49,7 @@ a.LogOut {
   /* Text-decoration attribute found on W3schools*/
 }
 
-a.LogOut:hover, a.LogOut:focus {
+a.Logout:hover, a.LogOut:focus {
   color:Black;
 }
 .playbutton  {

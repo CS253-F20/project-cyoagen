@@ -58,3 +58,12 @@ def homepage():
 
 if __name__ == '__main__':
     app.run()
+
+@app.route('/create_account', methods=["POST"])
+def create_account():
+    db = get_db()
+    db.execute('INSERT INTO account (username, pasward) VALUES (?, ?)',
+               [request.form['username'], request.form['password']])
+    db.commit()
+    flash('Account created!')
+    return redirect(url_for('layout'))

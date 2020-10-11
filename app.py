@@ -13,7 +13,6 @@ app.config.update(dict(
 ))
 app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
 
-
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -52,9 +51,9 @@ def close_db(error):
         g.sqlite_db.close()
 
 
-@app.route('/')
-def index():
-    return 'Index Page'
+@app.route('/home')
+def homepage():
+    return render_template('Home.html')
 
 
 @app.route('/create_account', methods=["POST"])
@@ -65,3 +64,6 @@ def create_account():
     db.commit()
     flash('Account created!')
     return redirect(url_for('layout'))
+
+if __name__ == '__main__':
+    app.run()

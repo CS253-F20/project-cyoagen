@@ -67,5 +67,18 @@ def create_account():
     flash('Account created!')
     return redirect(url_for('homepage'))
 
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@app.route('/process_login')
+def login_handler():
+    return redirect(url_for('homepage'))
+
+@app.route('/process_logout')
+def logout_handler():
+    return redirect(url_for('homepage'))
+
+
 if __name__ == '__main__':
     app.run()

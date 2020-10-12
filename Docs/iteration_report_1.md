@@ -26,6 +26,10 @@
 	
 ## Tasks Completed
 
+- Created a structure plan
+    - Wrote up a document that contains the plan for the general design of the application 
+      (views, databases, and user interactions)
+      
 - Create a Homepage
     - Created a homepage complete with html, css, and javascript elements.
 

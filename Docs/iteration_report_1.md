@@ -28,7 +28,7 @@
 
 - Created a structure plan
     - Wrote up a document that contains the plan for the general design of the application 
-      (views, databases, and user interactions)
+      (views, databases, and user interactions).
       
 - Create a Homepage
     - Created a homepage complete with html, css, and javascript elements.
@@ -38,7 +38,7 @@
     - Created the backend python to take the user input and store it in a database.
     
 - Created UI for Logging in and out
-    - Log in page was created
+    - Log in page was created.
     - Python code for logging in and out was created except for code to link it to the database.
     
 ## Tasks Not Completed

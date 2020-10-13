@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, request, g, redirect, url_for, render_template, flash
 
+import werkzeug
+from flask import Flask, request, g, redirect, url_for, render_template, flash, session
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ app.config.update(dict(
     SECRET_KEY='development key',
 ))
 app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
-
+username = ''
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -61,8 +62,10 @@ def account_page():
 @app.route('/create_account', methods=["POST"])
 def create_account():
     db = get_db()
-    db.execute('INSERT INTO account (username, password) VALUES (?, ?)',
-               [request.form['username'], request.form['password']])
+    username = request.form['username']
+    password =  werkzeug.security.generate_password_hash(request.form['password'])
+    db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
+               [username, password])
     db.commit()
     return redirect(url_for('homepage'))
 
@@ -70,12 +73,33 @@ def create_account():
 def login_page():
     return render_template('login.html')
 
-@app.route('/process_login')
+@app.route('/process_login', methods=['POST'])
 def login_handler():
-    return redirect(url_for('homepage'))
+    error = None
+    username = request.form['username']
+    password = request.form['password']
+    db = get_db()
+    cur = db.execute('SELECT username FROM accounts where username = ?',[username])
+    user_list = cur.fetchall()
+    if (user_list == []):
+        error = 'Invalid Username'
+    else:
+        cur = db.execute('SELECT password FROM accounts where username = ?', [username])
+        pass_hashed = cur.fetchone()
+        print(pass_hashed[0])
+        if not werkzeug.security.check_password_hash(pass_hashed[0],password):
+            error = 'Invalid Password'
+        else:
+            session[username] = True
+            flash('You were logged in')
+            return redirect(url_for('homepage'))
+    flash(error)
+    return(redirect(url_for('login_page')))
 
 @app.route('/process_logout')
 def logout_handler():
+    session.pop(username, None)
+    flash('You were logged out')
     return redirect(url_for('homepage'))
 
 @app.route('/create_game')

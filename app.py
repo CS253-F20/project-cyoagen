@@ -16,6 +16,7 @@ app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
 
 username = ''
 
+
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -53,6 +54,7 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+
 @app.route('/')
 def homepage():
     global username
@@ -61,9 +63,11 @@ def homepage():
     else:
         return render_template('Home.html', User="User")
 
+
 @app.route('/account')
 def account_page():
     return render_template('create_account.html')
+
 
 @app.route('/create_account', methods=["POST"])
 def create_account():
@@ -76,24 +80,25 @@ def create_account():
     db.commit()
     return redirect(url_for('homepage'))
 
+
 @app.route('/login')
 def login_page():
     return render_template('login.html')
 
+
 @app.route('/process_login', methods=['POST'])
 def login_handler():
-    error = None
     entered_username = request.form['username']
     password = request.form['password']
     db = get_db()
-    cur = db.execute('SELECT username FROM accounts where username = ?',[entered_username])
+    cur = db.execute('SELECT username FROM accounts where username = ?', [entered_username])
     user_list = cur.fetchall()
-    if (user_list == []):
+    if not user_list:
         error = 'Invalid Username'
     else:
         cur = db.execute('SELECT password FROM accounts where username = ?', [entered_username])
         pass_hashed = cur.fetchone()
-        if not werkzeug.security.check_password_hash(pass_hashed[0],password):
+        if not werkzeug.security.check_password_hash(pass_hashed[0], password):
             error = 'Invalid Password'
         else:
             global username
@@ -102,7 +107,8 @@ def login_handler():
             flash('You were logged in')
             return redirect(url_for('homepage'))
     flash(error)
-    return(redirect(url_for('login_page')))
+    return redirect(url_for('login_page'))
+
 
 @app.route('/process_logout')
 def logout_handler():
@@ -112,9 +118,11 @@ def logout_handler():
     flash('You were logged out')
     return redirect(url_for('homepage'))
 
+
 @app.route('/create_game')
 def create_page():
     return render_template('create_game.html')
+
 
 @app.route('/process_handler', methods=['POST'])
 def create_handler():
@@ -129,9 +137,11 @@ def create_handler():
     db.commit()
     return redirect(url_for('homepage'))
 
+
 @app.route('/browse_game')
 def browse_game():
     return render_template('browse_game.html')
+
 
 if __name__ == '__main__':
     app.run()

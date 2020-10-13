@@ -64,7 +64,6 @@ def create_account():
     db.execute('INSERT INTO account (username, password) VALUES (?, ?)',
                [request.form['username'], request.form['password']])
     db.commit()
-    flash('Account created!')
     return redirect(url_for('homepage'))
 
 @app.route('/login')
@@ -83,6 +82,9 @@ def logout_handler():
 def create_page():
     return render_template('create_game.html')
 
+@app.route('/browse_game')
+def browse_game():
+    return render_template('browse_game.html')
 
 if __name__ == '__main__':
     app.run()

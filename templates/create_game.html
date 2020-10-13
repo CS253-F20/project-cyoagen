@@ -11,15 +11,15 @@
         </h1>
     </head>
     <body>
-        <form id="create_form">
+        <form id="create_form" action="{{ url_for('create_handler') }}" method="post">
             <dl>
                 <dt id="situation_head"> Situation </dt>
-                <dd> <textarea id="situation" rows="5" cols="61"></textarea></dd>
+                <dd> <textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
             </dl>
             <dl>
                 <dt id="choice_head"> Choices </dt>
-                    <dd id="choice1_head"> Choice 1: <input type="text" id="choice1"> </dd>
-                    <dd id="choice2_head"> Choice 2: <input type="text" id="choice2"> </dd>
+                    <dd id="choice1_head"> Choice 1: <input type="text" id="choice1" name="ChoiceOne"> </dd>
+                    <dd id="choice2_head"> Choice 2: <input type="text" id="choice2" name="ChoiceTwo"> </dd>
             </dl>
             <dl>
                 <input type="submit" value="Add Situation" id="Add_situation">

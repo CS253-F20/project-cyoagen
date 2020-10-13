@@ -14,12 +14,8 @@
   </head>
   <body>
     <h2> CYOA GEN </h2>
-      <form action="{{ url_for('browse_game') }}">
-        <a href="placeholder.html"><button class="playbutton"> Play </button></a>
-      </form>
-      <form action="{{ url_for('create_page') }}">
-        <input type="submit" value="Create" class="createbutton">
-      </form>
+    <a href="placeholder.html"><button class="playbutton">Play</button></a>
+    <a href="{{ url_for('create_page') }}"><button class="createbutton">Create</button></a>
     <audio alt="background music" loop="true" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >
       <!--Credit to Joey von Clef for music from Musescore -->

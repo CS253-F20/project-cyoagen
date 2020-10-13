@@ -68,10 +68,11 @@ def account_page():
 @app.route('/create_account', methods=["POST"])
 def create_account():
     db = get_db()
-    username = request.form['username']
-    password =  werkzeug.security.generate_password_hash(request.form['password'])
-    db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
-               [username, password])
+    entered_username = request.form['username']
+    password = werkzeug.security.generate_password_hash(request.form['password'])
+    choices = {}
+    db.execute('INSERT INTO accounts (username, password, choices) VALUES (?, ?, ?)',
+               [entered_username, password, str(choices)])
     db.commit()
     return redirect(url_for('homepage'))
 
@@ -92,7 +93,6 @@ def login_handler():
     else:
         cur = db.execute('SELECT password FROM accounts where username = ?', [entered_username])
         pass_hashed = cur.fetchone()
-        print(pass_hashed[0])
         if not werkzeug.security.check_password_hash(pass_hashed[0],password):
             error = 'Invalid Password'
         else:
@@ -115,6 +115,19 @@ def logout_handler():
 @app.route('/create_game')
 def create_page():
     return render_template('create_game.html')
+
+@app.route('/process_handler', methods=['POST'])
+def create_handler():
+    global username
+    db = get_db()
+    cur = db.execute('SELECT choices FROM accounts where username = ?', [username])
+    current_list = cur.fetchone()[0]
+    current_list = eval(current_list)
+    current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
+    db.execute('UPDATE accounts set choices = ? where username = ?',
+               [str(current_list), username])
+    db.commit()
+    return redirect(url_for('homepage'))
 
 @app.route('/browse_game')
 def browse_game():

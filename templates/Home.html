@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <h1>
       <ul class="NavBar">
-        <li class="welcome"> Welcome User </li>
+        <li class="welcome"> Welcome {{ User }} </li>
         <li> <a href="{{ url_for('login_page') }}" class="Navlink" id="Login">Log In</a> </li>
         <li> <a href="{{ url_for('logout_handler') }}" class="Navlink" id="Logout">Log Out</a> </li>
         <li> <a href="{{ url_for('account_page') }}" class="Navlink" id="Create_Account">Create Account</a> </li>

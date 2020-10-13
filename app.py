@@ -13,7 +13,9 @@ app.config.update(dict(
     SECRET_KEY='development key',
 ))
 app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
+
 username = ''
+
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -53,7 +55,11 @@ def close_db(error):
 
 @app.route('/')
 def homepage():
-    return render_template('Home.html')
+    global username
+    if username != "":
+        return render_template('Home.html', User=username)
+    else:
+        return render_template('Home.html', User="User")
 
 @app.route('/account')
 def account_page():
@@ -76,20 +82,22 @@ def login_page():
 @app.route('/process_login', methods=['POST'])
 def login_handler():
     error = None
-    username = request.form['username']
+    entered_username = request.form['username']
     password = request.form['password']
     db = get_db()
-    cur = db.execute('SELECT username FROM accounts where username = ?',[username])
+    cur = db.execute('SELECT username FROM accounts where username = ?',[entered_username])
     user_list = cur.fetchall()
     if (user_list == []):
         error = 'Invalid Username'
     else:
-        cur = db.execute('SELECT password FROM accounts where username = ?', [username])
+        cur = db.execute('SELECT password FROM accounts where username = ?', [entered_username])
         pass_hashed = cur.fetchone()
         print(pass_hashed[0])
         if not werkzeug.security.check_password_hash(pass_hashed[0],password):
             error = 'Invalid Password'
         else:
+            global username
+            username = entered_username
             session[username] = True
             flash('You were logged in')
             return redirect(url_for('homepage'))
@@ -98,7 +106,9 @@ def login_handler():
 
 @app.route('/process_logout')
 def logout_handler():
+    global username
     session.pop(username, None)
+    username = ''
     flash('You were logged out')
     return redirect(url_for('homepage'))
 

@@ -16,7 +16,7 @@ h2 {
   margin:auto;
   position: fixed;
   top: 25%;
-  left:31%;
+  left:25%;
 }
 
 .NavBar {
@@ -38,19 +38,33 @@ ul, li {
 }
 
 .welcome {
-  float:left;
+  position: fixed;
+  left: 24px;
 }
 
-a.Logout {
-  color:#541313;
+.Navlink {
+  color: #541313;
   text-decoration: none;
-  position: fixed;
-  right:24px;
   /* Text-decoration attribute found on W3schools*/
 }
 
-a.Logout:hover, a.LogOut:focus {
+a.Navlink:hover, a.Navlink:focus {
   color:Black;
+}
+
+#Login {
+  position: fixed;
+  left: 35%;
+}
+
+#Logout {
+  position: fixed;
+  right: 24px;
+}
+
+#Create_Account {
+  position: fixed;
+  right: 25%;
 }
 .playbutton  {
   color: black;

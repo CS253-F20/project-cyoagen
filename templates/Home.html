@@ -6,9 +6,9 @@
     <h1>
       <ul class="NavBar">
         <li class="welcome"> Welcome User </li>
-        <li> <a href="{{ url_for('login_page') }}" class="LogIn">Log In</a> </li>
-        <li> <a href="{{ url_for('logout_handler') }}" class="LogOut">Log Out</a> </li>
-        <li> <a href="{{ url_for('account_page') }}" class="CreateAccount">Create Account</a> </li>
+        <li> <a href="{{ url_for('login_page') }}" class="Navlink" id="Login">Log In</a> </li>
+        <li> <a href="{{ url_for('logout_handler') }}" class="Navlink" id="Logout">Log Out</a> </li>
+        <li> <a href="{{ url_for('account_page') }}" class="Navlink" id="Create_Account">Create Account</a> </li>
       </ul>
     </h1>
   </head>
@@ -16,7 +16,9 @@
     <h2> CYOA GEN </h2>
       <form>
         <a href="placeholder.html"><button class="playbutton"> Play </button></a>
-        <a href="placeholder.html"><button class="createbutton"> Create </button></a>
+      </form>
+      <form action="{{ url_for('create_page') }}">
+        <input type="submit" value="Create" class="createbutton">
       </form>
     <audio alt="background music" loop="true" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >

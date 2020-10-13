@@ -79,6 +79,10 @@ def login_handler():
 def logout_handler():
     return redirect(url_for('homepage'))
 
+@app.route('/create_game')
+def create_page():
+    return render_template('create_game.html')
+
 
 if __name__ == '__main__':
     app.run()

@@ -1,0 +1,15 @@
+<!doctype html>
+<title>Choose Your Own Adventure Generator</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div class="page">
+  <h1>Choose Your Own Adventure Generator</h1>
+<body>
+{{ situation }}
+<form action={{ url_for('') }}>
+        {{ choice1 }}
+</form>
+<form action={{ url_for('') }}>
+        {{ choice2 }}
+</form>
+</body>
+</div>

@@ -10,7 +10,7 @@
             }
         </style>
         <title> Create Game </title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <h1>
           <ul class="NavBar">
             <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
@@ -19,7 +19,8 @@
         </h1>
     </head>
     <body>
-    <form action="{{ url_for('search_game') }}" method="post" class="sarch_game">
+    <form action="{{ url_for('browse_game') }}" method="post" class="search_game"> <!-- edited action for now just so
+    the page renders -->
         <h2>search games: </h2>
     </form>
     {% for account in accounts %}

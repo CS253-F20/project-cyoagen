@@ -59,9 +59,11 @@ def close_db(error):
 def homepage():
     global username
     if username != "":
-        return render_template('Home.html', User=username)
+        return render_template('Home.html', User=username) # If user is logged in, display "welcome (username)"
     else:
-        return render_template('Home.html', User="User")
+        return render_template('Home.html', User="User")  # Else display "welcome user"
+
+# Renders homepage
 
 
 @app.route('/account')
@@ -122,6 +124,7 @@ def logout_handler():
 @app.route('/create_game')
 def create_page():
     return render_template('create_game.html')
+# Renders page for game creation
 
 
 @app.route('/process_handler', methods=['POST'])

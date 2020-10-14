@@ -77,10 +77,19 @@ def create_account():
     entered_username = request.form['username']
     password = werkzeug.security.generate_password_hash(request.form['password'])
     choices = {}
-    db.execute('INSERT INTO accounts (username, password, choices) VALUES (?, ?, ?)',
-               [entered_username, password, str(choices)])
-    db.commit()
-    return redirect(url_for('homepage'))
+    # Search for entered username in the database
+    cur = db.execute('SELECT username FROM accounts where username = ?', [entered_username])
+    user_list = cur.fetchall()
+    # If username is not already taken, create account and return homepage
+    if not user_list:
+        db.execute('INSERT INTO accounts (username, password, choices) VALUES (?, ?, ?)',
+                   [entered_username, password, str(choices)])
+        db.commit()
+        return redirect(url_for('homepage'))
+    # If username is taken, flash a message and return the account creation page
+    else:
+        flash('Username is already taken')
+        return redirect(url_for('account_page'))
 
 
 @app.route('/login')

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% block body %}
     <head>
         <title> Create Game </title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create.css') }}">
@@ -26,4 +26,4 @@
             </dl>
         </form>
     </body>
-</html>
+{% endblock %}

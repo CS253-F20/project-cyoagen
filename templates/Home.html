@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% block body %}
   <head>
     <title> CYOA GEN Homepage </title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
@@ -14,7 +14,7 @@
   </head>
   <body>
     <h2> CYOA GEN </h2>
-    <a href="placeholder.html"><button class="playbutton">Play</button></a>
+    <a href="{{ url_for('browse_game') }}"><button class="playbutton">Play</button></a>
     <a href="{{ url_for('create_page') }}"><button class="createbutton">Create</button></a>
     <audio alt="background music" loop="true" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >
@@ -31,4 +31,4 @@
       }
     </script>
   </body>
-</html>
+{% endblock %}

@@ -1,15 +1,32 @@
-<!doctype html>
-<title>Choose Your Own Adventure Generator</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-<div class="page">
-  <h1>Choose Your Own Adventure Generator</h1>
-<body>
-{{ situation }}
-<form action={{ url_for('') }}>
-        {{ choice1 }}
-</form>
-<form action={{ url_for('') }}>
-        {{ choice2 }}
-</form>
-</body>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            #list_games{
+                background-color: #EAD60C;
+                color:#541313;
+                display: inline;
+                list-style-type: none;
+            }
+        </style>
+        <title> Create Game </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create.css') }}">
+        <h1>
+          <ul class="NavBar">
+            <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
+            <li id="page_title"> Game Creation </li>
+          </ul>
+        </h1>
+    </head>
+    <body>
+    <form action="{{ url_for('search_game') }}" method="post" class="sarch_game">
+        <h2>search games: </h2>
+    </form>
+    {% for account in accounts %}
+        <ul>
+            <li id="list_games">{{ account.username }}</li>
+        </ul>
+    {% endfor %}
+    </body>
+    </div>
+    </html>

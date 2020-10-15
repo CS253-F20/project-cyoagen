@@ -57,10 +57,10 @@ def close_db(error):
 @app.route('/')
 def homepage():
 
-    if 'username' in session:
-        return render_template('Home.html', User=session['username'])  # If logged in, display "welcome (username)"
-    else:
-        return render_template('Home.html', User="User")  # Else display "welcome user"
+    if 'username' in session:  # If logged in, display "welcome (username)"
+        return render_template('Home.html', User=session['username'])
+    else: # Else display "welcome user"
+        return render_template('Home.html', User="User")
 # Renders homepage
 
 
@@ -100,26 +100,27 @@ def login_handler():
     username = request.form['username']
     password = request.form['password']
     db = get_db()
+    # Search Database for entered username to see if account exists
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()
-    if not user_list:
+    if not user_list:  # If no account exists with that name
         error = 'Invalid Username'
-    else:
+    else:  # If an account is found with that username
         cur = db.execute('SELECT password FROM accounts where username = ?', [username])
-        pass_hashed = cur.fetchone()
+        pass_hashed = cur.fetchone()  # Grab the stored password hash
         if not werkzeug.security.check_password_hash(pass_hashed[0], password):
             error = 'Invalid Password'
-        else:
-            session['username'] = username
+        else:  # If password matches
+            session['username'] = username  # Set session variable for username to current logged in user
             flash('You were logged in')
             return redirect(url_for('homepage'))
-    flash(error)
+    flash(error)  # If they are not redirected to the home page, display what credential was wrong.
     return redirect(url_for('login_page'))
 
 
 @app.route('/process_logout')
 def logout_handler():
-    session.pop('username', None)
+    session.pop('username', None)  # Remove username variable from session, indicating no logged in account
     flash('You were logged out')
     return redirect(url_for('homepage'))
 
@@ -134,11 +135,14 @@ def create_page():
 def create_handler():
     db = get_db()
     cur = db.execute('SELECT choices FROM accounts where username = ?', [session['username']])
+    # Grab existing choices for this account
     current_list = cur.fetchone()[0]
-    current_list = eval(current_list)
+    current_list = eval(current_list)  # Convert existing choices to dictionary in python
     current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
+    # Add new saved choice to the dictionary with the question and two responses
+    # Example: "Do you open the door": ['Yes','No']
     db.execute('UPDATE accounts set choices = ? where username = ?',
-               [str(current_list), session['username']])
+               [str(current_list), session['username']])  # Add the choices back to the database with new entries.
     db.commit()
     return redirect(url_for('homepage'))
 

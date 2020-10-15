@@ -1,29 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
-    <head>
-        <title> Create Game </title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create.css') }}">
-        <h1>
-          <ul class="NavBar">
-            <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-            <li id="page_title"> Game Creation </li>
-          </ul>
-        </h1>
-    </head>
+    <h1>
+      <ul class="NavBar">
+        <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
+        <p class="page_title"> Game Creation </p>
+      </ul>
+    </h1>
     <body>
-        <form id="create_form" action="{{ url_for('create_handler') }}" method="post">
-            <dl>
-                <dt id="situation_head"> Situation </dt>
-                <dd> <textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
-            </dl>
-            <dl>
-                <dt id="choice_head"> Choices </dt>
-                    <dd id="choice1_head"> Choice 1: <input type="text" id="choice1" name="ChoiceOne"> </dd>
-                    <dd id="choice2_head"> Choice 2: <input type="text" id="choice2" name="ChoiceTwo"> </dd>
-            </dl>
-            <dl>
-                <input type="submit" value="Add Situation" id="Add_situation">
-            </dl>
-        </form>
+        <div class="Create_Fields">
+             <form id="create_form" action="{{ url_for('create_handler') }}" method="post">
+                <dl>
+                    <dt id="situation_head"> Situation </dt>
+                    <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
+                </dl>
+                <dl>
+                    <dt class="choice_head"> Choices </dt>
+                        <div class="Choice_Content">
+                            <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
+                            <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
+                        </div>
+                </dl>
+                <dl>
+                    <input type="submit" value="Add Situation" id="Add_situation">
+                </dl>
+            </form>
+        </div>
     </body>
 {% endblock %}

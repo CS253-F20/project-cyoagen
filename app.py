@@ -16,9 +16,6 @@ app.config.update(dict(
 app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
 
 
-username = ''
-
-
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -59,12 +56,11 @@ def close_db(error):
 
 @app.route('/')
 def homepage():
-    global username
-    if username != "":
-        return render_template('Home.html', User=username) # If user is logged in, display "welcome (username)"
+
+    if 'username' in session:
+        return render_template('Home.html', User=session['username'])  # If logged in, display "welcome (username)"
     else:
         return render_template('Home.html', User="User")  # Else display "welcome user"
-
 # Renders homepage
 
 
@@ -76,16 +72,16 @@ def account_page():
 @app.route('/create_account', methods=["POST"])
 def create_account():
     db = get_db()
-    entered_username = request.form['username']
+    username = request.form['username']
     password = werkzeug.security.generate_password_hash(request.form['password'])
     choices = {}
     # Search for entered username in the database
-    cur = db.execute('SELECT username FROM accounts where username = ?', [entered_username])
+    cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()
     # If username is not already taken, create account and return homepage
     if not user_list:
         db.execute('INSERT INTO accounts (username, password, choices) VALUES (?, ?, ?)',
-                   [entered_username, password, str(choices)])
+                   [username, password, str(choices)])
         db.commit()
         return redirect(url_for('homepage'))
     # If username is taken, flash a message and return the account creation page
@@ -101,22 +97,20 @@ def login_page():
 
 @app.route('/process_login', methods=['POST'])
 def login_handler():
-    entered_username = request.form['username']
+    username = request.form['username']
     password = request.form['password']
     db = get_db()
-    cur = db.execute('SELECT username FROM accounts where username = ?', [entered_username])
+    cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()
     if not user_list:
         error = 'Invalid Username'
     else:
-        cur = db.execute('SELECT password FROM accounts where username = ?', [entered_username])
+        cur = db.execute('SELECT password FROM accounts where username = ?', [username])
         pass_hashed = cur.fetchone()
         if not werkzeug.security.check_password_hash(pass_hashed[0], password):
             error = 'Invalid Password'
         else:
-            global username
-            username = entered_username
-            session[username] = True
+            session['username'] = username
             flash('You were logged in')
             return redirect(url_for('homepage'))
     flash(error)
@@ -125,9 +119,7 @@ def login_handler():
 
 @app.route('/process_logout')
 def logout_handler():
-    global username
-    session.pop(username, None)
-    username = ''
+    session.pop('username', None)
     flash('You were logged out')
     return redirect(url_for('homepage'))
 
@@ -140,14 +132,13 @@ def create_page():
 
 @app.route('/process_handler', methods=['POST'])
 def create_handler():
-    global username
     db = get_db()
-    cur = db.execute('SELECT choices FROM accounts where username = ?', [username])
+    cur = db.execute('SELECT choices FROM accounts where username = ?', [session['username']])
     current_list = cur.fetchone()[0]
     current_list = eval(current_list)
     current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
     db.execute('UPDATE accounts set choices = ? where username = ?',
-               [str(current_list), username])
+               [str(current_list), session['username']])
     db.commit()
     return redirect(url_for('homepage'))
 

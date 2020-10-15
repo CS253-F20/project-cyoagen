@@ -25,5 +25,19 @@
                 </dl>
             </form>
         </div>
+        <audio loop="True" id="GCM">
+          <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
+          <!--Credit to Mike Leite for music -->
+        </audio>
+        <script type="text/javascript">
+          window.onload=function(){
+              const music = document.getElementById('GCM');
+              music.volume = .005;
+              music.play();
+              {% for message in get_flashed_messages() %}
+              alert('{{ message }}')
+              {% endfor %}
+          }
+        </script>
     </body>
 {% endblock %}

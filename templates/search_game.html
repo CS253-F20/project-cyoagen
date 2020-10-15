@@ -8,25 +8,15 @@
           </ul>
         </h1>
     <body>
-        <form action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
-        the page renders -->
+        <form action="{{ url_for('search') }}" method="post" class="search">
           Search usernames:
           <input type="text" size="15" id="content" name="username">
             <input type="submit" value="Search">
         </form>
-
-        <ul class="accounts">
         {% for account in accounts %}
-          <li>
-            <h3>{{ account.username }}</h3>
-          </li>
-        {% else %}
-          <li><em>No username has been taken so far</em></li>
+            <ul>
+                <li id="list_games">{{ account.username }}</li>
+            </ul>
         {% endfor %}
-        </ul>
-
-    {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-    {% endfor %}
     </body>
 {% endblock %}

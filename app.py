@@ -5,6 +5,7 @@ from sqlite3 import dbapi2 as sqlite3
 import werkzeug
 from flask import Flask, request, g, redirect, url_for, render_template, flash, session
 
+
 app = Flask(__name__)
 
 app.config.update(dict(
@@ -13,6 +14,7 @@ app.config.update(dict(
     SECRET_KEY='development key',
 ))
 app.config.from_envvar('ACCOUNT_SETTINGS', silent=True)
+
 
 username = ''
 
@@ -153,6 +155,20 @@ def create_handler():
 @app.route('/browse_game')
 def browse_game():
     return render_template('browse_game.html')
+
+
+@app.route('/search_game', methods=['post'])
+def search():
+    db = get_db()
+    search_username = request.form['username']
+    cur = db.execute('SELECT username FROM accounts where username = ?', [search_username])
+    user_list = cur.fetchall()
+    if not user_list:
+        flash('No username like this')
+        return redirect(url_for('browse_game'))
+    else:
+        account = user_list
+        return render_template('search_game.html', accounts=account)
 
 
 if __name__ == '__main__':

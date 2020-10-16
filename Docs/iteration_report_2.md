@@ -1,4 +1,4 @@
-# Iteration Report 1
+# Iteration Report 2
 
 ## Assigned Responsibilities
 
@@ -53,6 +53,14 @@
     - In the process of removing the .idea files, some local files were lost that 
     allowed the project to run
     - We resolved this by utilizing Git's log of what the files looked like and recreating them.
+    
+- CSS Issues Based on Screen Size
+    - Pages that appeared normal on most screens would appear very out of sorts when editing on my (Drew) desktop.
+        - Through talking with Professor Liffiton, it was discovered that the reason for this was the fact that I had
+        written the CSS to give most parts absolute positioning, which is very fragile.
+        - To fix the issue, I went back and changed how the formatting worked and got rid of nearly all absolute
+        positioning.
+            - After doing this the pages have appeared correctly on every machine tested thus far.
 
 ## Adjustments to Overall Design
 
@@ -76,6 +84,6 @@
         - Assigned To: Aaron
         
  - Game Titles
-    - Write Python code to allow users to save titles for their linked choices into the databse
+    - Write Python code to allow users to save titles for their linked choices into the database
         - Assigned To: Evan & Drew
  

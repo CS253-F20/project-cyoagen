@@ -144,7 +144,13 @@ def create_handler():
     db.execute('UPDATE accounts set choices = ? where username = ?',
                [str(current_list), session['username']])  # Add the choices back to the database with new entries.
     db.commit()
-    return redirect(url_for('homepage'))
+    return redirect(url_for('create_page'))
+
+@app.route('/link', methods=['POST'])
+def link_choice():
+    return redirect(url_for('create_page'))
+# This function will be called by create_handler if the choice/situation table is not empty.
+# This function will ask the creator to link the added situation to an already existing choice in the database.
 
 
 @app.route('/browse_game')
@@ -164,6 +170,11 @@ def search():
     else:
         account = user_list
         return render_template('search_game.html', accounts=account)
+
+@app.route('/title')
+def create_title_page():
+    return render_template('create_title.html')
+
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@
   <body>
     <h2 id="App_Title"> CYOA GEN </h2>
     <a href="{{ url_for('browse_game') }}"><button class="playbutton">Play</button></a>
-    <a href="{{ url_for('create_page') }}"><button class="createbutton">Create</button></a>
+    <a href="{{ url_for('create_title_page') }}"><button class="createbutton">Create</button></a>
     <audio loop="True" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >
       <!--Credit to Joey von Clef for music from Musescore -->

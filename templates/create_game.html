@@ -8,20 +8,20 @@
     </h1>
     <body>
         <div class="Create_Fields">
-             <form id="create_form" action="{{ url_for('create_handler') }}" method="post">
+             <form action="{{ url_for('create_handler') }}" method="post">
                 <dl>
-                    <dt id="situation_head"> Situation </dt>
+                    <dt class="primary_field"> Situation </dt>
                     <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
                 </dl>
                 <dl>
-                    <dt class="choice_head"> Choices </dt>
+                    <dt class="secondary_field"> Choices </dt>
                         <div class="Choice_Content">
                             <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
                             <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
                         </div>
                 </dl>
                 <dl>
-                    <input type="submit" value="Add Situation" id="Add_situation">
+                    <input type="submit" value="Add Situation" class="Save">
                 </dl>
             </form>
         </div>

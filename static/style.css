@@ -104,7 +104,7 @@ a.Navlink:hover, a.Navlink:focus {
   text-align: center;
   line-height: 100px;
 }
-#situation_head {
+.primary_field {
     font-family: Star;
     font-size: 50px;
 }
@@ -112,7 +112,7 @@ a.Navlink:hover, a.Navlink:focus {
     font-size: 20px;
 }
 
-.choice_head {
+.secondary_field {
   font-family: Star;
     font-size: 40px;
 }
@@ -132,11 +132,23 @@ a.Navlink:hover, a.Navlink:focus {
   height: 50px;
 }
 
-#Add_situation {
+.Save {
   color: black;
   background-color: #EAD60C;
   font-family: Star;
   font-size:16px;
-  height: 100px;
-  width: 400px;
+  height: 65px;
+  width: 375px;
+}
+
+#title_input {
+  height: 50px;
+  width: 600px;
+  font-size: 50px;
+}
+
+.login_input {
+  height: 40px;
+  width: 200px;
+  font-size: 20px;
 }

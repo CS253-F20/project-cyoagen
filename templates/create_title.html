@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h1>
+      <ul class="NavBar">
+        <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
+        <p class="page_title"> Title Creation </p>
+      </ul>
+    </h1>
+    <div class="Create_Fields">
+        <form action="{{ url_for('create_page') }}">
+            <dl>
+                <dt class="primary_field"> Game Title </dt>
+                    <dd><input id="title_input" type="text"></dd>
+            </dl>
+            <dl>
+                <dt class="secondary_field"> Description </dt>
+                    <dd><textarea rows="10" cols="100"></textarea></dd>
+            </dl>
+            <dl>
+                <input type="submit" value="Save" class="Save">
+            </dl>
+        </form>
+    </div>
+
+{% endblock %}

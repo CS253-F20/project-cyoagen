@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
+
     <div class="page">
-      <h1>Choose Your Own Adventure Generator</h1>
+        <h1>
+            <ul class="NavBar">
+                <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
+                <p class="page_title"> Account Creation </p>
+            </ul>
+        </h1>
       {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
       {% endfor %}

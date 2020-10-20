@@ -12,15 +12,17 @@
         <div class="flash">{{ message }}</div>
       {% endfor %}
     <body>
+    <div class="Create_Fields">
     <form action="{{ url_for('create_account') }}" method="post" class="create_account">
         <dl>
-          <dt>username:
-          <dd><input type="text" size="15" name="username">
-          <dt>password:
-          <dd><input type="password" size="20" name="password">
-          <dd><input type="submit" value="Sign Up">
+          <dt class = "secondary_field">Username:
+          <dd><input type="text" size="15" name="username" class="account_input">
+          <dt class="secondary_field">Password:
+          <dd><input type="password" size="20" name="password" class="account_input">
+          <dd><input type="submit" value="Sign Up" class="Save">
         </dl>
       </form>
+    </div>
     </body>
     </div>
 {% endblock %}

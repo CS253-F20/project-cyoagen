@@ -25,6 +25,41 @@
                 </dl>
             </form>
         </div>
+        {# {% for choices in accounts %}
+        {#            {% if choices.linkid == NULL %}
+        {#               <form>
+        {#                   <dl>
+        {#                       <dt> {{ choices.situation }}</dt>
+        {#                           <dd> {{ choices.option1 }}
+        {#                               <select name="linked_situation" id="linked_situation">
+        {#                                   {% for choices in accounts %}
+        {#                                       <option value={{ choices.situation }}>{{ choices.situation }}</option>
+        {#                                   {% endfor %}
+        {#                               </select>
+        {#                           </dd>
+        {#                           <dd> {{ choices.option2 }}
+        {#                               <select name="linked_situation" id="linked_situation">
+        {#                                   {% for choices in accounts %}
+        {#                                       <option value={{ choices.situation }}>{{ choices.situation }}</option>
+        {#                                   {% endfor %}
+        {#                               </select>
+        {#                           </dd>
+        {#                   </dl>
+        {#               </form>
+        {#           {% else  %}
+        {#                <li>
+        {#                   <ul>{{ choices.situation }}</ul>
+        {#
+        {#                   <ul>{{ choices.option1 }}</ul>
+        {#
+        {#                   <ul>{{ choices.linked_situation1 }}</ul>
+        {#
+        {#                   <ul>{{ choices.option2 }}</ul>
+        {#
+        {#                   <ul>{{ choices.linked_situation2 }}</ul>
+        {#                </li>
+        {#           {% endif %}
+        {#        {% endfor %} #}
         <audio loop="True" id="GCM">
           <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
           <!--Credit to Mike Leite for music -->

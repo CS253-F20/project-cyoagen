@@ -10,11 +10,11 @@
         <form action="{{ url_for('create_page') }}">
             <dl>
                 <dt class="primary_field"> Game Title </dt>
-                    <dd><input id="title_input" type="text"></dd>
+                    <dd><input id="title_input" type="text" name="title"></dd>
             </dl>
             <dl>
                 <dt class="secondary_field"> Description </dt>
-                    <dd><textarea rows="10" cols="100"></textarea></dd>
+                    <dd><textarea rows="10" cols="100" name="description"></textarea></dd>
             </dl>
             <dl>
                 <input type="submit" value="Save" class="Save">

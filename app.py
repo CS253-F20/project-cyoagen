@@ -2,9 +2,8 @@
 import os
 from sqlite3 import dbapi2 as sqlite3
 
-import werkzeug
+import werkzeug.security
 from flask import Flask, request, g, redirect, url_for, render_template, flash, session
-
 
 app = Flask(__name__)
 
@@ -56,11 +55,12 @@ def close_db(error):
 
 @app.route('/')
 def homepage():
-
     if 'username' in session:  # If logged in, display "welcome (username)"
         return render_template('Home.html', User=session['username'])
-    else: # Else display "welcome user"
+    else:  # Else display "welcome user"
         return render_template('Home.html', User="User")
+
+
 # Renders homepage
 
 
@@ -80,7 +80,7 @@ def create_account():
     user_list = cur.fetchall()
     # If username is not already taken, create account and return homepage
     if not user_list:
-        db.execute('INSERT INTO accounts (username, password, choices) VALUES (?, ?, ?)',
+        db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
                    [username, password, str(choices)])
         db.commit()
         return redirect(url_for('homepage'))
@@ -127,29 +127,45 @@ def logout_handler():
 
 @app.route('/create_game')
 def create_page():
-    return render_template('create_game.html')
+    db = get_db()
+    cur = db.execute('SELECT option1, option2, situation FROM choices where username = ?', [session['username']])
+    choices = cur.fetchall()
+    return render_template('create_game.html', choices=choices)
+
+
 # Renders page for game creation
 
+@app.route('/process_title', methods=['POST'])
+def handle_title():
+    db = get_db()
+    db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)',
+               [request.form['title'], request.form['description'], session['username']])
+    return render_template('create_game.html')
 
-@app.route('/process_handler', methods=['POST'])
+
+@app.route('/create_handler', methods=['POST'])
 def create_handler():
     db = get_db()
-    cur = db.execute('SELECT choices FROM accounts where username = ?', [session['username']])
+    # cur = db.execute('SELECT choice_one, choice_two, prompt FROM choices where username = ?', [session['username']])
     # Grab existing choices for this account
-    current_list = cur.fetchone()[0]
-    current_list = eval(current_list)  # Convert existing choices to dictionary in python
-    current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
+    # current_list = cur.fetchone()[0]
+    # current_list = eval(current_list)  # Convert existing choices to dictionary in python
+    # current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
     # Add new saved choice to the dictionary with the question and two responses
     # Example: "Do you open the door": ['Yes','No']
-    db.execute('UPDATE accounts set choices = ? where username = ?',
-               [str(current_list), session['username']])  # Add the choices back to the database with new entries.
+    db.execute('INSERT INTO choices (situation, option1, option2, username) VALUES (?, ?, ?, ?)',
+               [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username']])
+    # Add the choices back to the database with new entries.
     db.commit()
     flash('Situation was succesfully saved!')
     return redirect(url_for('create_page'))
 
+
 @app.route('/link', methods=['POST'])
 def link_choice():
     return redirect(url_for('create_page'))
+
+
 # This function will be called by create_handler if the choice/situation table is not empty.
 # This function will ask the creator to link the added situation to an already existing choice in the database.
 
@@ -172,10 +188,10 @@ def search():
         account = user_list
         return render_template('search_game.html', accounts=account)
 
+
 @app.route('/title')
 def create_title_page():
     return render_template('create_title.html')
-
 
 
 if __name__ == '__main__':

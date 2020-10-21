@@ -144,6 +144,7 @@ def create_handler():
     db.execute('UPDATE accounts set choices = ? where username = ?',
                [str(current_list), session['username']])  # Add the choices back to the database with new entries.
     db.commit()
+    flash('Situation was succesfully saved!')
     return redirect(url_for('create_page'))
 
 @app.route('/link', methods=['POST'])

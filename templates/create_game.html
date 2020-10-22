@@ -31,15 +31,19 @@
                            <dt> {{ choice.situation }}</dt>
                                <dd> {{ choice.option1 }}
                                    <select name="linked_situation" id="linked_situation">
-                                       {% for choices in choices %}
-                                           <option value={{ choice.situation }}>{{ choice.situation }}</option>
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option value={{ link_choice.situation }}>{{ link_choice.situation }}</option>
+                                           {% endif %}
                                        {% endfor %}
                                    </select>
                                </dd>
                                <dd> {{ choice.option2 }}
                                    <select name="linked_situation" id="linked_situation">
-                                       {% for choice in choices %}
-                                           <option value={{ choice.situation }}>{{ choice.situation }}</option>
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option value={{ link_choice.situation }}>{{ link_choice.situation }}</option>
+                                           {% endif %}
                                        {% endfor %}
                                    </select>
                                </dd>

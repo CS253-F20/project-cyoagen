@@ -139,7 +139,7 @@ def handle_title():
     db = get_db()
     db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)',
                [request.form['title'], request.form['description'], session['username']])
-    return render_template('create_game.html')
+    return redirect(url_for('create_page'))
 
 
 @app.route('/create_handler', methods=['POST'])

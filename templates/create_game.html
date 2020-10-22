@@ -25,44 +25,41 @@
                 </dl>
             </form>
      {% for choice in choices %}
-                {% if choice.linkid == NULL %}
-                   <form class="link">
+                   <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+                       <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <dl>
                            <dt> {{ choice.situation }}</dt>
                                <dd> {{ choice.option1 }}
-                                   <select name="linked_situation" id="linked_situation">
-                                       {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option value={{ link_choice.situation }}>{{ link_choice.situation }}</option>
-                                           {% endif %}
-                                       {% endfor %}
-                                   </select>
+                                    {% if choice.linked_situation1 == '' %}
+                                       <select name="linked_situation1" id="linked_situation1">
+                                           {% for link_choice in choices %}
+                                               {% if link_choice.situation != choice.situation %}
+                                                    <option>{{ link_choice.situation }}</option>
+                                               {% endif %}
+                                           {% endfor %}
+                                       </select>
+                                    {% else %}
+                                        <li>{{ choice.linked_situation1 }}</li>
+                                   {% endif %}
                                </dd>
                                <dd> {{ choice.option2 }}
-                                   <select name="linked_situation" id="linked_situation">
-                                       {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option value={{ link_choice.situation }}>{{ link_choice.situation }}</option>
-                                           {% endif %}
-                                       {% endfor %}
-                                   </select>
+                                    {% if choice.linked_situation2 == None %}
+                                       <select name="linked_situation2" id="linked_situation2">
+                                           {% for link_choice in choices %}
+                                               {% if link_choice.situation != choice.situation %}
+                                                    <option>{{ link_choice.situation }}</option>
+                                               {% endif %}
+                                           {% endfor %}
+                                       </select>
+                                    {% else %}
+                                        <li>{{ choice.linked_situation2 }}</li>
+                                   {% endif %}
                                </dd>
-                           <dd> <input type="submit" value="Link"></dd>
+                            {% if  choice.linked_situation1 == None or choice.linked_situation2 == None %}
+                           <dd><input type="submit" value="Link"></dd>
+                            {% endif %}
                        </dl>
                    </form>
-               {% else  %}
-                    <ul>
-                       <li>{{ choice.situation }}</li>
-
-                       <li>{{ choice.option1 }}</li>
-
-                       <li>{{ choice.linked_situation1 }}</li>
-
-                       <li>{{ choice.option2 }}</li>
-
-                       <li>{{ choice.linked_situation2 }}</li>
-                    </ul>
-               {% endif %}
             {% endfor %}
         </div>
         <audio loop="True" id="GCM">

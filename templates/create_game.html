@@ -10,11 +10,11 @@
         <div class="Create_Fields">
              <form action="{{ url_for('create_handler') }}" method="post">
                 <dl>
-                    <dt class="primary_field"> Situation </dt>
+                    <h2 class="primary_field"> Situation </h2>
                     <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
                 </dl>
                 <dl>
-                    <dt class="secondary_field"> Choices </dt>
+                    <h3 class="secondary_field"> Choices </h3>
                         <div class="Choice_Content">
                             <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
                             <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
@@ -24,6 +24,8 @@
                     <input type="submit" value="Add Situation" class="Save">
                 </dl>
             </form>
+            <h4 class="secondary_field">Link Situations to Choices</h4>
+        </div>
      {% for choice in choices %}
                    <form class="link" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
@@ -47,10 +49,12 @@
                                            {% endfor %}
                                        </select>
                                </dd>
+                               <dd>
+                                   <input type="submit" value="Link" id="link_submit">
+                               </dd>
                        </dl>
                    </form>
             {% endfor %}
-        </div>
         <audio loop="True" id="GCM">
           <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
           <!--Credit to Mike Leite for music -->

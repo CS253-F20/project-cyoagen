@@ -74,14 +74,13 @@ def create_account():
     db = get_db()
     username = request.form['username']
     password = werkzeug.security.generate_password_hash(request.form['password'])
-    choices = {}
     # Search for entered username in the database
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()
     # If username is not already taken, create account and return homepage
     if not user_list:
         db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
-                   [username, password, str(choices)])
+                   [username, password])
         db.commit()
         return redirect(url_for('homepage'))
     # If username is taken, flash a message and return the account creation page

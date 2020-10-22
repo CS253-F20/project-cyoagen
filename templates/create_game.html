@@ -24,42 +24,43 @@
                     <input type="submit" value="Add Situation" class="Save">
                 </dl>
             </form>
+     {% for choice in choices %}
+                {% if choice.linkid == NULL %}
+                   <form class="link">
+                       <dl>
+                           <dt> {{ choice.situation }}</dt>
+                               <dd> {{ choice.option1 }}
+                                   <select name="linked_situation" id="linked_situation">
+                                       {% for choices in choices %}
+                                           <option value={{ choice.situation }}>{{ choice.situation }}</option>
+                                       {% endfor %}
+                                   </select>
+                               </dd>
+                               <dd> {{ choice.option2 }}
+                                   <select name="linked_situation" id="linked_situation">
+                                       {% for choice in choices %}
+                                           <option value={{ choice.situation }}>{{ choice.situation }}</option>
+                                       {% endfor %}
+                                   </select>
+                               </dd>
+                           <dd> <input type="submit" value="Link"></dd>
+                       </dl>
+                   </form>
+               {% else  %}
+                    <ul>
+                       <li>{{ choice.situation }}</li>
+
+                       <li>{{ choice.option1 }}</li>
+
+                       <li>{{ choice.linked_situation1 }}</li>
+
+                       <li>{{ choice.option2 }}</li>
+
+                       <li>{{ choice.linked_situation2 }}</li>
+                    </ul>
+               {% endif %}
+            {% endfor %}
         </div>
-        {# {% for choices in accounts %}
-        {#            {% if choices.linkid == NULL %}
-        {#               <form>
-        {#                   <dl>
-        {#                       <dt> {{ choices.situation }}</dt>
-        {#                           <dd> {{ choices.option1 }}
-        {#                               <select name="linked_situation" id="linked_situation">
-        {#                                   {% for choices in accounts %}
-        {#                                       <option value={{ choices.situation }}>{{ choices.situation }}</option>
-        {#                                   {% endfor %}
-        {#                               </select>
-        {#                           </dd>
-        {#                           <dd> {{ choices.option2 }}
-        {#                               <select name="linked_situation" id="linked_situation">
-        {#                                   {% for choices in accounts %}
-        {#                                       <option value={{ choices.situation }}>{{ choices.situation }}</option>
-        {#                                   {% endfor %}
-        {#                               </select>
-        {#                           </dd>
-        {#                   </dl>
-        {#               </form>
-        {#           {% else  %}
-        {#                <ul>
-        {#                   <li>{{ choices.situation }}</li>
-        {#
-        {#                   <li>{{ choices.option1 }}</li>
-        {#
-        {#                   <li>{{ choices.linked_situation1 }}</li>
-        {#
-        {#                   <li>{{ choices.option2 }}</li>
-        {#
-        {#                   <li>{{ choices.linked_situation2 }}</li>
-        {#                </ul>
-        {#           {% endif %}
-        {#        {% endfor %} #}
         <audio loop="True" id="GCM">
           <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
           <!--Credit to Mike Leite for music -->

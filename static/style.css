@@ -158,3 +158,8 @@ a.Navlink:hover, a.Navlink:focus {
   width: 200px;
   font-size: 20px;
 }
+
+.link {
+  font-family: Star;
+}
+

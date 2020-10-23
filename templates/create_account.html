@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
     <div class="Create_Fields">
     <form action="{{ url_for('create_account') }}" method="post" class="create_account">
         <dl>

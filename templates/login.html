@@ -1,17 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="page">
-        <h1>
-            <ul class="NavBar">
-                <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-                <p class="page_title"> Login </p>
-            </ul>
-        </h1>
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
         {% endfor %}
-
-        <body>
         <div class="Create_Fields">
             <form action="{{ url_for('login_handler') }}" method="post" class="login">
                 <dl>
@@ -23,6 +14,4 @@
                 </dl>
               </form>
         </div>
-        </body>
-    </div>
 {% endblock %}

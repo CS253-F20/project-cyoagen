@@ -1,11 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>
-      <ul class="NavBar">
-        <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-        <p class="page_title"> Title Creation </p>
-      </ul>
-    </h1>
     <div class="Create_Fields">
         <form action="{{ url_for('handle_title') }}" method="post">
             <dl>
@@ -21,5 +15,4 @@
             </dl>
         </form>
     </div>
-
 {% endblock %}

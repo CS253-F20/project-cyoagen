@@ -1,12 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-        <h1>
-          <ul class="NavBar">
-            <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-            <li id="page_title"> Browse Games </li>
-          </ul>
-        </h1>
-    <body>
         <form action="{{ url_for('search') }}" method="post" class="search">
           Search usernames:
           <input type="text" size="15" id="content" name="username">
@@ -17,5 +10,4 @@
                 <li id="list_games">{{ account.username }}</li>
             </ul>
         {% endfor %}
-    </body>
 {% endblock %}

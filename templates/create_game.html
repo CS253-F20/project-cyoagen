@@ -1,73 +1,70 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>
-      <ul class="NavBar">
-        <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-        <p class="page_title"> Game Creation </p>
-      </ul>
-    </h1>
-    <body>
-        <div class="Create_Fields">
-             <form action="{{ url_for('create_handler') }}" method="post">
-                <dl>
-                    <h2 class="primary_field"> Situation </h2>
-                    <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
-                </dl>
-                <dl>
-                    <h3 class="secondary_field"> Choices </h3>
-                        <div class="Choice_Content">
-                            <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
-                            <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
-                        </div>
-                </dl>
-                <dl>
-                    <input type="submit" value="Add Situation" class="Save">
-                </dl>
-            </form>
-            <h4 class="secondary_field">Link Situations to Choices</h4>
-        </div>
-     {% for choice in choices %}
-                   <form class="link" action="{{ url_for('linking_handler')}}" method="post">
-                       <input type="hidden" value="{{ choice.id }}" name="id"  />
-                       <dl>
-                           <dt> {{ choice.situation }}</dt>
-                               <dd> {{ choice.option1 }}
-                                       <select name="linked_situation1" id="linked_situation1">
-                                           {% for link_choice in choices %}
-                                               {% if link_choice.situation != choice.situation %}
-                                                    <option>{{ link_choice.situation }}</option>
-                                               {% endif %}
-                                           {% endfor %}
-                                       </select>
-                               </dd>
-                               <dd> {{ choice.option2 }}
-                                       <select name="linked_situation2" id="linked_situation2">
-                                           {% for link_choice in choices %}
-                                               {% if link_choice.situation != choice.situation %}
-                                                    <option>{{ link_choice.situation }}</option>
-                                               {% endif %}
-                                           {% endfor %}
-                                       </select>
-                               </dd>
-                               <dd>
-                                   <input type="submit" value="Link" id="link_submit">
-                               </dd>
-                       </dl>
-                   </form>
-            {% endfor %}
-        <audio loop="True" id="GCM">
-          <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
-          <!--Credit to Mike Leite for music -->
-        </audio>
-        <script type="text/javascript">
-          window.onload=function(){
-              const music = document.getElementById('GCM');
-              music.volume = .005;
-              music.play();
-              {% for message in get_flashed_messages() %}
-              alert('{{ message }}')
-              {% endfor %}
-          }
-        </script>
-    </body>
+    <!-- Code for creating a choice section -->
+    <div class="Create_Fields">
+         <form action="{{ url_for('create_handler') }}" method="post">
+            <dl>
+                <h2 class="primary_field"> Situation </h2>
+                <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
+            </dl>
+            <dl>
+                <h3 class="secondary_field"> Choices </h3>
+                    <div class="Choice_Content">
+                        <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
+                        <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
+                    </div>
+            </dl>
+            <dl>
+                <input type="submit" value="Add Situation" class="Save">
+            </dl>
+        </form>
+        <h4 class="secondary_field">Link Situations to Choices</h4>
+    </div>
+
+    <!--Code for linking choices section -->
+    {% for choice in choices %}
+               <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+                   <input type="hidden" value="{{ choice.id }}" name="id"  />
+                   <dl>
+                       <dt> {{ choice.situation }}</dt>
+                           <dd> {{ choice.option1 }}
+                                   <select name="linked_situation1" id="linked_situation1">
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option>{{ link_choice.situation }}</option>
+                                           {% endif %}
+                                       {% endfor %}
+                                   </select>
+                           </dd>
+                           <dd> {{ choice.option2 }}
+                                   <select name="linked_situation2" id="linked_situation2">
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option>{{ link_choice.situation }}</option>
+                                           {% endif %}
+                                       {% endfor %}
+                                   </select>
+                           </dd>
+                           <dd>
+                               <input type="submit" value="Link" id="link_submit">
+                           </dd>
+                   </dl>
+               </form>
+        {% endfor %}
+
+    <!-- Code for music -->
+    <audio loop="True" id="GCM">
+      <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >
+      <!--Credit to Mike Leite for music -->
+    </audio>
+    <script type="text/javascript">
+      window.onload=function(){
+          const music = document.getElementById('GCM');
+          music.volume = .005;
+          music.play();
+          {% for message in get_flashed_messages() %}
+          alert('{{ message }}')
+          {% endfor %}
+      }
+    </script>
 {% endblock %}

@@ -1,12 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-        <h1>
-          <ul class="NavBar">
-            <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-            <p class="page_title"> Browse Games </p>
-          </ul>
-        </h1>
-    <body>
     <div class="Create_Fields">
         <form action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
         the page renders -->
@@ -29,5 +22,4 @@
         <div class="flash">{{ message }}</div>
     {% endfor %}
     </div>
-    </body>
 {% endblock %}

@@ -56,9 +56,9 @@ def close_db(error):
 @app.route('/')
 def homepage():
     if 'username' in session:  # If logged in, display "welcome (username)"
-        return render_template('Home.html', User=session['username'])
+        return render_template('Home.html', Page="Home", User=session['username'])
     else:  # Else display "welcome user"
-        return render_template('Home.html', User="User")
+        return render_template('Home.html', Page="Home", User="User")
 
 
 # Renders homepage
@@ -91,7 +91,7 @@ def create_account():
 
 @app.route('/login')
 def login_page():
-    return render_template('login.html')
+    return render_template('login.html', Page="Login")
 
 
 @app.route('/process_login', methods=['POST'])
@@ -129,7 +129,7 @@ def create_page():
     db = get_db()
     cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?', [session['username']])
     choices = cur.fetchall()
-    return render_template('create_game.html', choices=choices)
+    return render_template('create_game.html', Page="Creation", choices=choices)
 
 
 # Renders page for game creation
@@ -204,7 +204,7 @@ def link_choice():
 
 @app.route('/browse_game')
 def browse_game():
-    return render_template('browse_game.html')
+    return render_template('browse_game.html', Page="Browse Games")
 
 
 @app.route('/search_game', methods=['POST'])

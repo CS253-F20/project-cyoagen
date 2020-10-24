@@ -19,21 +19,30 @@ html {
 #App_Title {
   font-size: 100px;
   font-family:Game;
-  margin-top: 175px;
+  margin-top: 150px;
   text-align: center;
 }
 
+#page_title {
+  font-family: Game;
+  font-size: 40px;
+  text-align: center;
+  margin-top: -5px;
+  position: relative;
+  z-index: 5000;
+}
+
 .NavBar {
-  top: -32px;
+  top: -25px;
   left: 0;
   right: 0;
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 40px;
   background-color: #EAD60C;
 }
 
-ul, li {
+li {
   background-color: #EAD60C;
   color:#541313;
   display: inline;
@@ -41,35 +50,32 @@ ul, li {
   /* Display and list-style-type attributes found on W3schools*/
 }
 
-.welcome {
-  position: fixed;
-  left: 24px;
-}
-
-.Navlink {
+.NavlinkL {
+  float: left;
+  margin-top: 4px;
+  font-size: 30px;
   color: #541313;
   text-decoration: none;
-  /* Text-decoration attribute found on W3schools*/
+  padding-right: 75px;
+  position: relative;
+  z-index: 5001;
 }
 
-a.Navlink:hover, a.Navlink:focus {
+.NavlinkR {
+  float: right;
+  margin-top: 4px;
+  font-size: 30px;
+  color: #541313;
+  text-decoration: none;
+  padding-right: 75px;
+  position: relative;
+  z-index: 5001;
+}
+
+a.NavlinkL:hover, a.NavlinkL:focus, a.NavlinkR:hover, a.NavlinkR:focus {
   color:Black;
 }
 
-#Login {
-  position: fixed;
-  left: 35%;
-}
-
-#Logout {
-  position: fixed;
-  right: 24px;
-}
-
-#Create_Account {
-  position: fixed;
-  right: 25%;
-}
 .playbutton  {
   color: black;
   background-color: #EAD60C;
@@ -89,13 +95,6 @@ a.Navlink:hover, a.Navlink:focus {
   position: fixed;
   top: 50%;
   right: 25%;
-}
-
-.page_title {
-  margin-top: -35px;
-  text-align: center;
-  font-family: Game;
-  font-size: 40px;
 }
 
 .Create_Fields {

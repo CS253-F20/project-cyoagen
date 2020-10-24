@@ -137,9 +137,42 @@ def create_page():
 @app.route('/process_title', methods=['POST'])
 def handle_title():
     db = get_db()
-    db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)',
-               [request.form['title'], request.form['description'], session['username']])
+    choice_id = request.form['id']
+    cur = db.execute('SELECT (linked_situation1, linked_situation2) FROM choices WHERE id = ?',
+                     [id, ])
+    links = cur.fetchone()
+    current_list = {}
+    if links[0] is not None or links[1] is not None:
+        current_list = read_tree(current_list, choice_id)
+
+    db.execute('INSERT INTO games (title, description, username, sequence) VALUES (?, ?, ?, ?)',
+               [request.form['title'], request.form['description'], session['username'], current_list])
     return redirect(url_for('create_page'))
+
+
+def read_tree(current, key):
+    db = get_db()
+    current_list = current
+    cur = db.execute('SELECT (situation, option1, option2, linked_situation1, linked_situation2) FROM choices WHERE '
+                     'id = ?',
+                     [key, ])
+    result = cur.fetchone()
+    current_list[result[0]] = [result[1], result[2]]
+    if result[3] is not None:
+        cur = db.execute('SELECT (id) FROM choices WHERE situation = ?',
+                         [result[3]])
+        key = cur.fetchone()
+        current_list.update(read_tree(current_list, key[0]))
+    if result[4] is not None:
+        cur = db.execute('SELECT (id) FROM choices WHERE situation = ?',
+                         [result[4]])
+        key = cur.fetchone()
+        current_list.update(read_tree(current_list, key[0]))
+        return current_list
+    elif result[3] is not None:
+        return current_list
+    if result[3] is None and result[4] is None:
+        return current_list
 
 
 @app.route('/create_handler', methods=['POST'])
@@ -188,9 +221,10 @@ def search():
         return render_template('search_game.html', accounts=account)
 
 
-@app.route('/title')
+@app.route('/title', methods=['POST'])
 def create_title_page():
-    return render_template('create_title.html')
+    choice_id = request.form['id']
+    return render_template('create_title.html', id=choice_id)
 
 
 @app.route('/linking_handler', methods=['POST'])

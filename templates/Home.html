@@ -1,18 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-
-    <h1>
-      <ul class="NavBar">
-        <li class="welcome"> Welcome {{ User }} </li>
-        <li> <a href="{{ url_for('login_page') }}" class="Navlink" id="Login">Log In</a> </li>
-        <li> <a href="{{ url_for('logout_handler') }}" class="Navlink" id="Logout">Log Out</a> </li>
-        <li> <a href="{{ url_for('account_page') }}" class="Navlink" id="Create_Account">Create Account</a> </li>
-      </ul>
-    </h1>
-  <body>
+    <!-- Code for main title and buttons -->
     <h2 id="App_Title"> CYOA GEN </h2>
-    <a href="{{ url_for('browse_game') }}"><button class="playbutton">Play</button></a>
-    <a href="{{ url_for('create_page') }}"><button class="createbutton">Create</button></a>
+        <a href="{{ url_for('browse_game') }}"><button class="playbutton">Play</button></a>
+        <a href="{{ url_for('create_page') }}"><button class="createbutton">Create</button></a>
+
+    <!-- Code for Music -->
     <audio loop="True" id="tetris">
       <source src="{{ url_for('static', filename='Tetris.mp3') }}" type="audio/mp3" >
       <!--Credit to Joey von Clef for music from Musescore -->
@@ -27,5 +20,4 @@
           {% endfor %}
       }
     </script>
-  </body>
 {% endblock %}

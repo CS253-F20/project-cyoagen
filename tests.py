@@ -3,6 +3,7 @@ import app as project
 import unittest
 import tempfile
 
+
 class Project(unittest.TestCase):
 
     def setUp(self):
@@ -31,6 +32,10 @@ class Project(unittest.TestCase):
     def test_create_page(self):
         rv = self.app.get('/create_game')
         assert b'Situation' in rv.data
+
+    def test_create_title_page(self):
+        rv = self.app.get('/title')
+        assert b'Title' in rv.data
 
 
 if __name__ == '__main__':

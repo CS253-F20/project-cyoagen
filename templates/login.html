@@ -1,22 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="page">
-        <h1>Choose Your Own Adventure Generator</h1>
-
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
         {% endfor %}
-
-        <body>
-        <form action="{{ url_for('login_handler') }}" method="post" class="login">
-            <dl>
-              <dt>Username:
-              <dd><input type="text" size="15" name="username">
-              <dt>Password:
-              <dd><input type="password" size="20" name="password">
-              <dd><input type="submit" value="Log In">
-            </dl>
-          </form>
-        </body>
-    </div>
+        <div class="Create_Fields">
+            <form action="{{ url_for('login_handler') }}" method="post" class="login">
+                <dl>
+                  <dt class="secondary_field">Username:
+                  <dd><input type="text" size="15" name="username" class = "login_input">
+                  <dt class="secondary_field">Password:
+                  <dd><input type="password" size="20" name="password" class="login_input">
+                  <dd><input type="submit" value="Log In" class="Save">
+                </dl>
+              </form>
+        </div>
 {% endblock %}

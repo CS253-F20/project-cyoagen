@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 {% extends "layout.html" %}
 {% block body %}
-        <h1>
-          <ul class="NavBar">
-            <li> <a href="{{ url_for('homepage') }}" class="Navlink">Home</a> </li>
-            <li id="page_title"> Browse Games </li>
-          </ul>
-        </h1>
-    <body>
+    <div class="Create_Fields">
         <form action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
         the page renders -->
           Search usernames:
@@ -28,5 +21,5 @@
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
     {% endfor %}
-    </body>
+    </div>
 {% endblock %}

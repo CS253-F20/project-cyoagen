@@ -1,6 +1,40 @@
 <!doctype html>
-<title>Choose Your Own Adventure Generator</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-<div class="page">
-    {% block body %}{% endblock %}
-</div>
+<html>
+    <head>
+      <title>Choose Your Own Adventure Generator</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        {% if User == "User"  %}
+            <h1 id="page_title">{{ Page }}</h1>
+            <h2>
+              <ul class="NavBar">
+                <li> <a href="{{ url_for('login_page') }}" class ="NavlinkL" id="Login">Log In</a> </li>
+                <li> <a href="{{ url_for('account_page') }}" class="NavlinkR" id="Create_Account">Create Account</a> </li>
+              </ul>
+            </h2>
+
+        {% elif Page == "Home"  %}
+            <h1 id="page_title">{{ Page }}</h1>
+            <h2>
+              <ul class="NavBar">
+                <li id="Welcome" class="NavlinkL"> Welcome {{ User }} </li>
+                <li> <a href="{{ url_for('logout_handler') }}" class="NavlinkR" id="Logout">Log Out</a> </li>
+              </ul>
+            </h2>
+
+        {% else %}
+            <h1 id="page_title">{{ Page }}</h1>
+            <h2>
+              <ul class="NavBar">
+                <li> <a href="{{ url_for('homepage') }}" class="NavlinkL">Home</a></li>
+                <li> <a href="{{ url_for('logout_handler') }}" class="NavlinkR" id="Logout">Log Out</a> </li>
+              </ul>
+            </h2>
+        {% endif %}
+        <div class="page">
+            {% block body %}{% endblock %}
+        </div>
+
+    </body>
+</html>

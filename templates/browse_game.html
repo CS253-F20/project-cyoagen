@@ -3,18 +3,18 @@
     <div class="Create_Fields">
         <form action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
         the page renders -->
-          Search usernames:
-          <input type="text" size="15" id="content" name="username">
+          Search games:
+          <input type="text" size="15" id="content" name="search_game">
             <input type="submit" value="Search">
         </form>
 
-        <ul class="accounts">
-        {% for account in accounts %}
+        <ul class="games">
+        {% for game in games %}
           <li>
-            <h3>{{ account.username }}</h3>
+            <h3>{{ game.title }}</h3>
           </li>
         {% else %}
-          <li><em>No username has been taken so far</em></li>
+          <li><em>No game has been created so far</em></li>
         {% endfor %}
         </ul>
 

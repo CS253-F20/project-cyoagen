@@ -189,7 +189,7 @@ def create_handler():
                [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username']])
     # Add the choices back to the database with new entries.
     db.commit()
-    flash('Situation was succesfully saved!')
+    flash('Situation was successfully saved!')
     return redirect(url_for('create_page'))
 
 
@@ -210,11 +210,11 @@ def browse_game():
 @app.route('/search_game', methods=['POST'])
 def search():
     db = get_db()
-    search_username = request.form['username']
-    cur = db.execute('SELECT username FROM accounts where username = ?', [search_username])
+    search_game = request.form['search_game']
+    cur = db.execute('SELECT title FROM games where title = ?', [search_game])
     user_list = cur.fetchall()
     if not user_list:
-        flash('No username like this')
+        flash('No games like this')
         return redirect(url_for('browse_game'))
     else:
         account = user_list

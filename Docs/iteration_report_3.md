@@ -43,7 +43,7 @@
         - Completed By: Drew
 
 - Created frontend code for creating a title and description for a game
-    - Wrote HTML and CSS code for a page where the user can input a title and description for their game.
+    - Wrote HTML and CSS code for a page where the user can input a title and description for their game
         - Completed By: Drew
         
 - Created backend code for creating a title and description for a game
@@ -57,15 +57,19 @@
 
 - Brainstorming a way to link choices that would make it easy on the user as well as the developers
     - This was a difficult task, however we were able to think through it and reach a solution through collaboration
-    with each other, as well as Professor Liffiton.
+    with each other, as well as Professor Liffiton
+    
+- We have two failing tests at the moment due to being in th middle of finishing up a feature
+    - The application works as intended right now, the tests are just failing
+        - Should be fixed by finishing up the feature that allows for storing a title with its linked choice
     
 ## Adjustments to Overall Design
 
-- No changes made thus far.
+- No changes made thus far
 
 ## Helpful Tools/Processes
 
-- Open communication was imperative for this iteration as we had multiple people working on a complex story.
+- Open communication was imperative for this iteration as we had multiple people working on a complex story
 
 ## Plan for Iteration 3
 
@@ -76,14 +80,14 @@
             
 - Finish code for saving a title linked to a set of choices
     - Write frontend and backend code that allows a user to create a title and description that will be linked to a set
-    of choices.
-        - This is nearly done, just needs to be finished and polished.
+    of choices
+        - This is nearly done, just needs to be finished and polished
             - Assigned To: Evan and Drew
             
 - Have users be able to create a game and see it on the browse games page
     - Polish and tidy up each individual's work so that this experience is achievable by the end of the week
         - The parts should mostly be there, now we just need to make the last touches to make sure they all work
-        together.
+        together
             - Assigned To: Team
         
             

@@ -127,10 +127,11 @@ def logout_handler():
 @app.route('/create_game')
 def create_page():
     if 'username' not in session:
-        return(redirect(url_for('login_page')))
+        return redirect(url_for('login_page'))
     else:
         db = get_db()
-        cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?', [session['username']])
+        cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?',
+                         [session['username']])
         choices = cur.fetchall()
         return render_template('create_game.html', Page="Creation", choices=choices)
 
@@ -141,24 +142,24 @@ def create_page():
 def handle_title():
     db = get_db()
     choice_id = request.form['id']
-    cur = db.execute('SELECT (linked_situation1, linked_situation2) FROM choices WHERE id = ?',
-                     [id, ])
+    cur = db.execute('SELECT linked_situation1, linked_situation2 FROM choices WHERE id = ?',
+                     [choice_id])
     links = cur.fetchone()
     current_list = {}
     if links[0] is not None or links[1] is not None:
         current_list = read_tree(current_list, choice_id)
 
     db.execute('INSERT INTO games (title, description, username, sequence) VALUES (?, ?, ?, ?)',
-               [request.form['title'], request.form['description'], session['username'], current_list])
+               [request.form['title'], request.form['description'], session['username'], str(current_list)])
+    db.commit()
     return redirect(url_for('create_page'))
 
 
 def read_tree(current, key):
     db = get_db()
     current_list = current
-    cur = db.execute('SELECT (situation, option1, option2, linked_situation1, linked_situation2) FROM choices WHERE '
-                     'id = ?',
-                     [key, ])
+    cur = db.execute('SELECT situation, option1, option2, linked_situation1, linked_situation2 FROM choices WHERE '
+                     'id = ?', [key])
     result = cur.fetchone()
     current_list[result[0]] = [result[1], result[2], result[3], result[4]]
     if result[3] is not None:
@@ -192,7 +193,7 @@ def create_handler():
                [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username']])
     # Add the choices back to the database with new entries.
     db.commit()
-    flash('Situation was succesfully saved!')
+    flash('Situation was successfully saved!')
     return redirect(url_for('create_page'))
 
 

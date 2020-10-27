@@ -160,6 +160,7 @@ a.NavlinkL:hover, a.NavlinkL:focus, a.NavlinkR:hover, a.NavlinkR:focus {
 
 .link {
   text-align: center;
+  align-content: center;
   font-family: Star;
   line-height: 40px;
 }
@@ -169,7 +170,18 @@ a.NavlinkL:hover, a.NavlinkL:focus, a.NavlinkR:hover, a.NavlinkR:focus {
   background-color: #EAD60C;
   font-family: Star;
   font-size:10px;
+  text-align: center;
   height: 20px;
   width: 75px;
+}
+
+#first_submit {
+  color: black;
+  background-color: #EAD60C;
+  font-family: Star;
+  font-size:10px;
+  text-align: center;
+  height: 20px;
+  width: 200px;
 }
 

@@ -23,12 +23,15 @@
 
     <!--Code for linking choices section -->
     {% for choice in choices %}
+        <!-- if a situation does not have its choices linked to another situation, then display it on the page with
+        dropdown menus that allow the user to link situations to its choices -->
         {% if choice.linked_situation1 == None %}
                    <form class="link" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <dl>
                            <dt> {{ choice.situation }}</dt>
                                <dd> {{ choice.option1 }} |
+                               <!--This creates a dropdown of available situations to link the choice to-->
                                        <select name="linked_situation1" id="linked_situation1">
                                            {% for link_choice in choices %}
                                                {% if link_choice.situation != choice.situation %}
@@ -51,11 +54,16 @@
                                </dd>
                        </dl>
                    </form>
-                   <form class = "link" action="{{ url_for('create_title_page')}}" method="post">
+                <!-- This is a form that allows the user to designate a situation as the beginning of a game. Once they
+                do so, they will be taken to the title creation screen. Note: This will likely be changed soon. -->
+                <form class = "link" action="{{ url_for('create_title_page')}}" method="post">
                     <input type="hidden" value="{{ choice.id }}" name="id"  />
                     <input type="submit" value="First Situation" id="first_submit">
-               </form>
+                </form>
             <hr>
+        <!--Otherwise, display the situation with its choices and what other situations they are linked to. The code
+        also provides the user with a button that will clear the linked situations in case they want to change what
+        is linked. -->
         {% else %}
              <form class="link" action="{{ url_for('clearlink_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />

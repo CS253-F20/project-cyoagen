@@ -130,8 +130,8 @@ def create_page():
         return redirect(url_for('login_page'))
     else:
         db = get_db()
-        cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?',
-                         [session['username']])
+        cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
+                         'where username = ?',[session['username']])
         choices = cur.fetchall()
         return render_template('create_game.html', Page="Creation", choices=choices)
 

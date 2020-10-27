@@ -126,10 +126,13 @@ def logout_handler():
 
 @app.route('/create_game')
 def create_page():
-    db = get_db()
-    cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?', [session['username']])
-    choices = cur.fetchall()
-    return render_template('create_game.html', Page="Creation", choices=choices)
+    if 'username' not in session:
+        return(redirect(url_for('login_page')))
+    else:
+        db = get_db()
+        cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?', [session['username']])
+        choices = cur.fetchall()
+        return render_template('create_game.html', Page="Creation", choices=choices)
 
 
 # Renders page for game creation
@@ -157,7 +160,7 @@ def read_tree(current, key):
                      'id = ?',
                      [key, ])
     result = cur.fetchone()
-    current_list[result[0]] = [result[1], result[2]]
+    current_list[result[0]] = [result[1], result[2], result[3], result[4]]
     if result[3] is not None:
         cur = db.execute('SELECT (id) FROM choices WHERE situation = ?',
                          [result[3]])
@@ -189,7 +192,7 @@ def create_handler():
                [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username']])
     # Add the choices back to the database with new entries.
     db.commit()
-    flash('Situation was successfully saved!')
+    flash('Situation was succesfully saved!')
     return redirect(url_for('create_page'))
 
 

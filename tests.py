@@ -4,6 +4,14 @@ import unittest
 import tempfile
 
 
+def login(self, username, password):
+    return self.app.post('/process_login', data=dict(username=username, password=password), follow_redirects=True)
+
+
+def register(self, username, password):
+    return self.app.post('/create_account', data=dict(username=username, password=password), follow_redirects=True)
+
+
 class Project(unittest.TestCase):
 
     def setUp(self):
@@ -30,11 +38,13 @@ class Project(unittest.TestCase):
         assert b'username' in rv.data
 
     def test_create_page(self):
+        register(self,'testUser', 'verySecure')
+        login(self, 'testUser', 'verySecure')
         rv = self.app.get('/create_game')
         assert b'Situation' in rv.data
 
     def test_create_title_page(self):
-        rv = self.app.get('/title')
+        rv = self.app.post('/title', data=dict(id=0), follow_redirects=True)
         assert b'Title' in rv.data
 
 

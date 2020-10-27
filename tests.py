@@ -4,14 +4,6 @@ import unittest
 import tempfile
 
 
-def login(self, username, password):
-    return self.app.post('/process_login', data=dict(username=username, password=password), follow_redirects=True)
-
-
-def register(self, username, password):
-    return self.app.post('/create_account', data=dict(username=username, password=password), follow_redirects=True)
-
-
 class Project(unittest.TestCase):
 
     def setUp(self):
@@ -24,6 +16,12 @@ class Project(unittest.TestCase):
     def tearDown(self):
         os.close(self.db_fd)
         os.unlink(project.app.config['DATABASE'])
+
+    def login(self, username, password):
+        return self.app.post('/process_login', data=dict(username=username, password=password), follow_redirects=True)
+
+    def register(self, username, password):
+        return self.app.post('/create_account', data=dict(username=username, password=password), follow_redirects=True)
 
     def test_home(self):
         rv = self.app.get('/')
@@ -38,8 +36,8 @@ class Project(unittest.TestCase):
         assert b'username' in rv.data
 
     def test_create_page(self):
-        register(self,'testUser', 'verySecure')
-        login(self, 'testUser', 'verySecure')
+        self.register('testUser', 'verySecure')
+        self.login('testUser', 'verySecure')
         rv = self.app.get('/create_game')
         assert b'Situation' in rv.data
 

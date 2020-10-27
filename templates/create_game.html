@@ -51,10 +51,10 @@
                                </dd>
                        </dl>
                    </form>
-                   <form class = "link">
-                        <input type="hidden">
-                        <input type="submit" value="First Situation" class="link_submit" id="first_submit">
-                   </form>
+                   <form class = "link" action="{{ url_for('create_title_page')}}" method="post">
+                    <input type="hidden" value="{{ choice.id }}" name="id"  />
+                    <input type="submit" value="First Situation" id="first_submit">
+               </form>
             <hr>
         {% else %}
              <form class="link" action="{{ url_for('clearlink_handler')}}" method="post">

@@ -57,7 +57,7 @@
                    </form>
             <hr>
         {% else %}
-             <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+             <form class="link" action="{{ url_for('clearlink_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <dl>
                            <dt> {{ choice.situation }}</dt>

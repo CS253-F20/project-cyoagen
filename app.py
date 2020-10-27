@@ -127,10 +127,11 @@ def logout_handler():
 @app.route('/create_game')
 def create_page():
     if 'username' not in session:
-        return(redirect(url_for('login_page')))
+        return (redirect(url_for('login_page')))
     else:
         db = get_db()
-        cur = db.execute('SELECT option1, option2, situation, id FROM choices where username = ?', [session['username']])
+        cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
+                         'where username = ?', [session['username']])
         choices = cur.fetchall()
         return render_template('create_game.html', Page="Creation", choices=choices)
 
@@ -196,15 +197,6 @@ def create_handler():
     return redirect(url_for('create_page'))
 
 
-@app.route('/link', methods=['POST'])
-def link_choice():
-    return redirect(url_for('create_page'))
-
-
-# This function will be called by create_handler if the choice/situation table is not empty.
-# This function will ask the creator to link the added situation to an already existing choice in the database.
-
-
 @app.route('/browse_game')
 def browse_game():
     return render_template('browse_game.html', Page="Browse Games")
@@ -237,6 +229,17 @@ def linking_handler():
                [request.form['linked_situation1'], request.form['linked_situation2'], request.form['id']])
     db.commit()
     return redirect(url_for('create_page'))
+
+
+@app.route('/clearlink_handler', methods=['POST'])
+def clearlink_handler():
+    db = get_db()
+    # Update choices to set linked situations to null
+    db.execute('UPDATE choices SET linked_situation1 = NULL , linked_situation2 = NULL where id = ?',
+               [request.form['id']])
+    db.commit()
+    return redirect(url_for('create_page'))
+# Function that clears linked situations for a choice
 
 
 if __name__ == '__main__':

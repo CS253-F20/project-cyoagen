@@ -42,7 +42,7 @@ html {
   background-color: #EAD60C;
 }
 
-li {
+ul.NavBar {
   background-color: #EAD60C;
   color:#541313;
   display: inline;
@@ -165,7 +165,7 @@ a.NavlinkL:hover, a.NavlinkL:focus, a.NavlinkR:hover, a.NavlinkR:focus {
   line-height: 40px;
 }
 
-#link_submit {
+.link_submit {
   color: black;
   background-color: #EAD60C;
   font-family: Star;
@@ -184,4 +184,11 @@ a.NavlinkL:hover, a.NavlinkL:focus, a.NavlinkR:hover, a.NavlinkR:focus {
   height: 20px;
   width: 200px;
 }
+
+ul.link {
+  display: inline;
+  list-style-type: none;
+  /* Display and list-style-type attributes found on W3schools*/
+}
+
 

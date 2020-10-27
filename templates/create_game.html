@@ -23,38 +23,58 @@
 
     <!--Code for linking choices section -->
     {% for choice in choices %}
-               <form class="link" action="{{ url_for('linking_handler')}}" method="post">
-                   <input type="hidden" value="{{ choice.id }}" name="id"  />
-                   <dl>
-                       <dt> {{ choice.situation }}</dt>
-                           <dd> {{ choice.option1 }}
-                                   <select name="linked_situation1" id="linked_situation1">
-                                       {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option>{{ link_choice.situation }}</option>
-                                           {% endif %}
-                                       {% endfor %}
-                                   </select>
-                           </dd>
-                           <dd> {{ choice.option2 }}
-                                   <select name="linked_situation2" id="linked_situation2">
-                                       {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option>{{ link_choice.situation }}</option>
-                                           {% endif %}
-                                       {% endfor %}
-                                   </select>
-                           </dd>
-                           <dd>
-                               <input type="submit" value="Link" id="link_submit">
-                           </dd>
-                   </dl>
-               </form>
-               <form class = "link">
-                    <input type="hidden">
-                    <input type="submit" value="First Situation" id="first_submit">
-               </form>
-        {% endfor %}
+        {% if choice.linked_situation1 == None %}
+                   <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+                       <input type="hidden" value="{{ choice.id }}" name="id"  />
+                       <dl>
+                           <dt> {{ choice.situation }}</dt>
+                               <dd> {{ choice.option1 }} |
+                                       <select name="linked_situation1" id="linked_situation1">
+                                           {% for link_choice in choices %}
+                                               {% if link_choice.situation != choice.situation %}
+                                                    <option>{{ link_choice.situation }}</option>
+                                               {% endif %}
+                                           {% endfor %}
+                                       </select>
+                               </dd>
+                               <dd> {{ choice.option2 }} |
+                                       <select name="linked_situation2" id="linked_situation2">
+                                           {% for link_choice in choices %}
+                                               {% if link_choice.situation != choice.situation %}
+                                                    <option>{{ link_choice.situation }}</option>
+                                               {% endif %}
+                                           {% endfor %}
+                                       </select>
+                               </dd>
+                               <dd>
+                                   <input type="submit" value="Link" class="link_submit" id="link_submit">
+                               </dd>
+                       </dl>
+                   </form>
+                   <form class = "link">
+                        <input type="hidden">
+                        <input type="submit" value="First Situation" class="link_submit" id="first_submit">
+                   </form>
+            <hr>
+        {% else %}
+             <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+                       <input type="hidden" value="{{ choice.id }}" name="id"  />
+                       <dl>
+                           <dt> {{ choice.situation }}</dt>
+                               <dd> {{ choice.option1 }} |
+                                   Linked to: {{ choice.linked_situation1 }}
+                               </dd>
+                               <dd> {{ choice.option2 }} |
+                                    Linked to: {{ choice.linked_situation2 }}
+                               </dd>
+                               <dd>
+                                   <input type="submit" value="Clear" class="link_submit" id="clear_submit">
+                               </dd>
+                       </dl>
+                   </form>
+            <hr>
+        {% endif %}
+    {% endfor %}
 
     <!-- Code for music -->
     <audio loop="True" id="GCM">

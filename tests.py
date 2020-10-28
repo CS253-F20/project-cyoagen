@@ -38,11 +38,15 @@ class Project(unittest.TestCase):
     def test_create_page(self):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
-        rv = self.app.get('/create_game')
+        rv = self.app.post('/process_title',
+                           data=dict(title='title', description='desc', username='testUser', game_id=0),
+                           follow_redirects=True)
         assert b'Situation' in rv.data
 
     def test_create_title_page(self):
-        rv = self.app.post('/title', data=dict(id=0), follow_redirects=True)
+        self.register('testUser', 'verySecure')
+        self.login('testUser', 'verySecure')
+        rv = self.app.get('/title')
         assert b'Title' in rv.data
 
 

@@ -12,7 +12,8 @@ create table choices (
   'option1' text not null,
   'option2' text not null,
   'linked_situation1' integer,
-  'linked_situation2' integer
+  'linked_situation2' integer,
+  'game_id' integer not null
 );
 drop table if exists games;
 create table games (

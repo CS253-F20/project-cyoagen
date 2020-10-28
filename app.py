@@ -124,35 +124,27 @@ def logout_handler():
     return redirect(url_for('homepage'))
 
 
-@app.route('/create_game')
-def create_page():
-    if 'username' not in session:
-        return redirect(url_for('login_page'))
-    else:
-        db = get_db()
-        cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
-                         'where username = ?',[session['username']])
-        choices = cur.fetchall()
-        return render_template('create_game.html', Page="Creation", choices=choices)
-
-
-# Renders page for game creation
-
 @app.route('/process_title', methods=['POST'])
-def handle_title():
+def process_title():
     db = get_db()
-    choice_id = request.form['id']
-    cur = db.execute('SELECT linked_situation1, linked_situation2 FROM choices WHERE id = ?',
-                     [choice_id])
-    links = cur.fetchone()
-    current_list = {}
-    if links[0] is not None or links[1] is not None:
-        current_list = read_tree(current_list, choice_id)
-
-    db.execute('INSERT INTO games (title, description, username, sequence) VALUES (?, ?, ?, ?)',
-               [request.form['title'], request.form['description'], session['username'], str(current_list)])
+    title = request.form['title']
+    desc = request.form['description']
+    username = session['username']
+    db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)', [title, desc, username])
+    cur = db.execute('SELECT id from games where title = ? AND description = ? AND username = ?',
+                     [title, desc, username])
+    game_id = cur.fetchone()
     db.commit()
-    return redirect(url_for('create_page'))
+    return create_page(game_id)
+
+
+@app.route('/create_game', methods=['POST'])
+def create_page(game_id):
+    db = get_db()
+    cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
+                     'where username = ? AND game_id = ?', [session['username'], game_id[0]])
+    choices = cur.fetchall()
+    return render_template('create_game.html', gameID=game_id[0], choices=choices)
 
 
 def read_tree(current, key):
@@ -182,19 +174,14 @@ def read_tree(current, key):
 @app.route('/create_handler', methods=['POST'])
 def create_handler():
     db = get_db()
-    # cur = db.execute('SELECT choice_one, choice_two, prompt FROM choices where username = ?', [session['username']])
-    # Grab existing choices for this account
-    # current_list = cur.fetchone()[0]
-    # current_list = eval(current_list)  # Convert existing choices to dictionary in python
-    # current_list[request.form['Situation']] = [request.form['ChoiceOne'], request.form['ChoiceTwo']]
-    # Add new saved choice to the dictionary with the question and two responses
-    # Example: "Do you open the door": ['Yes','No']
-    db.execute('INSERT INTO choices (situation, option1, option2, username) VALUES (?, ?, ?, ?)',
-               [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username']])
+    game_id = request.form['game_id']
+    db.execute('INSERT INTO choices (situation, option1, option2, username, game_id) VALUES (?, ?, ?, ?,?)',
+               [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username'],
+                game_id])
     # Add the choices back to the database with new entries.
     db.commit()
     flash('Situation was successfully saved!')
-    return redirect(url_for('create_page'))
+    return create_page(game_id)
 
 
 @app.route('/browse_game')
@@ -216,10 +203,12 @@ def search():
         return render_template('search_game.html', accounts=account)
 
 
-@app.route('/title', methods=['POST'])
+@app.route('/title')
 def create_title_page():
-    choice_id = request.form['id']
-    return render_template('create_title.html', id=choice_id)
+    if 'username' not in session:
+        return redirect(url_for('login_page'))
+    else:
+        return render_template('create_title.html')
 
 
 @app.route('/linking_handler', methods=['POST'])
@@ -228,7 +217,8 @@ def linking_handler():
     db.execute('UPDATE choices SET linked_situation1 = ?, linked_situation2 = ? where id = ?',
                [request.form['linked_situation1'], request.form['linked_situation2'], request.form['id']])
     db.commit()
-    return redirect(url_for('create_page'))
+    game_id = request.form['game_id']
+    return create_page(game_id=game_id)
 
 
 @app.route('/clearlink_handler', methods=['POST'])
@@ -238,8 +228,9 @@ def clearlink_handler():
     db.execute('UPDATE choices SET linked_situation1 = NULL , linked_situation2 = NULL where id = ?',
                [request.form['id']])
     db.commit()
-    return redirect(url_for('create_page'))
-# Function that clears linked situations for a choice
+    game_id = request.form['game_id']
+    return create_page(game_id=game_id)
+    # Function that clears linked situations for a choice
 
 
 if __name__ == '__main__':

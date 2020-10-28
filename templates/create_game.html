@@ -17,6 +17,7 @@
             <dl>
                 <input type="submit" value="Add Situation" class="Save">
             </dl>
+            <input type="hidden" value="{{ gameID }}" name="game_id"  />
         </form>
         <h4 class="secondary_field">Link Situations to Choices</h4>
     </div>
@@ -50,6 +51,7 @@
                                        </select>
                                </dd>
                                <dd>
+                                   <input type="hidden" value="{{ gameID }}" name="game_id"  />
                                    <input type="submit" value="Link" class="link_submit" id="link_submit">
                                </dd>
                        </dl>
@@ -76,6 +78,7 @@
                                     Linked to: {{ choice.linked_situation2 }}
                                </dd>
                                <dd>
+                                   <input type="hidden" value="{{ gameID }}" name="game_id"  />
                                    <input type="submit" value="Clear" class="link_submit" id="clear_submit">
                                </dd>
                        </dl>

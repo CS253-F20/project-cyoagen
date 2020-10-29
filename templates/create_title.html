@@ -1,18 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="Create_Fields">
-        <form action="{{ url_for('process_title') }}" method="post">
-            <dl>
-                <dt class="primary_field"> Game Title </dt>
-                    <dd><input id="title_input" type="text" name="title"></dd>
-            </dl>
-            <dl>
-                <dt class="secondary_field"> Description </dt>
-                    <dd><textarea rows="10" cols="100" name="description"></textarea></dd>
-            </dl>
-            <dl>
-                <input type="submit" value="Save" class="Save">
-            </dl>
-        </form>
-    </div>
+    <form class="text-center" action="{{ url_for('process_title') }}" method="post">
+        <div class="form-group">
+            <label for="title"> Game Title </label>
+            <input class="form-control" id="title_input" type="text" name="title">
+        </div>
+        <div class="form-group">
+            <label for="description"> Description </label>
+            <textarea class="form-control"rows="10" cols="100" name="description"></textarea>
+        </div>
+            <input type="submit" value="Save" class="Save">
+
+    </form>
 {% endblock %}

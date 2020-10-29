@@ -1,9 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
     <!-- Code for main title and buttons -->
-    <h2 id="App_Title"> CYOA GEN </h2>
-        <a href="{{ url_for('browse_game') }}"><button class="playbutton">Play</button></a>
-        <a href="{{ url_for('create_title_page') }}"><button class="createbutton">Create</button></a>
+
+        <h1 class="container-fluid text-center display-1" id="app_title">
+            CYOA GEN
+        </h1>
+
+        <div class="container-fluid text-center display-2">
+            <a href="{{ url_for('browse_game') }}"><button class="btn btn-primary btn-lg"> Play </button></a>
+            <a href="{{ url_for('create_title_page') }}"><button class="btn btn-primary btn-lg"> Create </button></a>
+        </div>
 
     <!-- Code for Music -->
     <audio loop="True" id="tetris">

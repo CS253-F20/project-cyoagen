@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-        {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
+
             <form class="col-lg-6 offset-lg-3 top-marg"action="{{ url_for('login_handler') }}" method="post" class="login">
                 <div class="form-group text-center display-4">
                     <label for="username">Username: </label>

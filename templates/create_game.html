@@ -97,9 +97,6 @@
           const music = document.getElementById('GCM');
           music.volume = .005;
           music.play();
-          {% for message in get_flashed_messages() %}
-          alert('{{ message }}')
-          {% endfor %}
       }
     </script>
 {% endblock %}

@@ -16,6 +16,13 @@ html body{
   background-color: cornsilk;
 }
 
+.flash {
+  background-color: #FDFD96;
+  padding: 0.5em;
+  border: 1px solid black;
+  text-align: center;
+}
+
 .standard_color {
   color: #541313;
   background-color: cornsilk;

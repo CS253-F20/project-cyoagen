@@ -8,7 +8,6 @@
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <!-- NavBar that changes based on what page you are on and what actions you've taken -->
-    <body>
         {% if User == "User" %}
             <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -66,9 +65,10 @@
             <a class="navbar-brand">{{ Page }}</a>
         </nav>
         {% endif %}
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
         <div class="page">
             {% block body %}{% endblock %}
         </div>
-
-    </body>
 </html>

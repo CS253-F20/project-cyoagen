@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
-    <form class="text-center" action="{{ url_for('process_title') }}" method="post">
-        <div class="form-group">
+    <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('process_title') }}" method="post">
+        <div class="form-group display-4 big-head">
             <label for="title"> Game Title </label>
             <input class="form-control" id="title_input" type="text" name="title">
         </div>
-        <div class="form-group">
+        <div class="form-group display-4 big-head">
             <label for="description"> Description </label>
             <textarea class="form-control"rows="10" cols="100" name="description"></textarea>
         </div>
-            <input type="submit" value="Save" class="Save">
+            <input type="submit" value="Save" class="btn btn-color">
 
     </form>
 {% endblock %}

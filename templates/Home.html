@@ -2,13 +2,13 @@
 {% block body %}
     <!-- Code for main title and buttons -->
 
-        <h1 class="container-fluid text-center display-1" id="app_title">
+        <h1 class="container-fluid text-center display-1 standard_color" id="app_title">
             CYOA GEN
         </h1>
 
-        <div class="container-fluid text-center display-2">
-            <a href="{{ url_for('browse_game') }}"><button class="btn btn-primary btn-lg"> Play </button></a>
-            <a href="{{ url_for('create_title_page') }}"><button class="btn btn-primary btn-lg"> Create </button></a>
+        <div class="container-fluid text-center display-2 standard_color">
+            <a href="{{ url_for('browse_game') }}"><button class="btn h-50 w-25 btn-color"> Play </button></a>
+            <a href="{{ url_for('create_title_page') }}"><button class="btn h-25 w-25 btn-color"> Create </button></a>
         </div>
 
     <!-- Code for Music -->

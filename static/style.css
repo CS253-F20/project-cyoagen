@@ -10,24 +10,40 @@
 }
 /*Font by Ænigma Fonts */
 
-html {
+html body{
   font-family: Helvetica;
   color: #541313;
   background-color: cornsilk;
 }
 
+.standard_color {
+  color: #541313;
+  background-color: cornsilk;
+}
+
+.top-marg {
+  margin-top: 10px;
+}
 #app_title {
   color: #541313;
   background-color: cornsilk;
   font-family: Game;
+  margin-top: 30px;
 }
 .navbar {
   background-color: #EAD60C;
 }
 
-.navbar-custom .nav-link, .navbar-custom .navbar-brand {
+.navbar-custom .nav-link {
   color: #541313;
   font-family: sans-serif Lucida Console;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.navbar-custom .navbar-brand {
+  color: #541313;
+  font-family: Game;
   font-weight: bold;
   font-size: 25px;
 }
@@ -36,6 +52,14 @@ a.nav-link:hover, a.nav-link:focus {
   color: black;
 }
 
+.btn-color {
+  background-color: #EAD60C;
+  color:black;
+}
+
+.big-head {
+  font-family: Star;
+}
 
 
 

@@ -1,39 +1,41 @@
 {% extends "layout.html" %}
 {% block body %}
     <!-- Code for creating a choice section -->
-         <form class="text-center" action="{{ url_for('create_handler') }}" method="post">
+         <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_handler') }}" method="post">
             <div class="form-group">
-                <h1> Situation </h1>
-                <textarea id="situation" rows="5" cols="61" name='Situation'></textarea>
+                <h1 class="big-head"> Situation </h1>
+                <textarea id="situation" rows="5" name='Situation'></textarea>
             </div>
             <div>
-                <h2> Choices </h2>
+                <h2 class="big-head"> Choices </h2>
                     <div class="form-group">
-                        <label> Choice 1:</label>
-                        <input type="text" class="Choices" name="ChoiceOne">
+                        <label class="big-head"> Choice 1:</label>
+                        <input type="text" name="ChoiceOne">
                     </div>
                     <div class="form-group">
-                        <label class="Choices_Lead"> Choice 2: </label>
+                        <label class="big-head"> Choice 2: </label>
                         <input type="text" class="Choices" name="ChoiceTwo">
                     </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add Situation" class="Save">
+                <input type="submit" value="Add Situation" class="btn btn-color">
             </div>
             <input type="hidden" value="{{ gameID }}" name="game_id"  />
         </form>
-        <h3 class="text-center">Link Situations to Choices</h3>
+        <hr>
+        <h3 class="text-center big-head">Link Situations to Choices</h3>
+        <hr>
 
     <!--Code for linking choices section -->
     {% for choice in choices %}
         <!-- if a situation does not have its choices linked to another situation, then display it on the page with
         dropdown menus that allow the user to link situations to its choices -->
         {% if choice.linked_situation1 == None %}
-                   <form class="text-center" action="{{ url_for('linking_handler')}}" method="post">
+                   <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <h4> {{ choice.situation }}</h4>
                             <div>
-                                <label> {{ choice.option1 }} </label>
+                                <label class="big-head"> {{ choice.option1 }} </label>
                                <!--This creates a dropdown of available situations to link the choice to-->
                                    <select name="linked_situation1" id="linked_situation1">
                                        {% for link_choice in choices %}
@@ -44,7 +46,7 @@
                                    </select>
                            </div>
                            <div>
-                                <label> {{ choice.option2 }} </label>
+                                <label class="big-head"> {{ choice.option2 }} </label>
                                    <select name="linked_situation2" id="linked_situation2">
                                        {% for link_choice in choices %}
                                            {% if link_choice.situation != choice.situation %}
@@ -55,34 +57,30 @@
                            </div>
                            <div>
                                <input type="hidden" value="{{ gameID }}" name="game_id"  />
-                               <input type="submit" value="Link" class="link_submit" id="link_submit">
+                               <input type="submit" value="Link" class="btn btn-color">
                            </div>
                    </form>
                 <!-- This is a form that allows the user to designate a situation as the beginning of a game. Once they
                 do so, they will be taken to the title creation screen. Note: This will likely be changed soon. -->
-                <form class = "link" action="{{ url_for('create_title_page')}}" method="post">
-                    <input type="hidden" value="{{ choice.id }}" name="id"  />
-                    <input type="submit" value="First Situation" id="first_submit">
-                </form>
             <hr>
         <!--Otherwise, display the situation with its choices and what other situations they are linked to. The code
         also provides the user with a button that will clear the linked situations in case they want to change what
         is linked. -->
         {% else %}
-             <form class="text-center" action="{{ url_for('clearlink_handler')}}" method="post">
+             <form class="text-center p-4" action="{{ url_for('clearlink_handler')}}" method="post">
                <input type="hidden" value="{{ choice.id }}" name="id"  />
-               <label> {{ choice.situation }}</label>
-                   <div class="form-group">
+               <h4> {{ choice.situation }}</h4>
+                   <div class="form-group big-head">
                        {{ choice.option1 }} |
                        Linked to: {{ choice.linked_situation1 }}
                    </div>
-                   <div class="form-group">
+                   <div class="form-group big-head">
                         {{ choice.option2 }} |
                         Linked to: {{ choice.linked_situation2 }}
                    </div>
                    <div class="form-group">
                        <input type="hidden" value="{{ gameID }}" name="game_id"  />
-                       <input type="submit" value="Clear" class="link_submit" id="clear_submit">
+                       <input type="submit" value="Clear" class="btn btn-color">
                    </div>
              </form>
             <hr>

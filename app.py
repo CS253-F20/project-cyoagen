@@ -66,7 +66,7 @@ def homepage():
 
 @app.route('/account')
 def account_page():
-    return render_template('create_account.html')
+    return render_template('create_account.html', Page="Account Creation")
 
 
 @app.route('/create_account', methods=["POST"])
@@ -145,7 +145,7 @@ def create_page():
     cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
                      'where username = ? AND game_id = ?', [session['username'], game_id])
     choices = cur.fetchall()
-    return render_template('create_game.html', gameID=game_id, choices=choices)
+    return render_template('create_game.html', gameID=game_id, choices=choices, Page='Game Creation')
 
 
 @app.route('/create_handler', methods=['POST'])
@@ -185,7 +185,7 @@ def create_title_page():
     if 'username' not in session:
         return redirect(url_for('login_page'))
     else:
-        return render_template('create_title.html')
+        return render_template('create_title.html', Page='Title Creation')
 
 
 @app.route('/linking_handler', methods=['POST'])

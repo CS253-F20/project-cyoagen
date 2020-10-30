@@ -9,9 +9,8 @@
     </head>
     <!-- NavBar that changes based on what page you are on and what actions you've taken -->
     <body>
-        {% if User == "User"  %}
+        {% if User == "User" %}
             <nav class="navbar navbar-expand-lg navbar-custom">
-            <a class="navbar-brand">CYOA GEN</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -25,24 +24,35 @@
                     </li>
                 </ul>
             </div>
+            <a class="navbar-brand navbar-custom mx-auto">CYOA GEN</a>
             </nav>
         {% elif Page == "Home"  %}
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <a class="navbar-brand">Welcome {{ User }}</a>
+        <nav class="navbar navbar-expand-lg navbar-custom justify-content-between">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for('homepage') }}"> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout_handler') }}"> Logout <span class="sr-only">(current)</span></a>
+                        <a class="nav-link mr-2" href="{{ url_for('logout_handler') }}"> Logout <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
+            <a class="navbar-brand">Welcome {{ User }}</a>
+        </nav>
+        {% elif Page == "Login" or Page == 'Account Creation' %}
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('homepage') }}"> Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand">{{ Page }}</a>
         </nav>
         {% else %}
         <nav class="navbar navbar-expand-lg navbar-custom">
-            <a class="navbar-brand">{{ Page }}</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -53,6 +63,7 @@
                     </li>
                 </ul>
             </div>
+            <a class="navbar-brand">{{ Page }}</a>
         </nav>
         {% endif %}
         <div class="page">

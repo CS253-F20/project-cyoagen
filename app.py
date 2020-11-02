@@ -57,16 +57,15 @@ def close_db(error):
 def homepage():
     if 'username' in session:  # If logged in, display "welcome (username)"
         return render_template('Home.html', Page="Home", User=session['username'])
-    else:  # Else display "welcome user"
+    else:  # Else display "Welcome user"
         return render_template('Home.html', Page="Home", User="User")
-
-
-# Renders homepage
+        # Renders homepage
 
 
 @app.route('/account')
 def account_page():
     return render_template('create_account.html', Page="Account Creation")
+    # Renders the account creation page, Page is used to dynamically adjust the navbar.
 
 
 @app.route('/create_account', methods=["POST"])
@@ -74,34 +73,28 @@ def create_account():
     db = get_db()
     username = request.form['username']
     password = request.form['password']
-
-    # Search for entered username in the database
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
-    user_list = cur.fetchall()
-    # If username is not already taken, create account and return homepage
-    if user_list:
-        flash('Username is already taken')
-        return redirect(url_for('account_page'))
-    # If username is taken, flash a message and return the account creation page
-    elif username == '':
-        flash('Invalid Username!')
-        return redirect(url_for('account_page'))
-    # If username is null, flash a message and return the account creation page
-    elif password == '':
-        flash('You must have a password!')
-        return redirect(url_for('account_page'))
-    else:
+    user_list = cur.fetchall()  # Search for entered username in the database
+    if user_list:   # Check if username is taken
+        error = 'Username is already taken'
+    elif username == '':  # Check if username is null
+        error = 'Invalid Username!'
+    elif password == '':  # Check if password is null
+        error = 'You must have a password!'
+    else:  # If the new account passes the checks, create account and return homepage
         password = werkzeug.security.generate_password_hash(password)
         db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
                    [username, password])
         db.commit()
         return redirect(url_for('homepage'))
-
+    flash(error)  # If there was an error flash a message
+    return redirect(url_for('account_page'))  # Return to the page to try again
 
 
 @app.route('/login')
 def login_page():
     return render_template('login.html', Page="Login")
+    # Render the login page for easy login
 
 
 @app.route('/process_login', methods=['POST'])
@@ -109,17 +102,16 @@ def login_handler():
     username = request.form['username']
     password = request.form['password']
     db = get_db()
-    # Search Database for entered username to see if account exists
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
-    user_list = cur.fetchall()
+    user_list = cur.fetchall()  # Search Database for entered username to see if account exists
     if not user_list:  # If no account exists with that name
         error = 'Invalid Username'
     else:  # If an account is found with that username
         cur = db.execute('SELECT password FROM accounts where username = ?', [username])
         pass_hashed = cur.fetchone()  # Grab the stored password hash
-        if not werkzeug.security.check_password_hash(pass_hashed[0], password):
+        if not werkzeug.security.check_password_hash(pass_hashed[0], password):  # If the password doesn't match
             error = 'Invalid Password'
-        else:  # If password matches
+        else:  # If password matches and username checks out
             session['username'] = username  # Set session variable for username to current logged in user
             flash('You were logged in')
             return redirect(url_for('homepage'))
@@ -171,9 +163,9 @@ def create_page():
 def create_handler():
     db = get_db()
     game_id = request.form['game_id']
-    db.execute('INSERT INTO choices (title, situation, option1, option2, username, game_id) VALUES (?, ?, ?, ?,?)',
-               [request.form['Situation_Title'], request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username'],
-                game_id])
+    db.execute('INSERT INTO choices (title, situation, option1, option2, username, game_id) VALUES (?, ?, ?, ?,?,?)',
+               [request.form['Situation_Title'], request.form['Situation'], request.form['ChoiceOne'],
+                request.form['ChoiceTwo'], session['username'], game_id])
     # Add the choices back to the database with new entries.
     db.commit()
     flash('Situation was successfully saved!')

@@ -56,6 +56,13 @@ class Project(unittest.TestCase):
         assert b'You were logged in' in rv.data  # Successful login
         assert b'CYOA GEN' in rv.data  # Page redirect back to home screen
 
+    def test_logout(self):
+        self.register('testUser', 'verySecure')
+        self.login('testUser', 'verySecure')  # Register and Login a user for proper use
+        rv = self.app.get('/process_logout', follow_redirects=True)  # Log out of the app
+        assert b'You were logged out' in rv.data
+        assert b'CYOA GEN' in rv.data
+
     def test_create_title_page(self):
         rv = self.app.get('/title')
         assert b'Title' not in rv.data  # Make sure user is logged in
@@ -92,7 +99,8 @@ class Project(unittest.TestCase):
         assert b'Situation' in rv.data  # Page loads!
         assert b'select' not in rv.data  # No choices already exist on this page
         rv = self.app.post('/create_handler',
-                           data=dict(Situation='Do You?', ChoiceOne='Yes', ChoiceTwo='No', game_id=0),
+                           data=dict(Situation_Title='question', Situation='Do You?', ChoiceOne='Yes', ChoiceTwo='No',
+                                     game_id=0),
                            follow_redirects=True)
         assert b'select' in rv.data  # Choices exist on the page
         assert b'Do You?' in rv.data  # Situation saves

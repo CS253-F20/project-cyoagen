@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label class="big-head"> Choice 2: </label>
-                        <input type="text" class="Choices" name="ChoiceTwo">
+                        <input type="text" name="ChoiceTwo">
                     </div>
             </div>
             <div class="form-group">
@@ -37,14 +37,14 @@
         {% if choice.linked_situation1 == None %}
                    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
-                       <h4> {{ choice.situation }}</h4>
+                       <h4> {{ choice.title }}</h4>
                             <div>
                                 <label class="big-head"> {{ choice.option1 }} </label>
                                <!--This creates a dropdown of available situations to link the choice to-->
                                    <select name="linked_situation1" id="linked_situation1">
                                        {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option>{{ link_choice.situation }}</option>
+                                           {% if link_choice.title != choice.title %}
+                                                <option>{{ link_choice.title }}</option>
                                            {% endif %}
                                        {% endfor %}
                                    </select>
@@ -53,8 +53,8 @@
                                 <label class="big-head"> {{ choice.option2 }} </label>
                                    <select name="linked_situation2" id="linked_situation2">
                                        {% for link_choice in choices %}
-                                           {% if link_choice.situation != choice.situation %}
-                                                <option>{{ link_choice.situation }}</option>
+                                           {% if link_choice.title != choice.title %}
+                                                <option>{{ link_choice.title }}</option>
                                            {% endif %}
                                        {% endfor %}
                                    </select>
@@ -73,7 +73,7 @@
         {% else %}
              <form class="text-center p-4" action="{{ url_for('clearlink_handler')}}" method="post">
                <input type="hidden" value="{{ choice.id }}" name="id"  />
-               <h4> {{ choice.situation }}</h4>
+               <h4> {{ choice.title }}</h4>
                    <div class="form-group big-head">
                        {{ choice.option1 }} |
                        Linked to: {{ choice.linked_situation1 }}

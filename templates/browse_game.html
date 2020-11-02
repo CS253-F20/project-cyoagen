@@ -1,26 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="Create_Fields">
-        <form action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
-        the page renders -->
-          Search games:
-          <input type="text" size="15" id="content" name="search_game">
-            <input type="submit" value="Search">
-        </form>
-
-        <ul class="games">
-        {% for game in games %}
-          <li>
-            <h3>{{ game.title }}
-            <form action="{{ url_for('play_game') }}" method="post" class="play">
-                <input type="hidden" name="game_id" value="{{ game.id }}">
-                <button type="submit">Play</button>
+    <div class="col-lg-6 offset-lg-3 top-marg">
+        <div class="form-group">
+            <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
+            the page renders -->
+              Search games:
+              <input class="form-control" type="text" size="15" id="content" name="search_game">
+                <input class="btn btn-color col-lg-6 offset-lg-3" type="submit" value="Search">
             </form>
-            </h3>
-          </li>
+        </div>
+
+        {% for game in games %}
+            <div class="form-group">
+                <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('play_game') }}" method="post" class="play">
+                    <label class="big-head">{{ game.title }} </label>
+                    <input class="form-control" type="hidden" name="game_id" value="{{ game.id }}">
+                    <button class="btn btn-color" type="submit">Play</button>
+                </form>
+            </div>
         {% else %}
-          <li><em>No game has been created so far</em></li>
+            <h1> No game has been created so far </h1>>
         {% endfor %}
-        </ul>
+
     </div>
 {% endblock %}

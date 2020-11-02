@@ -67,7 +67,8 @@ which differed from the original plan to allow users to create choices and then 
 ## Plan for Iteration 4
 
 - Play Button
-    -  Create a clickable play button to allow for users to begin playing each game and deliver them to a playing screen
+    -  Create a clickable play button to allow for users to begin playing each game and deliver them to a screen
+    that displays the title and description, which can be fed into the playing template
         - Assigned To: Aaron
     
 - Finishing the Game (Front-End)

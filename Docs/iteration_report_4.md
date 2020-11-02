@@ -38,19 +38,20 @@
 - Added a title to each situation
     - Created a new field for each situation that is a short title to be displayed during linking
         -Completed By: Drew & Evan
-            
-    
-## Tasks Not Completed
-       
+
 - Have users be able to create a game and see it on the browse games page
     - Polish and tidy up each individual's work so that this experience is achievable by the end of the week
         - The parts should mostly be there, now we just need to make the last touches to make sure they all work
         together
             - Assigned To: Team
-    - Currently we have most of the complete experience working, and are waiting for the search games page to be
-    completed, which will finish the end to end experience that it possible at this point.
+  
+## Tasks Not Completed
+
+- All Planned Tasks Were Completed
 
 ## Issues
+
+- No Major Issues Were Encountered This Week
     
 ## Adjustments to Overall Design
 
@@ -78,9 +79,3 @@ which differed from the original plan to allow users to create choices and then 
     - Allow for a user to navigate through each game by making decisions. This will handle following the choices in the
      database and passing them to the front-end based on user input
         - Assigned To: Evan
-
-- Have users be able to create a game and see it on the browse games page
-    - Polish and tidy up each individual's work so that this experience is achievable by the end of the week
-        - The parts should mostly be there, now we just need to make the last touches to make sure they all work
-        together
-            - Assigned To: Aaron

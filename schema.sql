@@ -8,6 +8,7 @@ drop table if exists choices;
 create table choices (
   id integer primary key autoincrement,
   username text not null,
+  'title' text not null,
   'situation' text not null,
   'option1' text not null,
   'option2' text not null,

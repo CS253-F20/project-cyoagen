@@ -161,7 +161,7 @@ def process_title():
 def create_page():
     db = get_db()
     game_id = request.args['game_id']
-    cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
+    cur = db.execute('SELECT title, option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
                      'where username = ? AND game_id = ?', [session['username'], game_id])
     choices = cur.fetchall()
     return render_template('create_game.html', gameID=game_id, choices=choices, Page='Game Creation')
@@ -171,8 +171,8 @@ def create_page():
 def create_handler():
     db = get_db()
     game_id = request.form['game_id']
-    db.execute('INSERT INTO choices (situation, option1, option2, username, game_id) VALUES (?, ?, ?, ?,?)',
-               [request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username'],
+    db.execute('INSERT INTO choices (title, situation, option1, option2, username, game_id) VALUES (?, ?, ?, ?,?)',
+               [request.form['Situation_Title'], request.form['Situation'], request.form['ChoiceOne'], request.form['ChoiceTwo'], session['username'],
                 game_id])
     # Add the choices back to the database with new entries.
     db.commit()

@@ -73,20 +73,30 @@ def account_page():
 def create_account():
     db = get_db()
     username = request.form['username']
-    password = werkzeug.security.generate_password_hash(request.form['password'])
+    password = request.form['password']
+
     # Search for entered username in the database
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()
     # If username is not already taken, create account and return homepage
-    if not user_list:
+    if user_list:
+        flash('Username is already taken')
+        return redirect(url_for('account_page'))
+    # If username is taken, flash a message and return the account creation page
+    elif username == '':
+        flash('Invalid Username!')
+        return redirect(url_for('account_page'))
+    # If username is null, flash a message and return the account creation page
+    elif password == '':
+        flash('You must have a password!')
+        return redirect(url_for('account_page'))
+    else:
+        password = werkzeug.security.generate_password_hash(password)
         db.execute('INSERT INTO accounts (username, password) VALUES (?, ?)',
                    [username, password])
         db.commit()
         return redirect(url_for('homepage'))
-    # If username is taken, flash a message and return the account creation page
-    else:
-        flash('Username is already taken')
-        return redirect(url_for('account_page'))
+
 
 
 @app.route('/login')
@@ -130,12 +140,21 @@ def process_title():
     title = request.form['title']
     desc = request.form['description']
     username = session['username']
-    db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)', [title, desc, username])
-    cur = db.execute('SELECT id from games where title = ? AND description = ? AND username = ?',
-                     [title, desc, username])
-    game_id = cur.fetchone()["id"]
-    db.commit()
-    return redirect(url_for("create_page", game_id=game_id))
+    if username and desc and title:
+        db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)', [title, desc, username])
+        cur = db.execute('SELECT id from games where title = ? AND description = ? AND username = ?',
+                         [title, desc, username])
+        game_id = cur.fetchone()["id"]
+        db.commit()
+        return redirect(url_for("create_page", game_id=game_id))
+    elif not username:
+        flash('Username Error! Try logging in again!')
+    elif not title:
+        flash('Invalid Title!')
+    elif not desc:
+        flash('Invalid Description!')
+    return redirect(url_for('create_title_page'))
+
 
 
 @app.route('/create_game', methods=['GET'])

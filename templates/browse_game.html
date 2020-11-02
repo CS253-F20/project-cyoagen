@@ -13,9 +13,9 @@
           <li>
             <h3>{{ game.title }}
             <form action="{{ url_for('play_game') }}" method="post" class="play">
-                    <input type="hidden" name="game_title" value="{{ game.title }}">
-                    <button type="submit">Play</button>
-                </form>
+                <input type="hidden" name="game_id" value="{{ game.id }}">
+                <button type="submit">Play</button>
+            </form>
             </h3>
           </li>
         {% else %}

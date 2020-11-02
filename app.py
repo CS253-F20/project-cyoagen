@@ -2,6 +2,7 @@
 import os
 from sqlite3 import dbapi2 as sqlite3
 
+
 import werkzeug.security
 from flask import Flask, request, g, redirect, url_for, render_template, flash, session
 
@@ -181,16 +182,16 @@ def create_handler():
 @app.route('/browse_game')
 def browse_game():
     db = get_db()
-    cur = db.execute('SELECT title FROM games')
-    game = cur.fetchall()
-    return render_template('browse_game.html', Page="Browse Games", games=game)
+    cur = db.execute('SELECT title,id FROM games')
+    games = cur.fetchall()
+    return render_template('browse_game.html', Page="Browse Games", games=games)
 
 
 @app.route('/search_game', methods=['POST'])
 def search():
     db = get_db()
     search_game = request.form['search_game']
-    cur = db.execute('SELECT title FROM games where title = ?', [search_game])
+    cur = db.execute('SELECT title,id FROM games where title = ?', [search_game])
     game = cur.fetchall()
     if not game:
         flash('No games like this')
@@ -232,14 +233,20 @@ def clearlink_handler():
     # Function that clears linked situations for a choice
 
 
-
 @app.route('/play_game', methods=['POST'])
 def play_game():
     db = get_db()
-    game_id = request.form['game_title']
-    cur = db.execute('SELECT description FROM games WHERE title = ?', [game_id])
-    description = cur.fetchall()
-    return render_template('play_game.html', description=description)
+    game_id = request.form['game_id']
+    cur = db.execute(' SELECT title FROM games WHERE id = ?', [game_id])
+    title = cur.fetchall()
+    sur = db.execute(' SELECT description FROM games WHERE id = ?', [game_id])
+    description = sur.fetchall()
+    return render_template('play_game.html', title=title, description=description, id=game_id)
+
+
+@app.route('/game_page', methods=['POST'])
+def game_page():
+    return render_template('game_page.html')
 
 
 if __name__ == '__main__':

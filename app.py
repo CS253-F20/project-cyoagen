@@ -126,6 +126,14 @@ def logout_handler():
     return redirect(url_for('homepage'))
 
 
+@app.route('/title')
+def create_title_page():
+    if 'username' not in session:
+        return redirect(url_for('login_page'))
+    else:
+        return render_template('create_title.html', Page='Title Creation')
+
+
 @app.route('/process_title', methods=['POST'])
 def process_title():
     db = get_db()
@@ -146,7 +154,6 @@ def process_title():
     elif not desc:
         flash('Invalid Description!')
     return redirect(url_for('create_title_page'))
-
 
 
 @app.route('/create_game', methods=['GET'])
@@ -172,33 +179,6 @@ def create_handler():
     return redirect(url_for("create_page", game_id=game_id))
 
 
-@app.route('/browse_game')
-def browse_game():
-    return render_template('browse_game.html', Page="Browse Games")
-
-
-@app.route('/search_game', methods=['POST'])
-def search():
-    db = get_db()
-    search_game = request.form['search_game']
-    cur = db.execute('SELECT title FROM games where title = ?', [search_game])
-    user_list = cur.fetchall()
-    if not user_list:
-        flash('No games like this')
-        return redirect(url_for('browse_game'))
-    else:
-        account = user_list
-        return render_template('search_game.html', accounts=account)
-
-
-@app.route('/title')
-def create_title_page():
-    if 'username' not in session:
-        return redirect(url_for('login_page'))
-    else:
-        return render_template('create_title.html', Page='Title Creation')
-
-
 @app.route('/linking_handler', methods=['POST'])
 def linking_handler():
     db = get_db()
@@ -222,6 +202,25 @@ def clearlink_handler():
     flash('Linked choices have been cleared.')
     return redirect(url_for("create_page", game_id=game_id))
     # Function that clears linked situations for a choice
+
+
+@app.route('/browse_game')
+def browse_game():
+    return render_template('browse_game.html', Page="Browse Games")
+
+
+@app.route('/search_game', methods=['POST'])
+def search():
+    db = get_db()
+    search_game = request.form['search_game']
+    cur = db.execute('SELECT title FROM games where title = ?', [search_game])
+    user_list = cur.fetchall()
+    if not user_list:
+        flash('No games like this')
+        return redirect(url_for('browse_game'))
+    else:
+        account = user_list
+        return render_template('search_game.html', accounts=account)
 
 
 if __name__ == '__main__':

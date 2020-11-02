@@ -20,6 +20,5 @@ create table games (
   id integer primary key autoincrement,
   username text not null,
   'title' text not null,
-  'description' text not null,
-  'sequence' text
+  'description' text not null
 );

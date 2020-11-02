@@ -252,7 +252,7 @@ def game_page():
     cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
     choice = cur.fetchone()
-    return render_template('game_page.html', choice=choice, game_id=game_id)
+    return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
 
 
 if __name__ == '__main__':

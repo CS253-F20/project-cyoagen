@@ -8,9 +8,9 @@
             <label for="description"> {{ description[0][0] }} </label>
         </div>
     </form>
-    <form action="{{ url_for('game_page') }}" method="post">
+    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('game_page') }}" method="post">
     <input type="hidden" name="key" value="Start">
     <input type="hidden" name="game_id" value="{{ id }}">
-    <button type="submit" class="btn btn-color">Next</button>
+    <button type="submit" class="btn-lg btn-color">Start</button>
     </form>
 {% endblock %}

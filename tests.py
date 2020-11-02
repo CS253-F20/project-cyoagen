@@ -132,8 +132,7 @@ class Project(unittest.TestCase):
         self.app.post('/process_title',
                       data=dict(title='title', description='desc', username='testUser'),
                       follow_redirects=True)
-        rv = self.app.post('/play_game',
-                           data=dict(game_id=1))
+        rv = self.app.get('play_game?game_id=1')
         assert b'title' in rv.data  # Once play button is clicked it displays the title
         assert b'desc' in rv.data  # Also displays the description
 

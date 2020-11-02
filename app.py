@@ -66,7 +66,7 @@ def homepage():
 
 @app.route('/account')
 def account_page():
-    return render_template('create_account.html')
+    return render_template('create_account.html', Page="Account Creation")
 
 
 @app.route('/create_account', methods=["POST"])
@@ -145,7 +145,7 @@ def create_page():
     cur = db.execute('SELECT option1, option2, situation, id, linked_situation1, linked_situation2 FROM choices '
                      'where username = ? AND game_id = ?', [session['username'], game_id])
     choices = cur.fetchall()
-    return render_template('create_game.html', gameID=game_id, choices=choices)
+    return render_template('create_game.html', gameID=game_id, choices=choices, Page='Game Creation')
 
 
 @app.route('/create_handler', methods=['POST'])
@@ -185,7 +185,7 @@ def create_title_page():
     if 'username' not in session:
         return redirect(url_for('login_page'))
     else:
-        return render_template('create_title.html')
+        return render_template('create_title.html', Page='Title Creation')
 
 
 @app.route('/linking_handler', methods=['POST'])
@@ -195,6 +195,7 @@ def linking_handler():
                [request.form['linked_situation1'], request.form['linked_situation2'], request.form['id']])
     db.commit()
     game_id = request.form['game_id']
+    flash('Choices have been linked!')
     return redirect(url_for("create_page", game_id=game_id))
 
 
@@ -206,6 +207,8 @@ def clearlink_handler():
                [request.form['id']])
     db.commit()
     game_id = request.form['game_id']
+    # Reload the page and inform the user that the linked choices have been cleared
+    flash('Linked choices have been cleared.')
     return redirect(url_for("create_page", game_id=game_id))
     # Function that clears linked situations for a choice
 

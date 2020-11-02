@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
-        {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
-        <div class="Create_Fields">
-            <form action="{{ url_for('login_handler') }}" method="post" class="login">
-                <dl>
-                  <dt class="secondary_field">Username:
-                  <dd><input type="text" size="15" name="username" class = "login_input">
-                  <dt class="secondary_field">Password:
-                  <dd><input type="password" size="20" name="password" class="login_input">
-                  <dd><input type="submit" value="Log In" class="Save">
-                </dl>
-              </form>
-        </div>
+
+            <form class="col-lg-6 offset-lg-3 top-marg"action="{{ url_for('login_handler') }}" method="post" class="login">
+                <div class="form-group text-center display-4">
+                    <label for="username">Username: </label>
+                    <input class="form-control" type="text" name="username">
+                </div>
+                <div class="form-group text-center display-4">
+                    <label for ="password">Password: </label>
+                    <input class="form-control" type="password" name="password">
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Log In" class="btn btn-color">
+                </div>
+            </form>
+
 {% endblock %}

@@ -1,88 +1,88 @@
 {% extends "layout.html" %}
 {% block body %}
     <!-- Code for creating a choice section -->
-    <div class="Create_Fields">
-         <form action="{{ url_for('create_handler') }}" method="post">
-            <dl>
-                <h2 class="primary_field"> Situation </h2>
-                <dd><textarea id="situation" rows="5" cols="61" name='Situation'></textarea></dd>
-            </dl>
-            <dl>
-                <h3 class="secondary_field"> Choices </h3>
-                    <div class="Choice_Content">
-                        <dd class="Choices_Lead"> Choice 1: <input type="text" class="Choices" name="ChoiceOne"> </dd>
-                        <dd class="Choices_Lead"> Choice 2: <input type="text" class="Choices" name="ChoiceTwo"> </dd>
+         <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_handler') }}" method="post">
+            <div class="form-group">
+                <h1 class="big-head"> Situation </h1>
+                <textarea id="situation" rows="5" name='Situation'></textarea>
+            </div>
+            <div>
+                <h2 class="big-head"> Choices </h2>
+                    <div class="form-group">
+                        <label class="big-head"> Choice 1:</label>
+                        <input type="text" name="ChoiceOne">
                     </div>
-            </dl>
-            <dl>
-                <input type="submit" value="Add Situation" class="Save">
-            </dl>
+                    <div class="form-group">
+                        <label class="big-head"> Choice 2: </label>
+                        <input type="text" class="Choices" name="ChoiceTwo">
+                    </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Situation" class="btn btn-color">
+            </div>
             <input type="hidden" value="{{ gameID }}" name="game_id"  />
         </form>
-        <h4 class="secondary_field">Link Situations to Choices</h4>
-    </div>
+        <hr>
+        <h3 class="text-center big-head">Link Situations to Choices</h3>
+        <hr>
 
     <!--Code for linking choices section -->
     {% for choice in choices %}
         <!-- if a situation does not have its choices linked to another situation, then display it on the page with
         dropdown menus that allow the user to link situations to its choices -->
         {% if choice.linked_situation1 == None %}
-                   <form class="link" action="{{ url_for('linking_handler')}}" method="post">
+                   <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
-                       <dl>
-                           <dt> {{ choice.situation }}</dt>
-                               <dd> {{ choice.option1 }} |
+                       <h4> {{ choice.situation }}</h4>
+                            <div>
+                                <label class="big-head"> {{ choice.option1 }} </label>
                                <!--This creates a dropdown of available situations to link the choice to-->
-                                       <select name="linked_situation1" id="linked_situation1">
-                                           {% for link_choice in choices %}
-                                               {% if link_choice.situation != choice.situation %}
-                                                    <option>{{ link_choice.situation }}</option>
-                                               {% endif %}
-                                           {% endfor %}
-                                       </select>
-                               </dd>
-                               <dd> {{ choice.option2 }} |
-                                       <select name="linked_situation2" id="linked_situation2">
-                                           {% for link_choice in choices %}
-                                               {% if link_choice.situation != choice.situation %}
-                                                    <option>{{ link_choice.situation }}</option>
-                                               {% endif %}
-                                           {% endfor %}
-                                       </select>
-                               </dd>
-                               <dd>
-                                   <input type="hidden" value="{{ gameID }}" name="game_id"  />
-                                   <input type="submit" value="Link" class="link_submit" id="link_submit">
-                               </dd>
-                       </dl>
+                                   <select name="linked_situation1" id="linked_situation1">
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option>{{ link_choice.situation }}</option>
+                                           {% endif %}
+                                       {% endfor %}
+                                   </select>
+                           </div>
+                           <div>
+                                <label class="big-head"> {{ choice.option2 }} </label>
+                                   <select name="linked_situation2" id="linked_situation2">
+                                       {% for link_choice in choices %}
+                                           {% if link_choice.situation != choice.situation %}
+                                                <option>{{ link_choice.situation }}</option>
+                                           {% endif %}
+                                       {% endfor %}
+                                   </select>
+                           </div>
+                           <div>
+                               <input type="hidden" value="{{ gameID }}" name="game_id"  />
+                               <input type="submit" value="Link" class="btn btn-color">
+                           </div>
                    </form>
                 <!-- This is a form that allows the user to designate a situation as the beginning of a game. Once they
                 do so, they will be taken to the title creation screen. Note: This will likely be changed soon. -->
-                <form class = "link" action="{{ url_for('create_title_page')}}" method="post">
-                    <input type="hidden" value="{{ choice.id }}" name="id"  />
-                    <input type="submit" value="First Situation" id="first_submit">
-                </form>
             <hr>
         <!--Otherwise, display the situation with its choices and what other situations they are linked to. The code
         also provides the user with a button that will clear the linked situations in case they want to change what
         is linked. -->
         {% else %}
-             <form class="link" action="{{ url_for('clearlink_handler')}}" method="post">
-                       <input type="hidden" value="{{ choice.id }}" name="id"  />
-                       <dl>
-                           <dt> {{ choice.situation }}</dt>
-                               <dd> {{ choice.option1 }} |
-                                   Linked to: {{ choice.linked_situation1 }}
-                               </dd>
-                               <dd> {{ choice.option2 }} |
-                                    Linked to: {{ choice.linked_situation2 }}
-                               </dd>
-                               <dd>
-                                   <input type="hidden" value="{{ gameID }}" name="game_id"  />
-                                   <input type="submit" value="Clear" class="link_submit" id="clear_submit">
-                               </dd>
-                       </dl>
-                   </form>
+             <form class="text-center p-4" action="{{ url_for('clearlink_handler')}}" method="post">
+               <input type="hidden" value="{{ choice.id }}" name="id"  />
+               <h4> {{ choice.situation }}</h4>
+                   <div class="form-group big-head">
+                       {{ choice.option1 }} |
+                       Linked to: {{ choice.linked_situation1 }}
+                   </div>
+                   <div class="form-group big-head">
+                        {{ choice.option2 }} |
+                        Linked to: {{ choice.linked_situation2 }}
+                   </div>
+                   <div class="form-group">
+                       <input type="hidden" value="{{ gameID }}" name="game_id"  />
+                       <input type="submit" value="Clear" class="btn btn-color">
+                   </div>
+             </form>
             <hr>
         {% endif %}
     {% endfor %}
@@ -97,9 +97,6 @@
           const music = document.getElementById('GCM');
           music.volume = .005;
           music.play();
-          {% for message in get_flashed_messages() %}
-          alert('{{ message }}')
-          {% endfor %}
       }
     </script>
 {% endblock %}

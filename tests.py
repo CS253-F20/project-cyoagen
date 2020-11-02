@@ -101,13 +101,13 @@ class Project(unittest.TestCase):
         rv = self.app.post('/create_handler',
                            data=dict(Situation_Title='questionOne', Situation='Do You?', ChoiceOne='Yes',
                                      ChoiceTwo='No', game_id=0), follow_redirects=True)
-        assert b'Do You?' in rv.data  # Choices exist on the page
+        assert b'questionOne' in rv.data  # Choices exist on the page
         assert b'No' in rv.data  # Situation saves
         assert b'Yes' in rv.data  # There are options on the page
         rv = self.app.post('/create_handler',
                            data=dict(Situation_Title='questionTwo', Situation='Dont You?', ChoiceOne='Go',
                                      ChoiceTwo='Stop', game_id=0), follow_redirects=True)
-        assert b'Dont You?' in rv.data  # Choices exist on the page
+        assert b'questionTwo' in rv.data  # Choices exist on the page
         assert b'Go' in rv.data  # Situation saves
         assert b'Stop' in rv.data  # There are options on the page
         rv = self.app.post('/linking_handler',

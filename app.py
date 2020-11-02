@@ -98,7 +98,6 @@ def create_account():
         return redirect(url_for('homepage'))
 
 
-
 @app.route('/login')
 def login_page():
     return render_template('login.html', Page="Login")
@@ -156,7 +155,6 @@ def process_title():
     return redirect(url_for('create_title_page'))
 
 
-
 @app.route('/create_game', methods=['GET'])
 def create_page():
     db = get_db()
@@ -182,7 +180,10 @@ def create_handler():
 
 @app.route('/browse_game')
 def browse_game():
-    return render_template('browse_game.html', Page="Browse Games")
+    db = get_db()
+    cur = db.execute('SELECT title FROM games')
+    game = cur.fetchall()
+    return render_template('browse_game.html', Page="Browse Games", games=game)
 
 
 @app.route('/search_game', methods=['POST'])
@@ -190,13 +191,20 @@ def search():
     db = get_db()
     search_game = request.form['search_game']
     cur = db.execute('SELECT title FROM games where title = ?', [search_game])
-    user_list = cur.fetchall()
-    if not user_list:
+    game = cur.fetchall()
+    if not game:
         flash('No games like this')
         return redirect(url_for('browse_game'))
     else:
-        account = user_list
-        return render_template('search_game.html', accounts=account)
+        return render_template('search_game.html', games=game)
+
+
+@app.route('/back', methods=['POST'])
+def back():
+    db = get_db()
+    cur = db.execute('SELECT title FROM games')
+    game = cur.fetchall()
+    return render_template('browse_game.html', games=game)
 
 
 @app.route('/title')
@@ -230,6 +238,15 @@ def clearlink_handler():
     flash('Linked choices have been cleared.')
     return redirect(url_for("create_page", game_id=game_id))
     # Function that clears linked situations for a choice
+
+
+@app.route('/play_game', methods=['POST'])
+def play_game():
+    db = get_db()
+    game_id = request.form['game_title']
+    cur = db.execute('SELECT description FROM games WHERE title = ?', [game_id])
+    description = cur.fetchall()
+    return render_template('play_game.html', description=description)
 
 
 if __name__ == '__main__':

@@ -233,10 +233,10 @@ def clearlink_handler():
     # Function that clears linked situations for a choice
 
 
-@app.route('/play_game', methods=['POST'])
+@app.route('/play_game', methods=['GET'])
 def play_game():
     db = get_db()
-    game_id = request.form['game_id']
+    game_id = request.args['game_id']
     cur = db.execute(' SELECT title FROM games WHERE id = ?', [game_id])
     title = cur.fetchall()
     sur = db.execute(' SELECT description FROM games WHERE id = ?', [game_id])
@@ -244,9 +244,15 @@ def play_game():
     return render_template('play_game.html', title=title, description=description, id=game_id)
 
 
-@app.route('/game_page', methods=['POST'])
+@app.route('/play', methods=['POST'])
 def game_page():
-    return render_template('game_page.html')
+    db = get_db()
+    game_id = request.form['game_id']
+    key = request.form['key']
+    cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
+                     ' WHERE game_id = ? AND title = ?', [game_id, key])
+    choice = cur.fetchone()
+    return render_template('game_page.html', choice=choice, game_id=game_id)
 
 
 if __name__ == '__main__':

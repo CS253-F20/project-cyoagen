@@ -9,7 +9,8 @@
         </div>
     </form>
     <form action="{{ url_for('game_page') }}" method="post">
-    <input type="hidden" name="game_page" value="{{ id }}">
+    <input type="hidden" name="key" value="Start">
+    <input type="hidden" name="game_id" value="{{ id }}">
     <button type="submit" class="btn btn-color">Next</button>
     </form>
 {% endblock %}

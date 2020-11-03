@@ -162,7 +162,7 @@ def process_title():
     title = request.form['title']
     desc = request.form['description']
     username = session['username']
-    if username and desc and title:
+    if desc and title:
         db.execute('INSERT INTO games (title, description, username, published) VALUES (?, ?, ?, ?)',
                    [title, desc, username, False])
         cur = db.execute('SELECT id from games where title = ? AND description = ? AND username = ?',
@@ -170,8 +170,6 @@ def process_title():
         game_id = cur.fetchone()["id"]
         db.commit()
         return redirect(url_for("create_page", game_id=game_id))
-    elif not username:
-        flash('Username Error! Try logging in again!')
     elif not title:
         flash('Invalid Title!')
     elif not desc:
@@ -223,14 +221,6 @@ def search():
         return render_template('search_game.html', games=game)
 
 
-@app.route('/back', methods=['POST'])
-def back():
-    db = get_db()
-    cur = db.execute('SELECT title FROM games')
-    game = cur.fetchall()
-    return render_template('browse_game.html', games=game)
-
-
 @app.route('/linking_handler', methods=['POST'])
 def linking_handler():
     db = get_db()
@@ -269,7 +259,3 @@ def game_page():
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
     choice = cur.fetchone()
     return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
-
-
-if __name__ == '__main__':
-    app.run()

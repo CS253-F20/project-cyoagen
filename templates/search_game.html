@@ -5,7 +5,7 @@
           <input type="text" size="15" id="content" name="search_game">
             <input type="submit" value="Search">
         </form>
-        <form action="{{ url_for('back') }}" method="post" class="search">
+        <form action="{{ url_for('browse_game') }}" class="search">
         <input type="submit" value="Back">
         </form>
         {% for game in games %}

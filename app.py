@@ -97,7 +97,7 @@ def account_page():
     username = session['username']
     cur = db.execute('SELECT title, id, published FROM games where username = ?', [username])
     games = cur.fetchall()
-    return render_template('account.html', games=games)
+    return render_template('account.html', games=games, Page="My Games")
 
 
 @app.route('/publish', methods=['POST'])
@@ -218,7 +218,7 @@ def search():
         flash('No games like this')
         return redirect(url_for('browse_game'))
     else:
-        return render_template('search_game.html', games=game)
+        return render_template('search_game.html', games=game, Page="Browse Games")
 
 
 @app.route('/linking_handler', methods=['POST'])

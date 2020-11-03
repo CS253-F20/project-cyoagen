@@ -259,3 +259,7 @@ def game_page():
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
     choice = cur.fetchone()
     return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
+
+
+if __name__ == '__main__':
+    app.run()

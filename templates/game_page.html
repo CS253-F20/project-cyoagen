@@ -3,12 +3,14 @@
 <div class="form-group display-4 big-head text-center col-lg-6 offset-lg-3 top-marg">
             <label for="title"> {{ choice.situation }} </label>
         </div>
+    <!-- Likely to change how this works. When the database is changed to accommodate more than two options, this code
+    will be restructured to display n number of options vertically. -->
         <div class="choice-marg form-group form-inline container-fluid text-center display-3 standard_color">
             <div class="col-lg-2 offset-lg-2 ">
                 <form action="{{ url_for('game_page') }}" method="post">
                     <input type="hidden" value="{{ choice.linked_situation1 }}" name="key"  />
                     <input type="hidden" value="{{ game_id }}" name="game_id"  />
-                    <input class="btn-xl btn-color" type="submit" value={{ choice.option1 }}>
+                    <button class="btn-xl btn-color choice-button" type="submit" value={{ choice.option1 }}></button>
                 </form>
             </div>
             <div class="col-lg-2 offset-lg-4">

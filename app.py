@@ -63,13 +63,13 @@ def homepage():
         # Renders homepage
 
 
-@app.route('/account')
-def account_page():
+@app.route('/create_account')
+def create_account_page():
     return render_template('create_account.html', Page="Account Creation")
     # Renders the account creation page, Page is used to dynamically adjust the navbar.
 
 
-@app.route('/create_account', methods=["POST"])
+@app.route('/process_account', methods=["POST"])
 def create_account():
     db = get_db()
     username = request.form['username']
@@ -89,7 +89,17 @@ def create_account():
         db.commit()
         return redirect(url_for('homepage'))
     flash(error)  # If there was an error flash a message
-    return redirect(url_for('account_page'))  # Return to the page to try again
+    return redirect(url_for('create_account_page'))  # Return to the page to try again
+
+
+@app.route('/account')
+def account_page():
+    db = get_db()
+    username = session['username']
+    cur = db.execute('SELECT title, id FROM games where username = ?', [username])
+    games = cur.fetchall()
+    return render_template('account.html', games=games)
+
 
 @app.route('/login')
 def login_page():

@@ -21,7 +21,7 @@ class Project(unittest.TestCase):
         return self.app.post('/process_login', data=dict(username=username, password=password), follow_redirects=True)
 
     def register(self, username, password):
-        return self.app.post('/create_account', data=dict(username=username, password=password), follow_redirects=True)
+        return self.app.post('/process_account', data=dict(username=username, password=password), follow_redirects=True)
 
     def test_home(self):
         rv = self.app.get('/')
@@ -30,8 +30,8 @@ class Project(unittest.TestCase):
         assert b'Create' in rv.data  # Create Button is Rendered
         assert b'nav' in rv.data  # Ensure that the navigation bar is being loaded
 
-    def test_account_page(self):
-        rv = self.app.get('/account')
+    def test_create_account_page(self):
+        rv = self.app.get('/create_account')
         assert b'username' in rv.data  # Load the accounts page and ensure the user has labeled fields
         self.register('testUser', 'verySecure')  # Register a user
         rv = self.register('testUser', 'verySecure')

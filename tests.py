@@ -111,8 +111,8 @@ class Project(unittest.TestCase):
         assert b'Go' in rv.data  # Situation saves
         assert b'Stop' in rv.data  # There are options on the page
         rv = self.app.post('/linking_handler',
-                           data=dict(linked_situation1='questionOne', linked_situation2='questionOne', id=0, game_id=0),
-                           follow_redirects=True)
+                           data=dict(linked_situation1='questionOne', linked_situation2='questionOne', id=0,
+                                     game_id=0, mode='0'), follow_redirects=True)
         assert b'Choices have been linked!' in rv.data  # The choices were linked!
         assert b'linked to' in rv.data  # It displays the choices as being linked
 
@@ -120,7 +120,13 @@ class Project(unittest.TestCase):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
         self.app.post('/process_title',
-                      data=dict(title='title', description='desc', username='testUser'),
+                      data=dict(title='title', description='desc'),
+                      follow_redirects=True)
+        rv = self.app.get('/browse_game')
+        assert b'desc' not in rv.data  # Game is not displaying in browse page
+        assert b'Play' not in rv.data  # There is not a button loaded to play the game
+        self.app.post('/publish',
+                      data=dict(mode='0', id='1'),
                       follow_redirects=True)
         rv = self.app.get('/browse_game')
         assert b'title' in rv.data  # Game is displaying in browse page

@@ -2,7 +2,6 @@
 import os
 from sqlite3 import dbapi2 as sqlite3
 
-
 import werkzeug.security
 from flask import Flask, request, g, redirect, url_for, render_template, flash, session
 
@@ -76,7 +75,7 @@ def create_account():
     password = request.form['password']
     cur = db.execute('SELECT username FROM accounts where username = ?', [username])
     user_list = cur.fetchall()  # Search for entered username in the database
-    if user_list:   # Check if username is taken
+    if user_list:  # Check if username is taken
         error = 'Username is already taken'
     elif username == '':  # Check if username is null
         error = 'Invalid Username!'
@@ -96,9 +95,22 @@ def create_account():
 def account_page():
     db = get_db()
     username = session['username']
-    cur = db.execute('SELECT title, id FROM games where username = ?', [username])
+    cur = db.execute('SELECT title, id, published FROM games where username = ?', [username])
     games = cur.fetchall()
     return render_template('account.html', games=games)
+
+
+@app.route('/publish', methods=['POST'])
+def publish():
+    db = get_db()
+    if request.form['mode'] == 'True':
+        mode = True
+    else:
+        mode = False
+    db.execute('UPDATE games SET published = ? where id = ?',
+               [mode, request.form['game_id']])
+    db.commit()
+    return redirect(url_for('account_page'))
 
 
 @app.route('/login')
@@ -151,7 +163,8 @@ def process_title():
     desc = request.form['description']
     username = session['username']
     if username and desc and title:
-        db.execute('INSERT INTO games (title, description, username) VALUES (?, ?, ?)', [title, desc, username])
+        db.execute('INSERT INTO games (title, description, username, published) VALUES (?, ?, ?, ?)',
+                   [title, desc, username, False])
         cur = db.execute('SELECT id from games where title = ? AND description = ? AND username = ?',
                          [title, desc, username])
         game_id = cur.fetchone()["id"]
@@ -192,7 +205,7 @@ def create_handler():
 @app.route('/browse_game')
 def browse_game():
     db = get_db()
-    cur = db.execute('SELECT title,id FROM games')
+    cur = db.execute('SELECT title,id FROM games where published = ?', [True])
     games = cur.fetchall()
     return render_template('browse_game.html', Page="Browse Games", games=games)
 
@@ -221,26 +234,19 @@ def back():
 @app.route('/linking_handler', methods=['POST'])
 def linking_handler():
     db = get_db()
-    db.execute('UPDATE choices SET linked_situation1 = ?, linked_situation2 = ? where id = ?',
-               [request.form['linked_situation1'], request.form['linked_situation2'], request.form['id']])
+    mode = int(request.form['mode'])
+    if mode == 0:
+        db.execute('UPDATE choices SET linked_situation1 = ?, linked_situation2 = ? where id = ?',
+                   [request.form['linked_situation1'], request.form['linked_situation2'], request.form['id']])
+        code = 'Choices have been linked!'
+    else:
+        db.execute('UPDATE choices SET linked_situation1 = NULL , linked_situation2 = NULL where id = ?',
+                   [request.form['id']])
+        code = 'Linked choices have been cleared.'
     db.commit()
     game_id = request.form['game_id']
-    flash('Choices have been linked!')
+    flash(code)
     return redirect(url_for("create_page", game_id=game_id))
-
-
-@app.route('/clearlink_handler', methods=['POST'])
-def clearlink_handler():
-    db = get_db()
-    # Update choices to set linked situations to null
-    db.execute('UPDATE choices SET linked_situation1 = NULL , linked_situation2 = NULL where id = ?',
-               [request.form['id']])
-    db.commit()
-    game_id = request.form['game_id']
-    # Reload the page and inform the user that the linked choices have been cleared
-    flash('Linked choices have been cleared.')
-    return redirect(url_for("create_page", game_id=game_id))
-    # Function that clears linked situations for a choice
 
 
 @app.route('/play_game', methods=['GET'])

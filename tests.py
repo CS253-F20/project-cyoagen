@@ -126,7 +126,7 @@ class Project(unittest.TestCase):
         assert b'desc' not in rv.data  # Game is not displaying in browse page
         assert b'Play' not in rv.data  # There is not a button loaded to play the game
         self.app.post('/publish',
-                      data=dict(mode='0', id='1'),
+                      data=dict(mode='True', game_id='1'),
                       follow_redirects=True)
         rv = self.app.get('/browse_game')
         assert b'title' in rv.data  # Game is displaying in browse page

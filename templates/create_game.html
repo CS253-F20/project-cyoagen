@@ -36,7 +36,7 @@
     {% for choice in choices %}
         <!-- if a situation does not have its choices linked to another situation, then display it on the page with
         dropdown menus that allow the user to link situations to its choices -->
-        {% if choice.linked_situation1 == None %}
+        {% if choice.linked_situation1 == None  or choice.linked_situation2 == None%}
                    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('linking_handler')}}" method="post">
                        <input type="hidden" value='0' name="mode"  />
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
@@ -96,7 +96,7 @@
             <hr>
         {% endif %}
     {% endfor %}
-    <a href="{{ url_for('account_page') }}"><button class="btn h-50 w-25 btn-color"> Save and Quit </button></a>
+    <div class="text-center p-4"><a href="{{ url_for('account_page') }}" ><button class="btn h-50 w-25 btn-color"> Save and Quit </button></a></div>
     <!-- Code for music -->
     <audio loop="True" id="GCM">
       <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >

@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
     {% for game in games %}
-        <div>
+        <div class="text-center col-lg-6 offset-lg-3 top-marg">
+        <h2>{{ game.title }}</h2>
+        <div class="form-group big-head">
             <form action="{{ url_for('create_page') }}" method="get">
-                <h2>{{ game.title }}</h2>
+
                 <input type="hidden" value='{{ game.id }}' name="game_id"/>
                 <button type="submit">Edit</button>
             </form>
@@ -20,6 +22,7 @@
                     <button type="submit">Un-Publish</button>
                 </form>
             {% endif %}
+        </div>
         </div>
     {% endfor %}
 {% endblock %}

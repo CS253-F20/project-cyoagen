@@ -69,6 +69,11 @@ a.nav-link:hover, a.nav-link:focus {
   color:black;
 }
 
+.btn-color:hover, .btn-color:focus{
+    background-color: #541313;
+    color:#EAD60C;
+}
+
 .big-head {
   font-family: Star;
 }

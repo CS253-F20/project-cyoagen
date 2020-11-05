@@ -3,21 +3,21 @@
     <!-- Code for creating a choice section -->
          <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_handler') }}" method="post">
             <div class="form-group">
-                <h1 class="big-head"> Situation Title</h1>
+                <h1 class="eight-bit"> Situation Title</h1>
                 <input type="text" name="Situation_Title">
             </div>
              <div class="form-group">
-                <h2 class="big-head"> Situation Text </h2>
+                <h2 class="eight-bit"> Situation Text </h2>
                 <textarea id="situation" rows="5" name='Situation'></textarea>
             </div>
             <div>
-                <h2 class="big-head"> Choices </h2>
+                <h2 class="eight-bit"> Choices </h2>
                     <div class="form-group">
-                        <label class="big-head"> Choice 1:</label>
+                        <label class="eight-bit"> Choice 1:</label>
                         <input type="text" name="ChoiceOne">
                     </div>
                     <div class="form-group">
-                        <label class="big-head"> Choice 2: </label>
+                        <label class="eight-bit"> Choice 2: </label>
                         <input type="text" name="ChoiceTwo">
                     </div>
             </div>
@@ -29,7 +29,7 @@
             <input type="hidden" value="{{ gameID }}" name="game_id"  />
         </form>
         <hr>
-        <h3 class="text-center big-head">Link Situations to Choices</h3>
+        <h3 class="text-center eight-bit">Link Situations to Choices</h3>
         <hr>
 
     <!--Code for linking choices section -->
@@ -42,7 +42,7 @@
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <h4> {{ choice.title }}</h4>
                             <div>
-                                <label class="big-head"> {{ choice.option1 }} </label>
+                                <label class="eight-bit"> {{ choice.option1 }} </label>
                                <!--This creates a dropdown of available situations to link the choice to-->
                                    <select name="linked_situation1" id="linked_situation1">
                                         <option>ENDING</option>
@@ -54,7 +54,7 @@
                                    </select>
                            </div>
                            <div>
-                                <label class="big-head"> {{ choice.option2 }} </label>
+                                <label class="eight-bit"> {{ choice.option2 }} </label>
                                    <select name="linked_situation2" id="linked_situation2">
                                        <option>ENDING</option>
                                        {% for link_choice in choices %}
@@ -77,14 +77,14 @@
         is linked. -->
         {% else %}
              <form class="text-center p-4" action="{{ url_for('linking_handler')}}" method="post">
-               <input type="hidden" value="{{ choice.id }}" name="id"  />'
+               <input type="hidden" value="{{ choice.id }}" name="id"  />
                <input type="hidden" value='1' name="mode"  />
                <h4> {{ choice.title }}</h4>
-                   <div class="form-group big-head">
+                   <div class="form-group eight-bit">
                        {{ choice.option1 }} |
                        Linked to: {{ choice.linked_situation1 }}
                    </div>
-                   <div class="form-group big-head">
+                   <div class="form-group eight-bit">
                         {{ choice.option2 }} |
                         Linked to: {{ choice.linked_situation2 }}
                    </div>

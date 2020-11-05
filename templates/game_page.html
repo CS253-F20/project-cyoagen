@@ -1,24 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="form-group display-4 big-head text-center col-lg-6 offset-lg-3 top-marg">
-            <label for="title"> {{ choice.situation }} </label>
-        </div>
+<div class="form-group display-4 text-center top-marg">
+    <label for="title"> {{ choice.situation }} </label><hr>
+</div>
     <!-- Likely to change how this works. When the database is changed to accommodate more than two options, this code
     will be restructured to display n number of options vertically. -->
-        <div class="choice-marg form-group form-inline container-fluid text-center display-3 standard_color">
-            <div class="col-lg-2 offset-lg-2 ">
-                <form action="{{ url_for('game_page') }}" method="post">
-                    <input type="hidden" value="{{ choice.linked_situation1 }}" name="key"  />
-                    <input type="hidden" value="{{ game_id }}" name="game_id"  />
-                    <button class="btn-xl btn-color choice-button" type="submit" value={{ choice.option1 }}></button>
-                </form>
-            </div>
-            <div class="col-lg-2 offset-lg-4">
-                <form action="{{ url_for('game_page') }}" method="post">
-                    <input type="hidden" value="{{ choice.linked_situation2 }}" name="key"  />
-                    <input type="hidden" value="{{ game_id }}" name="game_id"  />
-                    <input class="btn-xl btn-color" type="submit" value={{ choice.option2 }}>
-                </form>
-            </div>
-        </div>
+<div class="text-center form-group container-fluid display-4 standard_color">
+    <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('game_page') }}" method="post">
+        <input type="hidden" value="{{ choice.linked_situation1 }}" name="key"  />
+        <input type="hidden" value="{{ game_id }}" name="game_id"  />
+        <label for="option1">{{ choice.option1 }}</label><br>
+        <button class="btn-lg btn-color" alt="choose {{ choice.option1 }}" type="submit" name="option1">&#8593;</button>
+    </form>
+    <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('game_page') }}" method="post">
+        <input type="hidden" value="{{ choice.linked_situation2 }}" name="key"  />
+        <input type="hidden" value="{{ game_id }}" name="game_id"  />
+        <label for="option2">{{ choice.option2 }}</label><br>
+        <button class="btn-lg btn-color" alt="choose {{ choice.option2 }}" type="submit" name="option2">&#8593;</button>
+    </form>
+</div>
 {% endblock %}

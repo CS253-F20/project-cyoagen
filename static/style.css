@@ -16,6 +16,14 @@ html body{
   background-color: cornsilk;
 }
 
+hr {
+  background-color: #541313;
+}
+
+.border-color {
+  border-color: #541313;
+}
+
 .flash {
   background-color: #FDFD96;
   padding: 0.5em;
@@ -74,8 +82,12 @@ a.nav-link:hover, a.nav-link:focus {
     color:#EAD60C;
 }
 
-.big-head {
+.eight-bit {
   font-family: Star;
+}
+
+.tron {
+  font-family: Game;
 }
 
 

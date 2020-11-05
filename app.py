@@ -91,6 +91,7 @@ def create_account():
     flash(error)  # If there was an error flash a message
     return redirect(url_for('account_page'))  # Return to the page to try again
 
+
 @app.route('/login')
 def login_page():
     return render_template('login.html', Page="Login")
@@ -182,16 +183,19 @@ def create_handler():
 @app.route('/browse_game')
 def browse_game():
     db = get_db()
-    cur = db.execute('SELECT title,id FROM games')
-    games = cur.fetchall()
-    return render_template('browse_game.html', Page="Browse Games", games=games)
+    if 'username' not in session:
+        return redirect(url_for('login_page'))
+    else:
+        cur = db.execute('SELECT title,id FROM games')
+        games = cur.fetchall()
+        return render_template('browse_game.html', Page="Browse Games", games=games)
 
 
 @app.route('/search_game', methods=['POST'])
 def search():
     db = get_db()
     search_game = request.form['search_game']
-    cur = db.execute('SELECT title,id FROM games where title = ?', [search_game])
+    cur = db.execute('SELECT title,id FROM games where title LIKE ?', [search_game])
     game = cur.fetchall()
     if not game:
         flash('No games like this')
@@ -202,10 +206,7 @@ def search():
 
 @app.route('/back', methods=['POST'])
 def back():
-    db = get_db()
-    cur = db.execute('SELECT title FROM games')
-    game = cur.fetchall()
-    return render_template('browse_game.html', games=game)
+    return redirect(url_for('browse_game'))
 
 
 @app.route('/linking_handler', methods=['POST'])

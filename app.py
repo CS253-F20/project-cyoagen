@@ -69,7 +69,7 @@ def homepage():
     certain options on the navigation bar as well as displays a small text saying Home."""
     if 'username' in session:  # If logged in, display "welcome (username)"
         return render_template('Home.html', Page="Home", User=session['username'])
-    else:  # Else display "Welcome user"
+    else:  # Else set User to "User"
         return render_template('Home.html', Page="Home", User="User")
         # Renders homepage
 
@@ -248,7 +248,10 @@ def browse_game():
     db = get_db()
     cur = db.execute('SELECT title,id FROM games where published = ?', [True])
     games = cur.fetchall()
-    return render_template('browse_game.html', Page="Browse Games", games=games)
+    if 'username' not in session:
+        return redirect(url_for('login_page'))
+    else:
+        return render_template('browse_game.html', Page="Browse Games", games=games)
 
 
 @app.route('/search_game', methods=['POST'])

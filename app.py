@@ -138,6 +138,7 @@ def publish():
     return redirect(url_for('account_page'))
 
 
+
 @app.route('/login')
 def login_page():
     """Simply loads the login page for users to enter their details. The Page variable toggles certain options on
@@ -249,11 +250,11 @@ def create_handler():
 def browse_game():
     """Simply renders the browse_game page with a list of games that have been marked as published."""
     db = get_db()
-    cur = db.execute('SELECT title,id FROM games where published = ?', [True])
-    games = cur.fetchall()
     if 'username' not in session:
         return redirect(url_for('login_page'))
     else:
+        cur = db.execute('SELECT title,id FROM games where published = ?', [True])
+        games = cur.fetchall()
         return render_template('browse_game.html', Page="Browse Games", games=games)
 
 

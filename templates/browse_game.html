@@ -2,17 +2,16 @@
 {% block body %}
     <div class="col-lg-6 offset-lg-3 top-marg">
         <div class="form-group">
-            <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('search') }}" method="post" class="search"> <!-- edited action for now just so
-            the page renders -->
-              <label class="eight-bit" for="search_game"> Search games: </label>
-              <input class="form-control mb-2" type="text" size="15" id="content" name="search_game">
+            <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('search') }}" method="post">
+              <label for="content" class="eight-bit"> Search games: </label>
+               <input class="form-control mb-2" type="text" size="15" id="content" name="search_game">
               <input class="btn btn-color col-lg-6 offset-lg-3" type="submit" value="Search">
             </form>
         </div>
 
         {% for game in games %}
             <div class="form-group">
-                <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('play_game') }}" method="get" class="play">
+                <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('play_game') }}" method="get">
                     <label class="eight-bit">{{ game.title }} </label>
                     <input class="form-control" type="hidden" name="game_id" value="{{ game.id }}">
                     <button class="btn btn-color" type="submit">Play</button>

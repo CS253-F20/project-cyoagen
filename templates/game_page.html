@@ -10,13 +10,13 @@
         <input type="hidden" value="{{ choice.linked_situation1 }}" name="key"  />
         <input type="hidden" value="{{ game_id }}" name="game_id"  />
         <label for="option1">{{ choice.option1 }}</label><br>
-        <button class="btn-lg btn-color" alt="choose {{ choice.option1 }}" type="submit" name="option1">&#8593;</button>
+        <button class="btn-lg btn-color" type="submit" name="option1">&#8593;</button>
     </form>
     <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('game_page') }}" method="post">
         <input type="hidden" value="{{ choice.linked_situation2 }}" name="key"  />
         <input type="hidden" value="{{ game_id }}" name="game_id"  />
         <label for="option2">{{ choice.option2 }}</label><br>
-        <button class="btn-lg btn-color" alt="choose {{ choice.option2 }}" type="submit" name="option2">&#8593;</button>
+        <button class="btn-lg btn-color" type="submit" name="option2">&#8593;</button>
     </form>
 </div>
 {% endblock %}

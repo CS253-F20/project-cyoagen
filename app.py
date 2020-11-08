@@ -113,10 +113,13 @@ def account_page():
     """This renders the account page, which displays all the games created by a given user along with their publishing
     status and names."""
     db = get_db()
-    username = session['username']
-    cur = db.execute('SELECT title, id, published FROM games where username = ?', [username])
-    games = cur.fetchall()
-    return render_template('account.html', games=games, Page="My Games")
+    if 'username' in session:  # If user is logged in, take them to the account page
+        username = session['username']
+        cur = db.execute('SELECT title, id, published FROM games where username = ?', [username])
+        games = cur.fetchall()
+        return render_template('account.html', games=games, Page="My Games")
+    else:  # Otherwise, take the user to the login page
+        return redirect(url_for('login_page'))
 
 
 @app.route('/publish', methods=['POST'])

@@ -169,7 +169,7 @@ class Project(unittest.TestCase):
                       follow_redirects=True)
         self.app.post('/create_handler', data=dict(Situation_Title='Start', Situation='Do You?', ChoiceOne='Yes',
                                                    ChoiceTwo='No', game_id=1), follow_redirects=True)
-        rv = self.app.post('play', data=dict(game_id=1, key='Start'), follow_redirects=True)
+        rv = self.app.get('/play?game_id=1&key=Start')
         assert b'Do You?' in rv.data
         assert b'Yes' in rv.data
 

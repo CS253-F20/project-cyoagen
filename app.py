@@ -294,15 +294,15 @@ def linking_handler():
     return redirect(url_for("create_page", game_id=game_id))
 
 
-@app.route('/play_game', methods=['POST'])
+@app.route('/play_game', methods=['GET'])
 def play_game():
     """One of the rare GET methods in the game, this one allows for users to see a quick title and description of a
     game once they click play on the browse or search pages. The get parameter is the game id, which ensures that users
     can link each other games they find that are entertaining."""
     db = get_db()
-    game_id = request.form['game_id']
+    game_id = request.args['game_id']
     cur = db.execute(' SELECT title,description FROM games WHERE id = ?', [game_id])
-    game = cur.fetchall()
+    game = cur.fetchone()
     sur = db.execute('SELECT title FROM choices WHERE game_id= ?', [game_id])
     title = sur.fetchall()
     return render_template('play_game.html', game=game, title=title, id=game_id)

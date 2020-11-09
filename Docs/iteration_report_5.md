@@ -46,6 +46,9 @@
     - Now a user can easily continue editing a game after they've saved and quit.
         - Also added a New Game button to the account page so the user can still easily start making a new game.
             - Completed By: Drew
+           
+- Created test cases and documentation for all parts of the application
+    - Completed By: Evan
             
   
 ## Tasks Not Completed
@@ -63,5 +66,17 @@
     
 ## Helpful Tools/Processes
 
-
 ## Plan for Iteration 4
+
+- Update frontend code to allow a user to finish playing the game and be brought to an end game screen.
+    - Code should bring the player to a screen that makes it clear that they have finished instead of being brought to a
+    page with two empty buttons.
+        - Assigned To: Aaron
+        
+- Update backend code to allow a user to finish playing the game and be brought to an end game screen.
+    - Code should bring the player to a screen that makes it clear that they have finished instead of being brought to a
+    page with two empty buttons.
+        - Assigned To: Drew
+
+- Create a test game to be demonstrated during the final project demonstration.
+    - Assigned To: Evan

@@ -128,19 +128,19 @@ class Project(unittest.TestCase):
                       follow_redirects=True)
         rv = self.app.get('/browse_game')
         assert b'TestTitle' not in rv.data  # Game is not displaying in browse page
-        assert b'Play' not in rv.data  # There is not a button loaded to play the game
+        assert b'View' not in rv.data  # There is not a button loaded to play the game
         self.app.post('/publish',
                       data=dict(mode='True', game_id='1'),
                       follow_redirects=True)
         rv = self.app.get('/browse_game')
         assert b'TestTitle' in rv.data  # Game is displaying in browse page
-        assert b'Play' in rv.data  # There is a button loaded to play the game
+        assert b'View' in rv.data  # There is a button loaded to play the game
         self.app.post('/publish',
                       data=dict(mode='False', game_id='1'),
                       follow_redirects=True)
         rv = self.app.get('/browse_game')
         assert b'TestTitle' not in rv.data  # Game is not displaying in browse page
-        assert b'Play' not in rv.data  # There is not a button loaded to play the game
+        assert b'View' not in rv.data  # There is not a button loaded to play the game
         self.app.post('/publish',
                       data=dict(mode='True', game_id='1'),
                       follow_redirects=True)
@@ -149,7 +149,7 @@ class Project(unittest.TestCase):
         rv = self.app.post('/search_game', data=dict(search_game='TestTitle'), follow_redirects=True)
         assert b'No games like this' not in rv.data
         assert b'TestTitle' in rv.data  # Game is not displaying in browse page
-        assert b'Play' in rv.data  # There is not a button loaded to play the game
+        assert b'View' in rv.data  # There is not a button loaded to play the game
 
     def test_play_game_button(self):
         self.register('testUser', 'verySecure')

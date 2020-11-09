@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
         <form action="{{ url_for('search') }}" method="post" class="search">
-          Search games:
-          <input type="text" size="15" id="content" name="search_game">
+            <label for="content"> Search games: </label>
+            <input type="text" size="15" id="content" name="search_game">
             <input type="submit" value="Search">
         </form>
         <form action="{{ url_for('back') }}" method="post" class="search">

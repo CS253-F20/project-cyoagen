@@ -47,7 +47,7 @@
         - Also added a New Game button to the account page so the user can still easily start making a new game.
             - Completed By: Drew
            
-- Created test cases and documentation for all parts of the application
+- Created test cases and documentation for all parts of the application.
     - Completed By: Evan
             
   

@@ -1,12 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="form-group display-4 text-center top-marg">
-    <label class="eight-bit">{{ choice[0][0] }} </label>
-    <label for="title"> {{ choice[0][1] }} </label><hr>
+<div class="display-4 text-center top-marg">
+    <h2 class="eight-bit">{{ choice[0][0] }} </h2><hr>
 </div>
 <div class="text-center form-group container-fluid display-4 standard_color">
-    <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('end_game') }}" >
-        <button class="btn-lg btn-color" type="submit" >Back to Home page</button>
-    </form>
+    <p> Congratulations! You have finished the game! </p>
+    <a href="{{ url_for('homepage') }}"><button class="btn-lg btn-color" type="submit" >Back to Home page</button></a>
 </div>
 {% endblock %}

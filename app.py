@@ -339,11 +339,6 @@ def game_page():
     return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
 
 
-@app.route('/end')
-def end_game():
-    return redirect(url_for('homepage'))
-
-
 if __name__ == '__main__':
     """Runs the app for testing :)"""
     app.run()

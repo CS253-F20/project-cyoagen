@@ -138,7 +138,6 @@ def publish():
     return redirect(url_for('account_page'))
 
 
-
 @app.route('/login')
 def login_page():
     """Simply loads the login page for users to enter their details. The Page variable toggles certain options on
@@ -295,33 +294,54 @@ def linking_handler():
     return redirect(url_for("create_page", game_id=game_id))
 
 
-@app.route('/play_game', methods=['GET'])
+@app.route('/play_game', methods=['POST'])
 def play_game():
     """One of the rare GET methods in the game, this one allows for users to see a quick title and description of a
     game once they click play on the browse or search pages. The get parameter is the game id, which ensures that users
     can link each other games they find that are entertaining."""
     db = get_db()
-    game_id = request.args['game_id']
-    cur = db.execute(' SELECT title FROM games WHERE id = ?', [game_id])
-    title = cur.fetchall()
-    sur = db.execute(' SELECT description FROM games WHERE id = ?', [game_id])
-    description = sur.fetchall()
-    return render_template('play_game.html', title=title, description=description, id=game_id)
+    game_id = request.form['game_id']
+    cur = db.execute(' SELECT title,description FROM games WHERE id = ?', [game_id])
+    game = cur.fetchall()
+    sur = db.execute('SELECT title FROM choices WHERE game_id= ?', [game_id])
+    title = sur.fetchall()
+    return render_template('play_game.html', game=game, title=title, id=game_id)
 
 
-@app.route('/play', methods=['POST'])
+@app.route('/check_ending', methods=['POST'])
+def check_ending():
+    key = request.form['key']
+    game_id = request.form['game_id']
+    db = get_db()
+    cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
+                     ' WHERE game_id = ? AND title = ?', [game_id, key])
+    choice = cur.fetchall()
+    if choice[0][4] == "ENDING":
+        return render_template('end_game.html', choice=choice)
+    elif choice[0][5] == "ENDING":
+        return render_template('end_game.html', choice=choice)
+    else:
+        return redirect(url_for('game_page', game_id=game_id, key=key))
+
+
+@app.route('/play', methods=['GET'])
 def game_page():
     """The dynamic play page, which takes 2 inputs through a POST framework, allows for users to have a consistent
     design while playing, taking the key (or situation title) of the situation to be displayed as well as the associated
     game ID. Info about this choice is passed to the front end, which presents option1 and option2 which each link back
     to this method with a new key (linked_situation1 and linked_situation2)"""
     db = get_db()
-    game_id = request.form['game_id']
-    key = request.form['key']
+    game_id = request.args['game_id']
+    key = request.args['key']
     cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
-    choice = cur.fetchone()
+    choice = cur.fetchall()
     return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
+
+
+@app.route('/end')
+def end_game():
+    return redirect(url_for('homepage'))
 
 
 if __name__ == '__main__':

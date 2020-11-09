@@ -2,14 +2,14 @@
 {% block body %}
     <form class="text-center col-lg-6 offset-lg-3 top-marg">
         <div class="form-group display-4 eight-bit">
-            <label for="title"> {{ game[0][0] }} </label>
+            <label for="title"> {{ game.title }} </label>
         </div>
         <div class="form-group display-5">
-            <label for="description"> {{ game[0][1] }} </label>
+            <label for="description"> {{ game.description }} </label>
         </div>
     </form>
     <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('check_ending') }}" method="post">
-        <input type="hidden" name="key" value="{{ title[0][0] }}">
+        <input type="hidden" name="key" value="Start">
         <input type="hidden" name="game_id" value="{{ id }}">
         <button type="submit" class="btn-lg btn-color">Start</button>
     </form>

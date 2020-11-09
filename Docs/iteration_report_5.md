@@ -1,4 +1,4 @@
-# Iteration Report 4
+# Iteration Report 5
 
 ## Assigned Responsibilities
 
@@ -66,7 +66,7 @@
     
 ## Helpful Tools/Processes
 
-## Plan for Iteration 4
+## Plan for Iteration 6
 
 - Update frontend code to allow a user to finish playing the game and be brought to an end game screen.
     - Code should bring the player to a screen that makes it clear that they have finished instead of being brought to a

@@ -3,59 +3,60 @@
     <!-- Code for creating a choice section -->
          <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_handler') }}" method="post">
             <div class="form-group">
-                <h1 class="big-head"> Situation Title</h1>
-                <input type="text" name="Situation_Title">
+                <label for="situation_title" class="eight-bit display-4"> Situation Title</label>
+                <input type="text" id="situation_title" name="Situation_Title">
             </div>
              <div class="form-group">
-                <h2 class="big-head"> Situation Text </h2>
-                <textarea id="situation" rows="5" name='Situation'></textarea>
+                <label for="situation" class="eight-bit display-4"> Situation Text </label>
+                <textarea rows="5" id="situation" name='Situation'></textarea>
             </div>
             <div>
-                <h2 class="big-head"> Choices </h2>
+                <h2 class="eight-bit"> Choices </h2>
                     <div class="form-group">
-                        <label class="big-head"> Choice 1:</label>
-                        <input type="text" name="ChoiceOne">
+                        <label for="choice_one" class="eight-bit"> Choice 1:</label>
+                        <input type="text" id="choice_one" name="ChoiceOne">
                     </div>
                     <div class="form-group">
-                        <label class="big-head"> Choice 2: </label>
-                        <input type="text" name="ChoiceTwo">
+                        <label for="choice_two" class="eight-bit"> Choice 2: </label>
+                        <input type="text" id="choice_two" name="ChoiceTwo">
                     </div>
             </div>
             <div class="form-group">
+                <p>Title the situation Start to make it the first choice. To create an ending, choose ENDING as the
+                linked choice once a choice is created.</p>
                 <input type="submit" value="Add Situation" class="btn btn-color">
             </div>
             <input type="hidden" value="{{ gameID }}" name="game_id"  />
         </form>
         <hr>
-        <h3 class="text-center big-head">Link Situations to Choices</h3>
+        <h3 class="text-center eight-bit">Link Situations to Choices</h3>
         <hr>
 
     <!--Code for linking choices section -->
     {% for choice in choices %}
         <!-- if a situation does not have its choices linked to another situation, then display it on the page with
         dropdown menus that allow the user to link situations to its choices -->
-        {% if choice.linked_situation1 == None %}
+        {% if choice.linked_situation1 == None  or choice.linked_situation2 == None%}
                    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('linking_handler')}}" method="post">
+                       <input type="hidden" value='0' name="mode"  />
                        <input type="hidden" value="{{ choice.id }}" name="id"  />
                        <h4> {{ choice.title }}</h4>
                             <div>
-                                <label class="big-head"> {{ choice.option1 }} </label>
+                                <label for="linked_situation1" class="eight-bit"> {{ choice.option1 }} </label>
                                <!--This creates a dropdown of available situations to link the choice to-->
                                    <select name="linked_situation1" id="linked_situation1">
+                                        <option>ENDING</option>
                                        {% for link_choice in choices %}
-                                           {% if link_choice.title != choice.title %}
                                                 <option>{{ link_choice.title }}</option>
-                                           {% endif %}
                                        {% endfor %}
                                    </select>
                            </div>
                            <div>
-                                <label class="big-head"> {{ choice.option2 }} </label>
+                                <label for="linked_situation2" class="eight-bit"> {{ choice.option2 }} </label>
                                    <select name="linked_situation2" id="linked_situation2">
+                                       <option>ENDING</option>
                                        {% for link_choice in choices %}
-                                           {% if link_choice.title != choice.title %}
                                                 <option>{{ link_choice.title }}</option>
-                                           {% endif %}
                                        {% endfor %}
                                    </select>
                            </div>
@@ -71,14 +72,15 @@
         also provides the user with a button that will clear the linked situations in case they want to change what
         is linked. -->
         {% else %}
-             <form class="text-center p-4" action="{{ url_for('clearlink_handler')}}" method="post">
+             <form class="text-center p-4" action="{{ url_for('linking_handler')}}" method="post">
                <input type="hidden" value="{{ choice.id }}" name="id"  />
+               <input type="hidden" value='1' name="mode"  />
                <h4> {{ choice.title }}</h4>
-                   <div class="form-group big-head">
+                   <div class="form-group eight-bit">
                        {{ choice.option1 }} |
                        Linked to: {{ choice.linked_situation1 }}
                    </div>
-                   <div class="form-group big-head">
+                   <div class="form-group eight-bit">
                         {{ choice.option2 }} |
                         Linked to: {{ choice.linked_situation2 }}
                    </div>
@@ -90,7 +92,7 @@
             <hr>
         {% endif %}
     {% endfor %}
-
+    <div class="text-center p-4"><a href="{{ url_for('account_page') }}" ><button class="btn h-50 w-25 btn-color"> Save and Quit </button></a></div>
     <!-- Code for music -->
     <audio loop="True" id="GCM">
       <source src="{{ url_for('static', filename='GameCreationMusic.mp3') }}" type="audio/mp3" >

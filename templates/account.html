@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+    <a href="{{ url_for('create_title_page') }}"><button class="eight-bit btn btn-color float-right mt-2 mr-3"> New Game </button></a>
+    <h2 class="eight-bit text-center display-3 col-lg-6 offset-lg-3 top-marg">My Games</h2><hr>
+    {% for game in games %}
+        <div class="text-center col-lg-6 offset-lg-3 border border-dark rounded py-2 px-2 mb-3">
+            <label for="Edit" class="eight-bit display-5">{{ game.title }}</label>
+            <div class="form-group eight-bit">
+                <form action="{{ url_for('create_page') }}" method="get">
+                    <input type="hidden" value='{{ game.id }}' name="game_id"/>
+                    <button class="btn btn-color mb-2" type="submit">Edit</button>
+                </form>
+            <!-- If the game is not published, display a publsih button, otherwise display an un-publish button-->
+                {% if game.published == False %}
+                <form action="{{ url_for('publish') }}" method="post">
+                    <input type="hidden" value='True' name="mode"/>
+                    <input type="hidden" value='{{ game.id }}' name="game_id"/>
+                    <button class="btn btn-color mb-2" type="submit">Publish</button>
+                </form>
+                {% else %}
+                    <form action="{{ url_for('publish') }}" method="post">
+                        <input type="hidden" value='False' name="mode"/>
+                        <input type="hidden" value='{{ game.id }}' name="game_id"/>
+                        <button class="btn btn-color mb-2" type="submit">Un-Publish</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

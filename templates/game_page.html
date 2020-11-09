@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="form-group display-4 text-center top-marg">
-    <label class="eight-bit">{{ choice[0][0] }} </label>
-    <label for="title"> {{ choice[0][1] }} </label><hr>
+    <label class="eight-bit">{{ choice.title }} </label>
+    <label for="title"> {{ choice.situation }} </label><hr>
 </div>
     <!-- Likely to change how this works. When the database is changed to accommodate more than two options, this code
     will be restructured to display n number of options vertically. -->
 <div class="text-center form-group container-fluid display-4 standard_color">
     <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('check_ending') }}" method="post">
-        <input type="hidden" value="{{ choice[0][4] }}" name="key"  />
+        <input type="hidden" value="{{ choice.linked_situation1 }}" name="key"  />
         <input type="hidden" value="{{ game_id }}" name="game_id"  />
-        <label for="option1">{{ choice[0][2] }}</label><br>
+        <label for="option1">{{ choice.option1 }}</label><br>
         <button class="btn-lg btn-color" type="submit" name="option1">—></button>
     </form>
     <form class="border border-dark rounded py-2 px-2 choice-marg" action="{{ url_for('check_ending') }}" method="post">
-        <input type="hidden" value="{{ choice[0][5] }}" name="key"  />
+        <input type="hidden" value="{{ choice.linked_situation2 }}" name="key"  />
         <input type="hidden" value="{{ game_id }}" name="game_id"  />
-        <label for="option2">{{ choice[0][3] }}</label><br>
+        <label for="option2">{{ choice.option2 }}</label><br>
         <button class="btn-lg btn-color" type="submit" name="option2">—></button>
     </form>
 </div>

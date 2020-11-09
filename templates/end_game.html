@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="display-4 text-center top-marg">
-    <h2 class="eight-bit">{{ choice[0][0] }} </h2><hr>
+    <h2 class="eight-bit">{{ choice.title }} </h2><hr>
+    <label for="title"> {{ choice.situation }} </label><hr>
 </div>
 <div class="text-center form-group container-fluid display-4 standard_color">
     <p> Congratulations! You have finished the game! </p>

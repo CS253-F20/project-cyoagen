@@ -71,7 +71,7 @@
 
 - Open communication was imperative for this iteration as we had multiple people working on a complex story
 
-## Plan for Iteration 3
+## Plan for Iteration 4
 
 - Write tests for implemented features
     - Create tests in the tests.py file that test functionality of the features we have implemented thus far

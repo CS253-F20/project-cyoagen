@@ -1,16 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-      {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-      {% endfor %}
-    <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_account') }}" method="post" class="create_account">
+    <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_account') }}" method="post">
         <div class="form-group">
             <label for="username">Username: </label>
-            <input class="form-control" type="text" name="username">
+            <input class="form-control" type="text" id="username" name="username">
         </div>
         <div class="form-group">
             <label for ="password">Password: </label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" type="password" id="password" name="password">
         </div>
         <div class="form-group">
             <input class="btn-color col-lg-6 offset-lg-3" type="submit" value="Create Account" >

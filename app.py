@@ -163,7 +163,7 @@ def login_handler():
     else:  # If an account is found with that username
         cur = db.execute('SELECT password FROM accounts where username = ?', [username])
         pass_hashed = cur.fetchone()  # Grab the stored password hash
-        if not werkzeug.security.check_password_hash(pass_hashed[0], password):  # If the password doesn't match
+        if not werkzeug.security.check_password_hash(pass_hashed['password'], password):  # If the password doesn't match
             error = 'Invalid Password'
         else:  # If password matches and username checks out
             session['username'] = username  # Set session variable for username to current logged in user
@@ -315,10 +315,10 @@ def check_ending():
     db = get_db()
     cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
-    choice = cur.fetchall()
-    if choice[0][4] == "ENDING":
+    choice = cur.fetchone()
+    if choice['linked_situation1'] == "ENDING":
         return render_template('end_game.html', choice=choice)
-    elif choice[0][5] == "ENDING":
+    elif choice['linked_situation2'] == "ENDING":
         return render_template('end_game.html', choice=choice)
     else:
         return redirect(url_for('game_page', game_id=game_id, key=key))
@@ -335,7 +335,7 @@ def game_page():
     key = request.args['key']
     cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
-    choice = cur.fetchall()
+    choice = cur.fetchone()
     return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
 
 

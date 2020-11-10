@@ -303,8 +303,8 @@ def play_game():
     game_id = request.args['game_id']
     cur = db.execute(' SELECT title,description FROM games WHERE id = ?', [game_id])
     game = cur.fetchone()
-    sur = db.execute('SELECT title FROM choices WHERE game_id= ?', [game_id])
-    title = sur.fetchall()
+    sur = db.execute('SELECT title FROM choices WHERE game_id= ? ORDER BY id ASC', [game_id])
+    title = sur.fetchone()
     return render_template('play_game.html', game=game, title=title, id=game_id)
 
 

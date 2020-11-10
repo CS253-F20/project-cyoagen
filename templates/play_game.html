@@ -9,7 +9,7 @@
         </div>
     </form>
     <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('check_ending') }}" method="post">
-        <input type="hidden" name="key" value="Start">
+        <input type="hidden" name="key" value="{{ title[0] }}">
         <input type="hidden" name="game_id" value="{{ id }}">
         <button type="submit" class="btn-lg btn-color">Start</button>
     </form>

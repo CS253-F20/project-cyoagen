@@ -316,9 +316,7 @@ def check_ending():
     cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
                      ' WHERE game_id = ? AND title = ?', [game_id, key])
     choice = cur.fetchone()
-    if choice['linked_situation1'] == "ENDING":
-        return render_template('end_game.html', choice=choice)
-    elif choice['linked_situation2'] == "ENDING":
+    if choice['linked_situation1'] == "ENDING" or choice['linked_situation2'] == "ENDING":
         return render_template('end_game.html', choice=choice)
     else:
         return redirect(url_for('game_page', game_id=game_id, key=key))

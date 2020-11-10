@@ -23,6 +23,19 @@ class Project(unittest.TestCase):
     def register(self, username, password):
         return self.app.post('/process_account', data=dict(username=username, password=password), follow_redirects=True)
 
+    def create_test_game(self):
+        self.app.post('/process_title',
+                      data=dict(title='TestTitle', description='desc', username='testUser'),
+                      follow_redirects=True)
+        self.app.post('/create_handler', data=dict(Situation_Title='Start', Situation='Do You?', ChoiceOne='Yes',
+                                                   ChoiceTwo='No', game_id=1), follow_redirects=True)
+        self.app.post('/create_handler', data=dict(Situation_Title='Second', Situation='How', ChoiceOne='Nope',
+                                                   ChoiceTwo='Yep', game_id=1), follow_redirects=True)
+        self.app.post('/linking_handler', data=dict(id=1, mode=0, linked_situation1='Second',
+                                                    linked_situation2='Second', game_id=1), follow_redirects=True)
+        self.app.post('/linking_handler', data=dict(id=2, mode=0, linked_situation1='ENDING',
+                                                    linked_situation2='ENDING', game_id=1), follow_redirects=True)
+
     def test_home(self):
         rv = self.app.get('/')
         assert b'CYOA GEN' in rv.data  # Load the homepage and confirm the page is loading
@@ -120,12 +133,14 @@ class Project(unittest.TestCase):
         assert b'Linked choices have been cleared.' in rv.data  # The choices were linked!
         assert b'Linked to: ' not in rv.data  # It displays the choices as being linked
 
-    def test_browse_page(self):
+    def test_account_page(self):
+        rv = self.app.get('/account')
+        assert b'login' in rv.data
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
-        self.app.post('/process_title',
-                      data=dict(title='TestTitle', description='desc'),
-                      follow_redirects=True)
+        self.create_test_game()
+        rv = self.app.get('/account')
+        assert b'TestTitle' in rv.data
         rv = self.app.get('/browse_game')
         assert b'TestTitle' not in rv.data  # Game is not displaying in browse page
         assert b'View' not in rv.data  # There is not a button loaded to play the game
@@ -141,6 +156,13 @@ class Project(unittest.TestCase):
         rv = self.app.get('/browse_game')
         assert b'TestTitle' not in rv.data  # Game is not displaying in browse page
         assert b'View' not in rv.data  # There is not a button loaded to play the game
+
+    def test_search_page(self):
+        rv = self.app.get('/browse_game')
+        assert b'login' in rv.data
+        self.register('testUser', 'verySecure')
+        self.login('testUser', 'verySecure')
+        self.create_test_game()
         self.app.post('/publish',
                       data=dict(mode='True', game_id='1'),
                       follow_redirects=True)
@@ -154,24 +176,27 @@ class Project(unittest.TestCase):
     def test_play_game_button(self):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
-        self.app.post('/process_title',
-                      data=dict(title='title', description='desc', username='testUser'),
-                      follow_redirects=True)
+        self.create_test_game()
         rv = self.app.get('play_game?game_id=1')
-        assert b'title' in rv.data  # Once play button is clicked it displays the title
+        assert b'TestTitle' in rv.data  # Once play button is clicked it displays the title
         assert b'desc' in rv.data  # Also displays the description
 
     def test_playing(self):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
-        self.app.post('/process_title',
-                      data=dict(title='title', description='desc', username='testUser'),
-                      follow_redirects=True)
-        self.app.post('/create_handler', data=dict(Situation_Title='Start', Situation='Do You?', ChoiceOne='Yes',
-                                                   ChoiceTwo='No', game_id=1), follow_redirects=True)
+        self.create_test_game()
         rv = self.app.get('/play?game_id=1&key=Start')
         assert b'Do You?' in rv.data
         assert b'Yes' in rv.data
+
+    def test_ending(self):
+        self.register('testUser', 'verySecure')
+        self.login('testUser', 'verySecure')
+        self.create_test_game()
+        rv = self.app.post('/check_ending', data=dict(key='Start', game_id=1), follow_redirects=True)
+        assert b'Congratulations! You have finished the game!' not in rv.data
+        rv = self.app.post('/check_ending', data=dict(key='Second', game_id=1), follow_redirects=True)
+        assert b'Congratulations! You have finished the game!' in rv.data
 
 if __name__ == '__main__':
     unittest.main()

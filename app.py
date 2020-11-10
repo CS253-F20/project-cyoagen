@@ -264,13 +264,13 @@ def search():
     otherwise they are shown the results of their search."""
     db = get_db()
     search_game = request.form['search_game']
-    cur = db.execute('SELECT title,id FROM games where title = ? AND published = ?', [search_game, True])
+    cur = db.execute('SELECT title,id FROM games where title like ? AND published = ?', [search_game, True])
     game = cur.fetchall()
     if not game:
         flash('No games like this')
         return redirect(url_for('browse_game'))
     else:
-        return render_template('search_game.html', games=game, Page="Browse Games")
+        return render_template('browse_game.html', games=game, Page="Browse Games")
 
 
 @app.route('/linking_handler', methods=['POST'])

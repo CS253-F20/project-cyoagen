@@ -7,19 +7,18 @@
                <input class="form-control mb-2" type="text" size="15" id="content" name="search_game">
               <input class="btn btn-color col-lg-6 offset-lg-3" type="submit" value="Search">
             </form>
+            <a href={{ url_for('browse_game') }}><button class="btn btn-color col-lg-6 offset-lg-3 mt-2">Reset Search</button></a>
+            <hr>
         </div>
 
         {% for game in games %}
-            <div class="form-group">
-                <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('play_game') }}" method="get">
-                    <label class="eight-bit">{{ game.title }} </label>
-                    <input class="form-control" type="hidden" name="game_id" value="{{ game.id }}">
-                    <button class="btn btn-color" type="submit">View</button>
-                </form>
-            </div>
+            <form class="form-group" action="{{ url_for('play_game') }}" method="get">
+                <label class="eight-bit col-lg-4 offset-lg-2">{{ game.title }} </label>
+                <input class="form-control" type="hidden" name="game_id" value="{{ game.id }}">
+                <button class="btn btn-color col-lg-2 offset-lg-10" type="submit">View</button>
+            </form>
         {% else %}
-            <h1> No game has been created so far </h1>
+            <h1> No games to display </h1>
         {% endfor %}
-
     </div>
 {% endblock %}

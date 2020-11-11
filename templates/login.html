@@ -1,18 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
-
-            <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('login_handler') }}" method="post">
-                <div class="form-group text-center display-4">
-                    <label for="username">Username: </label>
-                    <input class="form-control" type="text" id="username" name="username">
-                </div>
-                <div class="form-group text-center display-4">
-                    <label for ="password">Password: </label>
-                    <input class="form-control" type="password" id="password" name="password">
-                </div>
-                <div class="form-group text-center">
-                    <input type="submit" value="Log In" class="btn btn-color">
-                </div>
-            </form>
-
+<div class="col-lg-6 offset-lg-3 top-marg text-center">
+    <form  action="{{ url_for('login_handler') }}" method="post">
+        <div class="form-group text-center display-4">
+            <label for="username">Username: </label>
+            <input class="form-control" type="text" id="username" name="username">
+        </div>
+        <div class="form-group text-center display-4">
+            <label for ="password">Password: </label>
+            <input class="form-control" type="password" id="password" name="password">
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" value="Log In" class="btn btn-color">
+        </div>
+    </form>
+    <a class="standard_link_color" href="{{ url_for('create_account_page') }}">Create an Account</a>
+</div>
 {% endblock %}

@@ -20,6 +20,14 @@ hr {
   background-color: #541313;
 }
 
+a.standard_link_color {
+  color: #541313;
+}
+
+a.standard_link_color:hover, a.standard_link_color:focus {
+  color: #984835;
+}
+
 .border-color {
   border-color: #541313;
 }

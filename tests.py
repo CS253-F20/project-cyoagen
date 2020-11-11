@@ -185,7 +185,7 @@ class Project(unittest.TestCase):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
         self.create_test_game()
-        rv = self.app.get('/play?game_id=1&key=Start')
+        rv = self.app.post('/play', data=dict(key='Start', game_id=1), follow_redirects=True)
         assert b'Do You?' in rv.data
         assert b'Yes' in rv.data
 
@@ -193,9 +193,9 @@ class Project(unittest.TestCase):
         self.register('testUser', 'verySecure')
         self.login('testUser', 'verySecure')
         self.create_test_game()
-        rv = self.app.post('/check_ending', data=dict(key='Start', game_id=1), follow_redirects=True)
+        rv = self.app.post('/play', data=dict(key='Start', game_id=1), follow_redirects=True)
         assert b'Congratulations! You have finished the game!' not in rv.data
-        rv = self.app.post('/check_ending', data=dict(key='Second', game_id=1), follow_redirects=True)
+        rv = self.app.post('/play', data=dict(key='Second', game_id=1), follow_redirects=True)
         assert b'Congratulations! You have finished the game!' in rv.data
 
 if __name__ == '__main__':

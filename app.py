@@ -308,8 +308,8 @@ def play_game():
     return render_template('play_game.html', game=game, title=title, id=game_id)
 
 
-@app.route('/check_ending', methods=['POST'])
-def check_ending():
+@app.route('/play', methods=['POST'])
+def game_page():
     key = request.form['key']
     game_id = request.form['game_id']
     db = get_db()
@@ -319,22 +319,9 @@ def check_ending():
     if choice['linked_situation1'] == "ENDING" or choice['linked_situation2'] == "ENDING":
         return render_template('end_game.html', choice=choice)
     else:
-        return redirect(url_for('game_page', game_id=game_id, key=key))
+        return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
 
 
-@app.route('/play', methods=['GET'])
-def game_page():
-    """The dynamic play page, which takes 2 inputs through a POST framework, allows for users to have a consistent
-    design while playing, taking the key (or situation title) of the situation to be displayed as well as the associated
-    game ID. Info about this choice is passed to the front end, which presents option1 and option2 which each link back
-    to this method with a new key (linked_situation1 and linked_situation2)"""
-    db = get_db()
-    game_id = request.args['game_id']
-    key = request.args['key']
-    cur = db.execute('SELECT title, situation, option1, option2, linked_situation1, linked_situation2 FROM choices'
-                     ' WHERE game_id = ? AND title = ?', [game_id, key])
-    choice = cur.fetchone()
-    return render_template('game_page.html', choice=choice, game_id=game_id, Page='Play')
 
 
 if __name__ == '__main__':

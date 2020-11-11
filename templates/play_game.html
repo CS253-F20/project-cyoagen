@@ -13,4 +13,7 @@
         <input type="hidden" name="game_id" value="{{ id }}">
         <button type="submit" class="btn-lg btn-color">Start</button>
     </form>
+    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('browse_game') }}">
+        <button type="submit" class="btn-lg btn-color">Back</button>
+    </form>
 {% endblock %}

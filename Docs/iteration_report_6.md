@@ -1,34 +1,34 @@
-# Iteration Report 5
+# Iteration Report 6
 
 ## Assigned Responsibilities
 
-- None. This is the final iteratdion.
+- Update frontend code to allow a user to finish playing the game and be brought to an end game screen.
+    - Code should bring the player to a screen that makes it clear that they have finished instead of being brought to a
+    page with two empty buttons.
+        - Assigned To: Aaron
+        
+- Update backend code to allow a user to finish playing the game and be brought to an end game screen.
+    - Code should bring the player to a screen that makes it clear that they have finished instead of being brought to a
+    page with two empty buttons.
+        - Assigned To: Drew
 
-- Completed the final report.
-
-- Relax and enjoy break
+- Create a test game to be demonstrated during the final project demonstration.
+    - Assigned To: Evan
         
 	
 ## Tasks Completed
 
-- Play Button
-    -  Create a clickable play button to allow for users to begin playing each game and deliver them to a screen
-    that displays the title and description, which can be fed into the playing template
-        - Completed By: Aaron
-    
-- Finishing the Game (Front-End)
-    - Allow for a user to navigate through each game by making decisions. This will entail creating a Jinja template for
-    displaying the choices that is robust and can adapt to dynamic content
-        - Completed By: Drew
-            
-- Finishing the Game (Back-End)
-    - Allow for a user to navigate through each game by making decisions. This will handle following the choices in the
-     database and passing them to the front-end based on user input
-        - Completed By: Evan
+- Updated frontend code to allow a user to finish playing the game and be brought to an end game screen.
+        - Completed By: Aaron and Drew
         
-- Consolidated code
-    - Combined code and reduced redundancy when possible
-        - Completed By: Team
+- Update backend code to allow a user to finish playing the game and be brought to an end game screen.
+        - Completed By: Drew and Aaron
+
+- Create a test game to be demonstrated during the final project demonstration.
+    - Assigned To: Evan
+    
+- Combined and refined code to reduce redundancy and make the files cleaner.
+    - Completed By: Team
   
 ## Tasks Not Completed
 
@@ -43,3 +43,9 @@
 - None in particular   
     
 ## Helpful Tools/Processes
+
+## Plan for Iteration 7
+
+- No user stories. This is the final iteration.
+
+- Complete the final report.

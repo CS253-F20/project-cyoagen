@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="display-4 text-center top-marg">
-    <h2 class="eight-bit">{{ choice.title }} </h2><hr>
-    <label for="title"> {{ choice.situation }} </label><hr>
-</div>
-<div class="text-center form-group container-fluid display-4 standard_color">
-    <p> Congratulations! You have finished the game! </p>
-    <a href="{{ url_for('homepage') }}"><button class="btn-lg btn-color" type="submit" >Back to Home page</button></a>
-</div>
+    <!-- End game screen that displays the last choice, congratulates the player, and prompts them to return to the
+    homepage -->
+    <div class="display-4 text-center top-marg">
+        <h2 class="eight-bit">{{ choice.title }} </h2><hr>
+        <label for="title"> {{ choice.situation }} </label><hr>
+    </div>
+    <div class="text-center form-group container-fluid display-4 standard_color">
+        <p> Congratulations! You have finished the game! </p>
+        <a href="{{ url_for('homepage') }}"><button class="btn-lg btn-color" type="submit" >Back to Home page</button></a>
+    </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+    <!-- Form for creating a title. Takes in input for a title and a description and passes it to process_title -->
     <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('process_title') }}" method="post">
         <div class="form-group display-4 eight-bit">
             <label for="title_input"> Game Title </label>

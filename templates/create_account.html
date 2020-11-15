@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+    <!-- Form for account creation. Takes in a username and password and passes it to create_account -->
     <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_account') }}" method="post">
         <div class="form-group text-center display-4">
             <label for="username">Username: </label>

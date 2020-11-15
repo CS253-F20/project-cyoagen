@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+    <!-- Search bar that allows user to search for games by name -->
     <div class="col-lg-6 offset-lg-3 top-marg">
         <div class="form-group">
             <form class="col-lg-6 offset-lg-3 top-marg" action="{{ url_for('search') }}" method="post">
@@ -10,7 +11,7 @@
             <a href={{ url_for('browse_game') }}><button class="btn btn-color col-lg-6 offset-lg-3 mt-2">Reset Search</button></a>
             <hr>
         </div>
-
+        <!-- List all of the games passed by the backend code -->
         {% for game in games %}
             <form class="form-group" action="{{ url_for('play_game') }}" method="get">
                 <label class="eight-bit col-lg-4 offset-lg-2">{{ game.title }} </label>

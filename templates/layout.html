@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+    <!-- Head section that is used for every page in the application. Links to the stylesheet, Bootstrap, and the
+    icon to be displayed in the tab of a web browser. -->
     <head>
       <title>Choose Your Own Adventure Generator</title>
       <!-- Bootstrap link -->
@@ -9,6 +11,8 @@
       <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     </head>
     <!-- NavBar that changes based on what page you are on and what actions you've taken -->
+        <!-- If the user is not logged in render a homepage links to the home, login, and account creation pages.
+        Display the app title in the right corner. -->
         {% if User == "User" %}
             <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,6 +30,8 @@
             </div>
             <a class="navbar-brand navbar-custom mx-auto">CYOA GEN</a>
             </nav>
+        <!-- If the user is logged in and on the homepage, display links for the homepage and logout function while
+        welcoming the user by name in the right corner. -->
         {% elif Page == "Home"  %}
         <nav class="navbar navbar-expand-lg navbar-custom justify-content-between">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -40,6 +46,8 @@
             </div>
             <a class="navbar-brand">Welcome {{ User }}</a>
         </nav>
+        <!-- If on the login or account creation page, only display a link for the homepage while showing the page title
+        in the right corner. -->
         {% elif Page == "Login" or Page == 'Account Creation' %}
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -51,6 +59,8 @@
             </div>
             <a class="navbar-brand">{{ Page }}</a>
         </nav>
+        <!-- For every other situation, display links for the homepage and logout function while showing the page title
+        in the right corner. -->
         {% else %}
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

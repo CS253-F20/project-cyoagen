@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
-    <!-- Code for creating a choice section -->
+    <!-- Code for creating a choice section. Takes input for situation title, situation text, and two options then
+    passes it to create_handler-->
          <form class="text-center col-lg-6 offset-lg-3 top-marg" action="{{ url_for('create_handler') }}" method="post">
             <div class="form-group">
                 <label for="situation_title" class="eight-bit display-4"> Situation Title</label>

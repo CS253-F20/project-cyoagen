@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
-    <form class="text-center col-lg-6 offset-lg-3 top-marg">
-        <div class="form-group display-4 eight-bit">
-            <label for="title"> {{ game.title }} </label>
-        </div>
-        <div class="form-group display-5">
-            <label for="description"> {{ game.description }} </label>
-        </div>
-    </form>
-    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('game_page') }}" method="post">
-        <input type="hidden" name="key" value="{{ title[0] }}">
-        <input type="hidden" name="game_id" value="{{ id }}">
-        <button type="submit" class="btn-lg btn-color">Start</button>
-    </form>
-    <form class="text-center col-lg-6 offset-lg-3" action="{{ url_for('browse_game') }}">
-        <button type="submit" class="btn-lg btn-color">Back</button>
-    </form>
+    <!-- Page displays the title and description of the game passed by the backend. -->
+    <div class="text-center col-lg-6 offset-lg-3 top-marg">
+        <h2 class="display-4 eight-bit"> {{ game.title }} </h2>
+        <h3 class="display-5"> {{ game.description }} </h3>
+        <!-- Form that, when submitted, passes the the title of the first choice of the game as well as the game_id to
+        game_page -->
+        <form action="{{ url_for('game_page') }}" method="post">
+            <input type="hidden" name="key" value="{{ title[0] }}">
+            <input type="hidden" name="game_id" value="{{ id }}">
+            <button type="submit" class="btn-lg btn-color mb-2">Start</button>
+        </form>
+        <!-- Form that, when submitted, returns the user to the browse games page -->
+        <form action="{{ url_for('browse_game') }}">
+            <button type="submit" class="btn-lg btn-color">Back</button>
+        </form>
+    </div>
 {% endblock %}

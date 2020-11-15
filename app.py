@@ -310,6 +310,9 @@ def play_game():
 
 @app.route('/play', methods=['POST'])
 def game_page():
+    """Take input from the frontend for key and game_id. Search the database for the choice that matches these inputs
+    and if either of its linked situations is ENDING, redirect the player to the end screen, otherwise reload the
+    game_page with the new choice retrieved from the database."""
     key = request.form['key']
     game_id = request.form['game_id']
     db = get_db()

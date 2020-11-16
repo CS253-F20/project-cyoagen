@@ -19,10 +19,10 @@
 ## Tasks Completed
 
 - Updated frontend code to allow a user to finish playing the game and be brought to an end game screen.
-        - Completed By: Aaron and Drew
+	- Completed By: Aaron and Drew
         
 - Update backend code to allow a user to finish playing the game and be brought to an end game screen.
-        - Completed By: Drew and Aaron
+	- Completed By: Drew and Aaron
 
 - Create a test game to be demonstrated during the final project demonstration.
     - Assigned To: Evan
@@ -47,5 +47,7 @@
 ## Plan for Iteration 7
 
 - No user stories. This is the final iteration.
+
+- Clean and refine code to prepare for a final version to be turned in.
 
 - Complete the final report.
